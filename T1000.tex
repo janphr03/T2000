@@ -380,6 +380,25 @@
     % Balzert, Helmut: Lehrbuch der Softwaretechnik – Basiskonzepte und Requirements Engineering, Kap. 3–4 – Vorgehensmodelle und Anforderungsanalyse.
     % Pressman, Roger S.; Maxim, Bruce R.: Software Engineering: A Practitioner's Approach, Kap. 7–8 – Requirements Analysis und Modellierungstechniken.
 
+    Die Analysephase dient dazu, die in der Zielsetzung definierten Projektziele in präzise, überprüfbare Anforderungen zu überführen. 
+    Nach Sommerville ist dieser Schritt Teil des \textit{Requirements Engineering} und umfasst insbesondere die systematische Erhebung, 
+    Strukturierung und Validierung der Anforderungen, um eine belastbare Grundlage für Entwurf und Implementierung zu schaffen (vgl. \cite{sommerville_software_2012}, Seite 114).  
+
+    Ein zentraler Aspekt ist die Anforderungsvalidierung, bei der überprüft wird, ob die erfassten Anforderungen die tatsächlichen Bedürfnisse der Stakeholder widerspiegeln 
+    und gleichzeitig umsetzbar sind. 
+    Sommerville nennt hierfür folgende zentrale Prüfkriterien:  
+    \begin{itemize}
+        \item \textbf{Eindeutigkeit} – jede Anforderung muss klar und ohne Interpretationsspielraum formuliert sein.
+        \item \textbf{Konsistenz} – es dürfen keine Widersprüche zwischen einzelnen Anforderungen bestehen.
+        \item \textbf{Vollständigkeit} – alle relevanten Funktionen und Einschränkungen müssen erfasst sein.
+        \item \textbf{Realisierbarkeit} – die Umsetzung muss mit den vorhandenen Ressourcen, Technologien und im gegebenen Zeitrahmen möglich sein.
+        \item \textbf{Verifizierbarkeit} – Anforderungen müssen so formuliert sein, dass ihre Erfüllung später messbar und testbar ist.
+    \end{itemize}  
+    (vgl. \cite{sommerville_software_2012}, Seite 144)
+
+    Für das Projekt \textit{T1000} bedeutet dies, dass die funktionalen Anforderungen – etwa die Implementierung von CRUD-Operationen über ein \acrshort{interface} – und die nicht-funktionalen Anforderungen – wie Wiederverwendbarkeit, Performance und Testbarkeit – anhand dieser Kriterien überprüft werden.  
+    Die Analyse stellt somit sicher, dass sowohl technische als auch organisatorische Rahmenbedingungen berücksichtigt werden und dass die geplante \acrshort{dll} in späteren Projektphasen ohne grundlegende Anpassungen umgesetzt werden kann.
+
     \subsection{Entwurf} 
     % Gamma, Erich et al.: Design Patterns – Elements of Reusable Object-Oriented Software, Einleitung + relevante Patterns wie „Adapter“ oder „Factory“, falls du Architekturmuster beschreibst.
     % Martin, Robert C.: Clean Architecture, Kap. 7–11 – Schichtentrennung, Schnittstellendesign, Dependency Inversion.

@@ -388,21 +388,36 @@
     und gleichzeitig umsetzbar sind. 
     Sommerville nennt hierfür folgende zentrale Prüfkriterien:  
     \begin{itemize}
-        \item \textbf{Eindeutigkeit} – jede Anforderung muss klar und ohne Interpretationsspielraum formuliert sein.
-        \item \textbf{Konsistenz} – es dürfen keine Widersprüche zwischen einzelnen Anforderungen bestehen.
+        \item \textbf{Eindeutigkeit} - jede Anforderung muss klar und ohne Interpretationsspielraum formuliert sein.
+        \item \textbf{Konsistenz} - es dürfen keine Widersprüche zwischen einzelnen Anforderungen bestehen.
         \item \textbf{Vollständigkeit} – alle relevanten Funktionen und Einschränkungen müssen erfasst sein.
         \item \textbf{Realisierbarkeit} – die Umsetzung muss mit den vorhandenen Ressourcen, Technologien und im gegebenen Zeitrahmen möglich sein.
         \item \textbf{Verifizierbarkeit} – Anforderungen müssen so formuliert sein, dass ihre Erfüllung später messbar und testbar ist.
     \end{itemize}  
     (vgl. \cite{sommerville_software_2012}, Seite 144)
 
-    Für das Projekt \textit{T1000} bedeutet dies, dass die funktionalen Anforderungen – etwa die Implementierung von CRUD-Operationen über ein \acrshort{interface} – und die nicht-funktionalen Anforderungen – wie Wiederverwendbarkeit, Performance und Testbarkeit – anhand dieser Kriterien überprüft werden.  
+    Für das Projekt \textit{T1000} bedeutet dies, dass die funktionalen Anforderungen also die Implementierung von CRUD-Operationen über ein \acrshort{interface} 
+    als auch die nicht-funktionalen Anforderungen wie Wiederverwendbarkeit, Performance und Testbarkeit, anhand dieser Kriterien überprüft werden.  
     Die Analyse stellt somit sicher, dass sowohl technische als auch organisatorische Rahmenbedingungen berücksichtigt werden und dass die geplante \acrshort{dll} in späteren Projektphasen ohne grundlegende Anpassungen umgesetzt werden kann.
 
-    \subsection{Entwurf} 
+\subsection{Entwurf} 
     % Gamma, Erich et al.: Design Patterns – Elements of Reusable Object-Oriented Software, Einleitung + relevante Patterns wie „Adapter“ oder „Factory“, falls du Architekturmuster beschreibst.
     % Martin, Robert C.: Clean Architecture, Kap. 7–11 – Schichtentrennung, Schnittstellendesign, Dependency Inversion.
-    
+
+    Der Entwurf beschreibt die strukturelle und architektonische Gestaltung des Systems, um die in der Analyse definierten Anforderungen effizient und wartbar umzusetzen. 
+    Nach Sommerville stellt die \textit{Schichtenarchitektur} ein etabliertes Architekturmuster dar, bei dem das System in klar abgegrenzte Ebenen unterteilt wird, die jeweils definierte Verantwortlichkeiten haben (vgl. \cite{sommerville_software_2012}, Kap.~6.3.1, S.~194\,ff.). 
+    Dieses Muster erleichtert die Modularisierung, unterstützt die Wiederverwendbarkeit einzelner Komponenten und reduziert die Kopplung zwischen den Systemteilen.
+
+    Für das Projekt \textit{T1000} wurde eine dreischichtige Struktur umgesetzt:  
+    \begin{enumerate}
+        \item \textbf{Anwendungsschicht} -- übernimmt die Steuerung des Programmablaufs und ruft über die definierten Schnittstellen die benötigten Datenbankoperationen auf (\texttt{Program.cs}).
+        \item \textbf{Abstraktionsschicht} -- definiert mit dem Interface \texttt{IConnector} die vertraglichen Methoden für den Datenbankzugriff und kapselt die Implementierungsdetails.
+        \item \textbf{Datenzugriffsschicht} -- implementiert mit der Klasse \texttt{MySqlAccess} die konkreten CRUD-Operationen auf Basis des MySQL-Connectors.
+    \end{enumerate}
+
+    Die klare Trennung zwischen diesen Schichten ermöglicht es, Änderungen an der Datenbankimplementierung vorzunehmen, ohne die Anwendungsschicht anzupassen, und erleichtert die Wiederverwendbarkeit der \acrshort{dll} in unterschiedlichen Projekten. 
+    Zudem wird die Testbarkeit erhöht, da sich durch die Verwendung des Interfaces \texttt{IConnector} sowohl Unit-Tests mit Mocks als auch Integrationstests gegen eine reale Datenbankumgebung durchführen lassen.
+
     \subsection{Umsetzung}
     % Beck, Kent: Test Driven Development: By Example – falls du den testgetriebenen Aspekt deiner Implementierung betonen willst.
     % Troelsen, Andrew; Japikse, Philip: Pro C# 9 with .NET 5, Kap. zu Assemblies/DLLs, ADO.NET/MySQL-Connector (passt direkt zu deinem MySqlAccess-Code).

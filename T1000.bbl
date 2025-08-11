@@ -1,0 +1,471 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{martin_clean_2018}{book}{}
+      \name{author}{1}{}{%
+        {{hash=6f41df64eb0dc4855be70172368604c2}{%
+           family={Martin},
+           familyi={M\bibinitperiod},
+           given={Robert\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Frechen}%
+      }
+      \list{publisher}{1}{%
+        {mitp}%
+      }
+      \strng{namehash}{6f41df64eb0dc4855be70172368604c2}
+      \strng{fullhash}{6f41df64eb0dc4855be70172368604c2}
+      \strng{bibnamehash}{6f41df64eb0dc4855be70172368604c2}
+      \strng{authorbibnamehash}{6f41df64eb0dc4855be70172368604c2}
+      \strng{authornamehash}{6f41df64eb0dc4855be70172368604c2}
+      \strng{authorfullhash}{6f41df64eb0dc4855be70172368604c2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{edition}{Deutsche Ausgabe, 1. Auflage}
+      \field{isbn}{978-3-95845-724-9}
+      \field{shorttitle}{Clean architecture}
+      \field{title}{Clean architecture : das Praxis-Handbuch für professionelles Softwaredesign : Regeln und Paradigmen für effiziente Softwarestrukturen}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb text/html Attachment:files/14/(DE-627)1010244779.html:text/html
+      \endverb
+    \endentry
+    \entry{chelliah_architectural_2017}{book}{}
+      \name{author}{2}{}{%
+        {{hash=42d70f78da5cb07bc4f976d1e44946e6}{%
+           family={Chelliah},
+           familyi={C\bibinitperiod},
+           given={Pethuru\bibnamedelima Raj},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=a1048c4caa9031ceac269f4b411c919c}{%
+           family={Amandeep},
+           familyi={A\bibinitperiod},
+           given={Annam},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Birmingham}%
+      }
+      \list{publisher}{1}{%
+        {Packt Publishing Limited}%
+      }
+      \strng{namehash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \strng{fullhash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \strng{bibnamehash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \strng{authorbibnamehash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \strng{authornamehash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \strng{authorfullhash}{00bc6d37b3becd81e6d155b433f3fa76}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Architectural Patterns: Uncover Essential Patterns in the Most Indispensable Realm of Enterprise Architecture}
+      \field{year}{2017}
+    \endentry
+    \entry{broy_grundlagen_2019}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=74476573aa159749eafc4a3c16c957b4}{%
+           family={Broy},
+           familyi={B\bibinitperiod},
+           given={Manfred},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=74476573aa159749eafc4a3c16c957b4}{%
+           family={Broy},
+           familyi={B\bibinitperiod},
+           given={Manfred},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Wiesbaden}%
+      }
+      \list{publisher}{1}{%
+        {Springer Fachmedien}%
+      }
+      \strng{namehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{fullhash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{bibnamehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{authorbibnamehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{authornamehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{authorfullhash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{editorbibnamehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{editornamehash}{74476573aa159749eafc4a3c16c957b4}
+      \strng{editorfullhash}{74476573aa159749eafc4a3c16c957b4}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Breite Anwendung hat im Laufe der letzten 45 Jahre in der Softwareentwicklung das Konzept der Objektorientierung gefunden. Die Objektorientierung hat das Ziel, ausgewählte Prinzipien in der Softwareentwicklung und bewährte Konzepte der Programmierung mithilfe eines speziellen Vorgehensmodells und zugeschnittener Beschreibungsmittel umzusetzen. Historisch gehen die wesentlichen Ideen der Objektorientierung auf die Programmiersprache Simula 67 (vgl. [{DN}65]) aus dem Jahr 1967 und auf die deutlich später entstandene Programmiersprache Smalltalk (vgl. [{GR}83]) zurück. Zunächst war C++ (vgl. [Str91], [Eck99] und [Wei99]) eine der in der Praxis gebräuchlichsten objektorientierten Sprachen. Neuere Sprachen wie Java (vgl. [Eck02]) und C\# (vgl. [Lib03]) sind inzwischen im Einsatz und finden in der Praxis großen Anklang.}
+      \field{booktitle}{Logische und Methodische Grundlagen der Programm- und Systementwicklung: Datenstrukturen, funktionale, sequenzielle und objektorientierte Programmierung - Unter Mitarbeit von Alexander Malkis}
+      \field{isbn}{978-3-658-26302-7}
+      \field{langid}{german}
+      \field{title}{Grundlagen der Objektorientierung}
+      \field{urlday}{22}
+      \field{urlmonth}{4}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{381\bibrangedash 433}
+      \range{pages}{53}
+      \verb{doi}
+      \verb 10.1007/978-3-658-26302-7_8
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-658-26302-7_8
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-658-26302-7_8
+      \endverb
+      \keyw{2019,Broy,funktionale,herausgegeben von Manfred Broy,https://doi.org/10.1007/978-3-658-26302-7\_8.,Manfred. „Grundlagen der Objektorientierung“. Logische und Methodische Grundlagen der Programm- und Systementwicklung: Datenstrukturen,S. 381–433. Springer Link,sequenzielle und objektorientierte Programmierung - Unter Mitarbeit von Alexander Malkis,Springer Fachmedien}
+    \endentry
+    \entry{bloch_effective_2008}{book}{}
+      \name{author}{1}{}{%
+        {{hash=577c9b87d02f133dc6423f84705048f8}{%
+           family={Bloch},
+           familyi={B\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley Professional}%
+      }
+      \strng{namehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{fullhash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{bibnamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authorbibnamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authornamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authorfullhash}{577c9b87d02f133dc6423f84705048f8}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Are you looking for a deeper understanding of the {JavaTM} programming language so that you can write code that is clearer, more correct, more robust, and more reusable? Look no further! Effective {JavaTM}, Second Edition, brings together seventy-eight indispensable programmer’s rules of thumb: working, best-practice solutions for the programming challenges you encounter every day. This highly anticipated new edition of the classic, Jolt Award-winning work has been thoroughly updated to cover Java {SE} 5 and Java {SE} 6 features introduced since the first edition. Bloch explores new design patterns and language idioms, showing you how to make the most of features ranging from generics to enums, annotations to autoboxing. Each chapter in the book consists of several “items” presented in the form of a short, standalone essay that provides specific advice, insight into Java platform subtleties, and outstanding code examples. The comprehensive descriptions and explanations for each item illuminate what to do, what not to do, and why. Highlights include: New coverage of generics, enums, annotations, autoboxing, the for-each loop, varargs, concurrency utilities, and much more Updated techniques and best practices on classic topics, including objects, classes, libraries, methods, and serialization How to avoid the traps and pitfalls of commonly misunderstood subtleties of the language Focus on the language and its most fundamental libraries: java.lang, java.util, and, to a lesser extent, java.util.concurrent and java.io Simply put, Effective {JavaTM}, Second Edition, presents the most practical, authoritative guidelines available for writing efficient, well-designed programs.}
+      \field{day}{8}
+      \field{isbn}{978-0-13-277804-6}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{note}{Google-Books-{ID}: ka2VUBqHiWkC}
+      \field{pagetotal}{375}
+      \field{title}{Effective Java}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \keyw{Computers / Languages / Java}
+    \endentry
+    \entry{troelsen_pro_2017}{book}{}
+      \name{author}{1}{}{%
+        {{hash=22361bd7f81fe2af5ff9c7f8abb3dbc8}{%
+           family={Troelsen},
+           familyi={T\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berkeley, {CA}}%
+      }
+      \list{publisher}{1}{%
+        {Apress}%
+      }
+      \strng{namehash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \strng{fullhash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \strng{bibnamehash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \strng{authorbibnamehash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \strng{authornamehash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \strng{authorfullhash}{22361bd7f81fe2af5ff9c7f8abb3dbc8}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{edition}{8th ed.}
+      \field{isbn}{978-1-4842-3018-3}
+      \field{series}{{SpringerLink} Bücher}
+      \field{shorttitle}{Pro C\# 7}
+      \field{title}{Pro C\# 7 : With .{NET} and .{NET} Core}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb text/html Attachment:C\:\\Users\\janph\\Zotero\\storage\\W975J63R\\(DE-627)1657326144.html:text/html
+      \endverb
+    \endentry
+    \entry{rumpe_klassendiagramme_2011}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=c2b5a72fd30b6844022c3e1189390301}{%
+           family={Rumpe},
+           familyi={R\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=c2b5a72fd30b6844022c3e1189390301}{%
+           family={Rumpe},
+           familyi={R\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{fullhash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{bibnamehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{authorbibnamehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{authornamehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{authorfullhash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{editorbibnamehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{editornamehash}{c2b5a72fd30b6844022c3e1189390301}
+      \strng{editorfullhash}{c2b5a72fd30b6844022c3e1189390301}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Klassendiagramme bilden das architekturelle Rückgrat vieler Systemmodellierungen. Deshalb werden in diesem Kapitel die in der {UML}/P definierten Klassendiagrammemit den Kernelementen Klasse Attribut Methode Assoziation und Komposition eingef ührt. Im Abschnitt über Sichten und Repräsentationen werden Einsatzvarianten von Klassendiagrammen diskutiert. Es wird außerdem gezeigt, wie mit Stereotypen und Merkmalen Modellierungskonzepte f ür projektspezifische Problemstellungen angepasst werden.}
+      \field{booktitle}{Modellierung mit {UML}: Sprache, Konzepte und Methodik}
+      \field{isbn}{978-3-642-22413-3}
+      \field{langid}{german}
+      \field{title}{Klassendiagramme}
+      \field{urlday}{1}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{15\bibrangedash 40}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1007/978-3-642-22413-3_2
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:C\:\\Users\\janph\\Zotero\\storage\\P8RD7UN5\\Rumpe - 2011 - Klassendiagramme.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-22413-3_2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-22413-3_2
+      \endverb
+    \endentry
+    \entry{omg_uml_2.5.1}{report}{}
+      \name{author}{1}{}{%
+        {{hash=4d6b6fbad838f7618c462458711482fa}{%
+           family={{Object Management Group}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Object Management Group}%
+      }
+      \strng{namehash}{4d6b6fbad838f7618c462458711482fa}
+      \strng{fullhash}{4d6b6fbad838f7618c462458711482fa}
+      \strng{bibnamehash}{4d6b6fbad838f7618c462458711482fa}
+      \strng{authorbibnamehash}{4d6b6fbad838f7618c462458711482fa}
+      \strng{authornamehash}{4d6b6fbad838f7618c462458711482fa}
+      \strng{authorfullhash}{4d6b6fbad838f7618c462458711482fa}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{12}
+      \field{note}{Online verfügbar unter \url{https://www.omg.org/spec/UML/}, zuletzt abgerufen am {01.08.2025}}
+      \field{number}{formal/2017-12-05}
+      \field{title}{{OMG} Unified Modeling Language ({OMG UML}) Version 2.5.1}
+      \field{type}{techreport}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.omg.org/spec/UML/
+      \endverb
+      \verb{url}
+      \verb https://www.omg.org/spec/UML/
+      \endverb
+    \endentry
+    \entry{reese_understanding_2013}{book}{}
+      \name{author}{1}{}{%
+        {{hash=0a49c4864c60508a037e04ac2d1a45f5}{%
+           family={Reese},
+           familyi={R\bibinitperiod},
+           given={Richard\bibnamedelima M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Beijing Sebastopol, California}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly Media}%
+      }
+      \strng{namehash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \strng{fullhash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \strng{bibnamehash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \strng{authorbibnamehash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \strng{authornamehash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \strng{authorfullhash}{0a49c4864c60508a037e04ac2d1a45f5}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{"Improve your programming through a solid understanding of C pointers and memory management. With this practical book, you'll learn how pointers provide the mechanism to dynamically manipulate memory, enhance support for data structures, and enable access to hardware. Author Richard Reese shows you how to use pointers with arrays, strings, structures, and functions, using memory models throughout the book. Difficult to master, pointers provide C with much flexibility and power--yet few resources are dedicated to this data type. This comprehensive book has the information you need, whether you're a beginner or an experienced C or C programmer or developer. Get an introduction to pointers, including the declaration of different pointer types; learn about dynamic memory allocation, de-allocation, and alternative memory management techniques; use techniques for passing or returning data to and from functions; understand the fundamental aspects of arrays as they relate to pointers; explore the basics of strings and how pointers are used to support them; examine why pointers can be the source of security problems, such as buffer overflow; and learn several pointer techniques, such as the use of opaque pointers, bounded pointers, and the restrict keyword."--Back cover}
+      \field{isbn}{978-1-4493-4418-4 978-1-4493-4456-6}
+      \field{langid}{english}
+      \field{pagetotal}{1}
+      \field{shorttitle}{Understanding and using C pointers}
+      \field{title}{Understanding and using C pointers: core techniques for memory management}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb PDF:C\:\\Users\\janph\\Zotero\\storage\\9QXUHIJQ\\Reese - 2013 - Understanding and using C pointers core techniques for memory management.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{noergaard_embedded_2012}{book}{}
+      \name{author}{1}{}{%
+        {{hash=6a77c1944fded0316597b0c113d77148}{%
+           family={Noergaard},
+           familyi={N\bibinitperiod},
+           given={Tammy},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Newnes}%
+      }
+      \strng{namehash}{6a77c1944fded0316597b0c113d77148}
+      \strng{fullhash}{6a77c1944fded0316597b0c113d77148}
+      \strng{bibnamehash}{6a77c1944fded0316597b0c113d77148}
+      \strng{authorbibnamehash}{6a77c1944fded0316597b0c113d77148}
+      \strng{authornamehash}{6a77c1944fded0316597b0c113d77148}
+      \strng{authorfullhash}{6a77c1944fded0316597b0c113d77148}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Embedded Systems Architecture is a practical and technical guide to understanding the components that make up an embedded system\&\#39;s architecture. This book is perfect for those starting out as technical professionals such as engineers, programmers and designers of embedded systems; and also for students of computer science, computer engineering and electrical engineering. It gives a much-needed \&\#39;big picture\&\#39; for recently graduated engineers grappling with understanding the design of real-world systems for the first time, and provides professionals with a systems-level picture of the key elements that can go into an embedded design, providing a firm foundation on which to build their skills. - Real-world approach to the fundamentals, as well as the design and architecture process, makes this book a popular reference for the daunted or the inexperienced: if in doubt, the answer is in here! - Fully updated with new coverage of {FPGAs}, testing, middleware and the latest programming techniques in C, plus complete source code and sample code, reference designs and tools online make this the complete package - Visit the companion web site at http://booksite.elsevier.com/9780123821966/ for source code, design examples, data sheets and more - A true introductory book, provides a comprehensive get up and running reference for those new to the field, and updating skills: assumes no prior knowledge beyond undergrad level electrical engineering - Addresses the needs of practicing engineers, enabling it to get to the point more directly, and cover more ground. Covers hardware, software and middleware in a single volume - Includes a library of design examples and design tools, plus a complete set of source code and embedded systems design tutorial materials from companion website}
+      \field{day}{31}
+      \field{isbn}{978-0-12-382197-3}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{note}{Google-Books-{ID}: 96jSXetmlzYC}
+      \field{pagetotal}{670}
+      \field{shorttitle}{Embedded Systems Architecture}
+      \field{title}{Embedded Systems Architecture: A Comprehensive Guide for Engineers and Programmers}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \keyw{Computers / Computer Architecture,Computers / Hardware / Chips \& Processors}
+    \endentry
+    \entry{unsalan_embedded_2022}{book}{}
+      \name{author}{3}{}{%
+        {{hash=0fcf2b1efc810d769c09b2ce4bba5301}{%
+           family={Ünsalan},
+           familyi={Ü\bibinitperiod},
+           given={Cem},
+           giveni={C\bibinitperiod}}}%
+        {{hash=2d3b7b19360f028dcb19c005cef3efb5}{%
+           family={Gürhan},
+           familyi={G\bibinitperiod},
+           given={Hüseyin\bibnamedelima Deniz},
+           giveni={H\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=24792a4833bee3c20772290a7c702888}{%
+           family={Yücel},
+           familyi={Y\bibinitperiod},
+           given={Mehmet\bibnamedelima Erkin},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \list{publisher}{1}{%
+        {Springer Cham}%
+      }
+      \strng{namehash}{5dc462f4fb6f7acd1485df43c451abb6}
+      \strng{fullhash}{33befc7d9c9137fc8ffa9181b0ab8ce0}
+      \strng{bibnamehash}{33befc7d9c9137fc8ffa9181b0ab8ce0}
+      \strng{authorbibnamehash}{33befc7d9c9137fc8ffa9181b0ab8ce0}
+      \strng{authornamehash}{5dc462f4fb6f7acd1485df43c451abb6}
+      \strng{authorfullhash}{33befc7d9c9137fc8ffa9181b0ab8ce0}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{isbn}{978-3-030-88439-0}
+      \field{note}{Access provided by DHBW Stuttgart über SpringerLink}
+      \field{subtitle}{Applications with C, C++ and MicroPython}
+      \field{title}{Embedded System Design with ARM Cortex-M Microcontrollers}
+      \field{year}{2022}
+      \field{pages}{XIV + 569}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1007/978-3-030-88439-0
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-88439-0
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-88439-0
+      \endverb
+    \endentry
+    \entry{elmasri_fundamentals_2013}{book}{}
+      \name{author}{2}{}{%
+        {{hash=c7e2fe1a0e649bf469f3feb7c5aa840d}{%
+           family={Elmasri},
+           familyi={E\bibinitperiod},
+           given={Ramez},
+           giveni={R\bibinitperiod}}}%
+        {{hash=4ae94109c6efa1688beb655559324ba2}{%
+           family={Navathe},
+           familyi={N\bibinitperiod},
+           given={Shamkant\bibnamedelima B.},
+           giveni={S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Harlow}%
+      }
+      \list{publisher}{1}{%
+        {Pearson Education UK}%
+      }
+      \strng{namehash}{2e8829be23557c692dac07b198a7df6e}
+      \strng{fullhash}{2e8829be23557c692dac07b198a7df6e}
+      \strng{bibnamehash}{2e8829be23557c692dac07b198a7df6e}
+      \strng{authorbibnamehash}{2e8829be23557c692dac07b198a7df6e}
+      \strng{authornamehash}{2e8829be23557c692dac07b198a7df6e}
+      \strng{authorfullhash}{2e8829be23557c692dac07b198a7df6e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-292-03803-2}
+      \field{note}{Zugriff am 4.8.2025}
+      \field{title}{Fundamentals of Database Systems: Pearson New International Edition}
+      \field{year}{2013}
+      \verb{urlraw}
+      \verb http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=5248269
+      \endverb
+      \verb{url}
+      \verb http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=5248269
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

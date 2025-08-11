@@ -1,0 +1,564 @@
+\documentclass[12pt,a4paper]{article} % Standard für Hausarbeiten
+
+% Sprachunterst\"utzung f\"ur deutsche Umlaute und Silbentrennung
+\usepackage[utf8]{inputenc}  % Zeichencodierung
+\usepackage[T1]{fontenc}     % Korrekte Darstellung von Umlauten
+\usepackage[ngerman]{babel}  % Deutsche Sprache und Silbentrennung
+\usepackage{csquotes}
+
+% Seitenr\"ander sch\"oner machen
+\usepackage[a4paper, left=3cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+% Mathematik-Symbole
+\usepackage{amsmath, amssymb}
+
+% Grafiken und Bilder einf\"ugen
+\usepackage{graphicx}  
+\usepackage{float}      % Bessere Kontrolle \über die Platzierung
+
+% Tabellen verbessern
+\usepackage{array, booktabs}
+
+% Literaturverzeichnis mit BibTeX
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{literature.bib}
+\addbibresource{Meine Bibliothek.bib}
+
+% Quellcode sch\"on darstellen
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{needspace} % in der Präambel
+
+\usepackage[acronym]{glossaries}
+
+\newacronym{dll}{DLL}{Dynamic Linked Library -- eine zur Laufzeit ladbare Programmbibliothek}
+\newacronym{mysql}{MySQL}{Open-Source-Datenbankmanagementsystem}
+\newacronym{sql}{SQL}{Structured Query Language -- Sprache zur Verwaltung und Abfrage relationaler Datenbanken}
+\newacronym{sqlException}{SQL-Exception}{Fehlermeldung, die beim Ausführen eines SQL-Befehls auftritt, z.\,B. bei Syntaxfehlern, Verbindungsproblemen oder Zugriffsverletzungen}
+\newacronym{retryMechanism}{retry-Mechanism}{Automatischer Wiederholungsversuch bei fehlgeschlagenen Operationen, z.\,B. bei Netzwerkproblemen oder Datenbankzugriffen}
+\newacronym{cs}{C\#}{Objektorientierte Programmiersprache auf der .NET-Plattform}
+\newacronym{connPooling}{connection-Pooling}{Technik zur Wiederverwendung offener Datenbankverbindungen, um Verbindungsaufbauzeiten zu minimieren und Systemressourcen effizienter zu nutzen}
+\newacronym{ciPipeline}{CI-Pipeline}{Continuous-Integration-Pipeline -- automatisierter Prozess zum Testen, Bauen und Verteilen von Software}
+\newacronym{containerUmgebung}{Container-Umgebung}{Laufzeitumgebung, in der Anwendungen isoliert und reproduzierbar in Containern betrieben werden, z.\,B. mit Docker}
+\newacronym{architekturpattern}{Architekturpattern}{Wiederverwendbares Lösungsmuster zur Strukturierung von Softwaresystemen auf höherer Abstraktionsebene}
+\newacronym{redundanz}{Redundanz}{Mehrfache Ausführung oder Speicherung gleicher Funktionalitäten oder Daten, oft unerwünscht in Softwarearchitektur}
+\newacronym{boilerplate}{Boilerplate-Code}{Wiederverwendbarer Standardcode, der oft unverändert in vielen Programmen vorkommt, z.\,B. zur Initialisierung oder Strukturierung}
+\newacronym{mock}{Mock}{Platzhalter-Objekt, das in Tests reale Abhängigkeiten simuliert, um das Verhalten einzelner Komponenten isoliert zu prüfen}
+\newacronym{logging}{Logging}{Protokollierung von Systemereignissen und Programmabläufen zur Fehlerdiagnose und Nachvollziehbarkeit}
+
+\newacronym{oop}{OOP}{Objektorientierte Programmierung – ein Programmierparadigma, das auf den Konzepten von Klassen, Objekten, Vererbung, Polymorphie und Kapselung basiert. Es kombiniert Zustände und Funktionen innerhalb sogenannter Objekte, die über definierte Schnittstellen miteinander kommunizieren. Ziel ist die Strukturierung, Wiederverwendbarkeit und Wartbarkeit komplexer Softwaresysteme.}
+\newacronym{oopObjekt}{Objekt}{Instanz einer Klasse, die Daten (Attribute) und Verhalten (Methoden) kapselt}
+\newacronym{oopKlasse}{Klasse}{Bauplan für Objekte, der Attribute und Methoden definiert}
+\newacronym{oopMethode}{Methode}{Funktion innerhalb einer Klasse, die das Verhalten eines Objekts beschreibt}
+\newacronym{oopVererbung}{Vererbung}{Mechanismus, bei dem eine Klasse Eigenschaften und Verhalten einer anderen übernimmt}
+\newacronym{interface}{Interface}{Schnittstelle, die Methoden vorgibt, aber keine konkrete Implementierung enthält}
+\newacronym{ausnahme}{Ausnahme}{Ausnahmeobjekt zur Fehlerbehandlung bei unerwarteten Programmzuständen}
+\newacronym{enum}{Enum}{Aufzählungstyp zur Definition fester Wertebereiche, z.\,B. für Statuscodes}
+
+\newacronym{uml}{UML}{Unified Modeling Language -- standardisierte grafische Sprache zur Modellierung und Dokumentation von Softwaresystemen, insbesondere in der objektorientierten Entwicklung}
+\newacronym{assoziation}{Assoziation}{Beziehungsart in der objektorientierten Modellierung, die eine strukturelle Verbindung zwischen zwei Klassen definiert; in UML durch eine Verbindungslinie dargestellt}
+\newacronym{aggregation}{Aggregation}{Spezialisierte Assoziation in der objektorientierten Modellierung, die eine Ganzes-Teil-Beziehung zwischen Klassen beschreibt, bei der die Teile unabhängig vom Ganzen existieren können}
+\newacronym{komposition}{Komposition}{Stärkste Form einer Aggregation in der objektorientierten Modellierung, bei der das Teil vollständig vom Ganzen abhängig ist und ohne dieses nicht existieren kann}
+
+\newacronym{eingebettet}{Eingebettet}{spezialisiertes, fest integriertes Rechnersystem zur Steuerung oder Überwachung technischer Geräte}
+\newacronym{zeiger}{Zeiger}{Zeiger auf Speicheradressen}
+\newacronym{array}{Array}{Datenstruktur zur Speicherung von Elementen gleicher Typen in fester Reihenfolge}
+\newacronym{struktur}{Struktur}{Datenstruktur in C zur Gruppierung mehrerer Werte (Felder) unterschiedlichen Typs}
+
+\newacronym{logger}{Logger}{Komponente zur Protokollierung von Ereignissen im Programmablauf}
+\newacronym{di}{DI}{Dependency Injection -- Entwurfsmuster zur Injektion von Abh\"angigkeiten von au\u00dfen}
+\newacronym{integrationtest}{Integrationstest}{Test, bei dem mehrere Komponenten gemeinsam gepr\"uft werden}
+\newacronym{unittest}{Unit-Test}{Test einer einzelnen Codeeinheit isoliert von anderen Komponenten}
+\newacronym{docker}{Docker}{Plattform zur Containerisierung von Anwendungen}
+\newacronym{yaml}{YAML}{\"YAML Ain't Markup Language\" -- menschenlesbares Konfigurationsformat}
+\newacronym{connector}{Connector}{Schnittstelle, die die Kommunikation zwischen Anwendung und Datenbank erm\"oglicht}
+\newacronym{loggerintf}{Logger-Interface}{Abstraktes Interface f\"ur Logging, das per DI eingespeist wird}
+
+\makeglossaries
+
+
+
+
+\lstset{ 
+    language=C, % oder C++, Java, Python etc.
+    basicstyle=\ttfamily\small, 
+    keywordstyle=\color{blue}, 
+    commentstyle=\color{gray}, 
+    stringstyle=\color{red},
+    breaklines=true
+}
+
+%Commands/ Style-Definitions====================================
+\newcommand{\csharp}{C\#}
+
+\setlength{\parskip}{1em}    % Abstand zwischen Abs\"atzen
+\setlength{\parindent}{0pt}  % Kein Einzug bei neuen Abs\"atzen
+
+
+% compile \"uber Konsole
+% pdflatex test.tex
+% biber test
+% dann wieder pdflatex test.tex
+% ba Datei Pfad anpassen
+%T999-Beginn==================================================
+\begin{document}
+
+
+\title{T1000} 
+\author{Jan Herrmann}
+\date{\today}
+\maketitle
+
+%\section{Test}
+%\Das ist meine LaTeX-Hausarbeit.
+%\parencite{heimeshoff_certification_2024}
+%testZitat
+%\parencite{kim_planck_2024}
+
+
+\tableofcontents
+\newpage
+
+%–– Im Dokument dann an der Stelle, an der du dein Abkürzungsverzeichnis haben willst ––
+\printglossary[type=\acronymtype,title=Abkürzungsverzeichnis]
+
+
+
+\section{Einleitung}
+
+    \needspace{4\baselineskip}
+    \subsection{Motivation}
+
+    Die Entwicklung einer eigenständigen \acrshort{dll} für den Datenbankzugriff bietet in modernen Softwaresystemen mehrere entscheidende Vorteile. 
+    Erstens schafft sie eine klare Trennung von Infrastruktur- und Geschäftslogik, indem sämtliche Verbindungsdetails, Fehlerbehandlung und Transaktionssteuerung an einem zentralen Ort gekapselt werden. 
+    Anstatt in jedem Modul oder Service redundanten Code für Connection-Strings, \acrshort{retryMechanism} oder \acrshort{sqlException}s zu pflegen, greift die Anwendungslogik nur noch über eine wohldefinierte Schnittstelle auf die \acrshort{dll} zu.
+
+    Wie Robert C. Martin in \textit{Clean Architecture} beschreibt, ist die Trennung von Verantwortlichkeiten ein zentrales Prinzip robuster Softwarearchitekturen. 
+    Dies zeigt sich etwa im \textit{Single Responsibility Principle} und im \textit{Dependency Inversion Principle}, die beide dem Grundgedanken des \textit{Separation of Concerns} folgen. 
+    Diese Prinzipien fördern nicht nur die Lesbarkeit und Wartbarkeit des Codes, sondern beschleunigen auch die Einarbeitung neuer Teammitglieder (vgl. \cite{martin_clean_2018}, Kap. 7.1, 7.2, 11).
+
+    Zweitens ermöglicht eine modulare DB-\acrshort{connector}-Bibliothek die Wiederverwendbarkeit über unterschiedliche Projekte hinweg. 
+    Ob Web-API, Desktop-Anwendung oder Microservice-Architektur, 
+    alle Konsumenten beziehen ihre Datenbankfunktionen aus derselben DLL. Bei Aktualisierungen, etwa wenn auf eine neue \acrshort{sql}-Bibliothek umgestellt oder \acrshort{connPooling} optimiert werden soll, 
+    genügt ein Austausch der \acrshort{dll} ohne Änderung an den Verbraucherprojekten. So lässt sich Validierung, Logging oder Performance-Tuning einheitlich implementieren und regressionsfrei einführen.
+    
+    Schließlich erhöht die Auslagerung in eine \acrshort{dll} die Testbarkeit enorm: In \acrshort{unittest}s und \acrshort{integrationtest}s kann die Datenbankzugriffsschicht gezielt gemockt oder gegen eine In-Memory-Datenbank 
+    ausgetauscht werden, ohne tief in die Business-Logik eingreifen zu müssen. Auch in \acrshort{ciPipeline}s und \acrshort{containerUmgebung}en lässt sich 
+    die DB-Connector-DLL isoliert versionieren, verteilen und überwachen. Gerade im Rahmen eines dualen Studiums, in dem neben technischer Exzellenz auch Best Practices der Team- und 
+    Prozessarbeit vermittelt werden, leistet dieses \textit{\acrshort{architekturpattern}} einen wertvollen Beitrag zur praxisnahen und skalierbaren Softwareentwicklung (vgl. \cite{chelliah_architectural_2017}, Kap. "Component-based assembly (CBD) architecture").
+    
+    
+    \needspace{5\baselineskip}    
+    \subsection{Problemstellung und Ziel}
+    In vielen unserer Anwendungen wiederholt sich der gleiche, plattformabhängige \acrshort{boilerplate}-Code für den Datenbankzugriff: Verbindungsaufbau, Parameter­zuweisung, 
+    Fehler­behandlung, Transaktions­management und das Schließen von Verbindungen werden immer wieder neu implementiert. Das führt nicht nur zu erheblicher Redundanz, 
+    sondern erschwert auch die zentrale Pflege von Änderungen, etwa beim Umstieg auf neue Treiber, geänderte Sicherheits­richtlinien oder optimierte Konfigurations­parameter. 
+    Außerdem ist das Testen einzelner Komponenten durch fehlende Schnitt­stellen zur \acrshort{mock}-Erzeugung kompliziert und fehleranfällig.
+
+    Vor diesem Hintergrund soll eine \acrshort{dll} entstehen, die sämtliche wiederkehrenden Aufgaben rund um den Datenbankzugriff in einer klaren, 
+    wohlabgrenzten Schnittstelle bündelt. 
+    
+    Die \acrshort{dll} übernimmt dabei:
+
+    \begin{itemize}
+        \item Einlesen von Verbindungsparametern
+        \item Öffnen und Schließen von Verbindungen
+        \item Erzeugen und Ausführen von CRUD-Befehlen
+        \item Einheitliche Fehlerbehandlung
+        \item Unterstützung von Logging-Frameworks
+        \item Austauschbarkeit unterschiedlicher Datenbankanbieter
+    \end{itemize}
+
+
+    Ziel ist es, eine zentrale, plattformunabhängige Komponente zu schaffen, die sich einfach und schnell in Projekte integrieren lässt und dank 
+    eines \acrshort{interface}s die sich leicht mocken und testen lässt. Durch die Kapselung der Infrastruktur in einer \acrshort{dll} reduzieren wir den Wartungsaufwand auf genau eine Stelle: 
+    Neue Anforderungen, Security-Patches oder Performance-Optimierungen werden künftig nur noch in der Bibliothek umgesetzt und stehen damit sofort in allen Anwendungen zur Verfügung. 
+    Zudem erleichtert die klare Trennung zwischen Geschäftslogik und Datenbankzugriff das Refactoring und steigert nachhaltig die Qualität und Zuverlässigkeit unserer Software.
+
+    
+    \needspace{5\baselineskip}
+    \subsection{Zielsetzung und Projektbeschreibung}
+
+    Ziel dieser Arbeit ist die Entwicklung einer wiederverwendbaren DLL für den Datenbankzugriff mit \csharp{}, die im Rahmen des dualen Studiums an der DHBW Stuttgart entsteht. 
+    Die Bibliothek kapselt zentrale Datenbankfunktionen (Verbindungsaufbau, SQL-Befehle, Fehlerbehandlung) und wird über ein klar definiertes \acrshort{interface} angesprochen, 
+    um saubere Entkopplung, hohe Wiederverwendbarkeit und einfache Testbarkeit sicherzustellen.
+
+    Die praktische Umsetzung wird durch strukturierte Unit- und Integrationstests ergänzt, um die Zuverlässigkeit und Einsatzfähigkeit der DLL in realitätsnahen Anwendungsszenarien zu belegen.
+
+%=================================================================================================================================================================================================
+
+%Quelle =  Logische und Methodische Grundlagen der Programm- und Systementwicklung 
+%           Datenstrukturen, funktionale, sequenzielle und objektorientierte Programmierung - Unter Mitarbeit von Alexander Malkis
+
+% Für DLL brauche ich noch eine Quelle
+
+\needspace{5\baselineskip}
+\section{Grundlagen der Softwareentwicklung}
+
+    \needspace{5\baselineskip}
+    \subsection{Objektorientierte Programmierung}
+    Die \acrshort{oop} ist ein zentrales Konzept in der modernen Softwareentwicklung. 
+    Sie beruht auf der Idee, Programme aus modularen Einheiten, sogenannten \acrshort{oopObjekt}en, aufzubauen. Diese \acrshort{oopObjekt}e basieren auf \acrshort{oopKlasse}n, die als Baupläne dienen. 
+    \acrshort{oopKlasse}n definieren die Attribute und die \acrshort{oopMethode}n, welche ihre \acrshort{oopObjekt}e besitzen. Eine \acrshort{oopMethode} ist dabei eine Funktion innerhalb der \acrshort{oopKlasse}, 
+    die bestimmte Aktionen ausführt und den Zustand des \acrshort{oopObjekt}s verändern kann. 
+    Ein wesentliches Merkmal der \acrshort{oop} ist die \acrshort{oopVererbung}. Sie erlaubt es, dass \acrshort{oopKlasse}n die Attribute und \acrshort{oopMethode}n anderer \acrshort{oopKlasse}n übernehmen,
+    wodurch Code wiederverwendet und strukturiert erweitert werden kann. \acrshort{interface}s spielen ebenfalls eine wichtige Rolle, indem sie die Struktur und das Verhalten festlegen,
+    das eine \acrshort{oopKlasse} bereitstellen muss, ohne konkrete Implementierungen vorzugeben (vgl. \cite{broy_grundlagen_2019}, Kap. 8.1). 
+
+    Fehlerbehandlung erfolgt in der \acrshort{oop} häufig über sogenannte \acrshort{ausnahme}n.
+    Statt Fehlercodes zurückzugeben, werfen \acrshort{oopMethode}n bei Problemen \textit{\acrshort{ausnahme}n}, die dann gezielt behandelt werden können.
+    Eine weitere hilfreiche Spracheigenschaft sind \textit{\acrshort{enum}s}, die eine fest definierte Menge von Werten beschreiben, etwa Statuscodes, 
+    und so die Lesbarkeit und Wartbarkeit des Codes erhöhen (vgl. \cite{bloch_effective_2008}, S. 241-243, 147-149).
+
+
+    
+    \needspace{5\baselineskip}
+    \subsection{Dynamic Linked Library}
+    Eine \textit{\acrshort{dll}} ist eine Sammlung von Funktionen, die nicht direkt in das Hauptprogramm eingebunden werden, sondern bei Bedarf zur Laufzeit geladen werden. 
+    Das hat den Vorteil, dass Programmteile modular ausgelagert und mehrfach verwendet werden können, ohne dass der Code dupliziert werden muss.
+
+    DLLs werden häufig verwendet, um gemeinsame Funktionalität wie Datenbankzugriffe, mathematische Berechnungen oder Hardware-Kommunikation bereitzustellen. 
+    In \csharp werden DLLs durch separate Projekte erstellt, die öffentliche Klassen und Methoden enthalten. 
+    Diese Bibliotheken können dann in andere Projekte eingebunden und wie gewöhnliche Komponenten verwendet werden.
+
+    Die Vorteile einer \textit{acrshort{dll}} liegen in ihrer Wiederverwendbarkeit, Modularität und Wartbarkeit. 
+    Mehrere Programme können auf dieselbe DLL zugreifen, was Speicher spart und die Pflege erleichtert, da Änderungen nur an einer zentralen Stelle erfolgen müssen (vgl. \cite{troelsen_pro_2017}, S. 509, 560).
+
+    \needspace{5\baselineskip}
+    \subsection{Modellierung}
+        Die Modellierung ist ein zentrales Element in der Softwareentwicklung, da sie hilft, komplexe Systeme strukturiert darzustellen, zu analysieren und zu planen. 
+        Besonders in der \acrshort{oop} ist die visuelle Darstellung von Klassen, Beziehungen und Abläufen essenziell für das Verständnis und die Kommunikation 
+        innerhalb eines Teams.
+
+        Ein häufig verwendetes Werkzeug ist das \textit{Klassendiagramm}. Es gehört zur "Unified Modeling Language" \acrshort{uml} und stellt die Struktur eines Softwaresystems grafisch dar. 
+        In einem Klassendiagramm werden Klassen mit ihren \textit{Attributen und Methoden} dargestellt, ebenso wie die Beziehungen  zwischen ihnen. 
+        Dazu zählen \textit{\acrshort{assoziation}en}, \acrshort{oopVererbung} und \textit{\acrshort{komposition}en}. 
+        \textit{Klassendiagramme} ermöglichen es, die logische Architektur eines Systems übersichtlich darzustellen, 
+        bevor mit der eigentlichen Implementierung begonnen wird. Sie dienen sowohl der Dokumentation als auch der Kommunikation im Projektteam (vgl. \cite{rumpe_klassendiagramme_2011}, Seite 16-17, 19-22, 25, 27-30).
+
+
+        Ein weiteres wichtiges Modellierungswerkzeug ist das \textit{Aktivitätsdiagramm}. 
+        Es beschreibt den Ablauf eines Prozesses oder eines bestimmten Anwendungsfalls in Form eines Flussdiagramms. 
+        Dabei werden verschiedene Aktivitäten, Entscheidungswege, Verzweigungen und parallele Abläufe grafisch dargestellt. 
+        Aktivitätsdiagramme eignen sich besonders gut, um Geschäftsprozesse, Programmabläufe oder Algorithmen verständlich abzubilden. 
+        In der Softwareentwicklung wird das \textit{Aktivitätsdiagramm} häufig eingesetzt, um komplexe Verhaltensweisen, wie etwa den Verbindungsaufbau zu einer Datenbank 
+        oder eine Benutzerinteraktion mit dem System, detailliert zu analysieren (vgl. \cite{omg_uml_2.5.1}, Seite 373).
+        
+        Durch die Verwendung solcher Modellierungswerkzeuge lassen sich Anforderungen klarer formulieren, 
+        Entwurfsentscheidungen fundierter treffen und potenzielle Fehlerquellen bereits in der Planungsphase erkennen. 
+        Die Modellierung bildet somit eine wichtige Brücke zwischen der konzeptionellen Planung und der technischen Umsetzung von Softwaresystemen(vgl. \cite{rumpe_klassendiagramme_2011}, Seite 16).
+    
+    
+    
+    \needspace{5\baselineskip}
+    \subsection{Speicherverwaltung}
+        Ein grundlegendes Thema in der Softwareentwicklung, insbesondere in der System- und \acrshort{eingebettet}e-Programmierung, ist der Umgang mit Speicher.
+        Die effiziente Verwaltung von Speicherressourcen ist entscheidend für die Leistungsfähigkeit und Stabilität eines Programms. 
+        In vielen Programmiersprachen wie C spielt dabei der direkte Zugriff auf Speicher durch sogenannte \acrshort{zeiger} eine zentrale Rolle.
+        \textit{\acrshort{zeiger}} sind Variablen, die Speicheradressen enthalten und dadurch auf bestimmte Speicherbereiche verweisen können. 
+        Sie ermöglichen unter anderem die dynamische Speicherreservierung sowie den Zugriff auf \acrshort{array}s oder \acrshort{struktur}en. 
+        Durch diese Flexibilität sind sie in der Low-Level-Programmierung unverzichtbar, erfordern jedoch ein genaues Verständnis des zugrundeliegenden Speichermodells.
+        In Sprachen wie C erfolgt die Speicherverwaltung manuell. Das bedeutet, dass der benötigte Speicher explizit durch den Entwickler angefordert  
+        und wieder freigegeben werden muss. Eine fehlerhafte Handhabung kann dabei zu Speicherlecks, Zugriffsfehlern oder Instabilitäten führen. 
+        Daher erfordert die manuelle Speicherverwaltung ein hohes Maß an Sorgfalt und technischem Verständnis.
+        Die Fähigkeit, Speicher effizient und sicher zu verwalten, bildet eine wichtige Grundlage für das Entwickeln performanter und zuverlässiger Software, 
+        insbesondere im Kontext ressourcenbeschränkter Systeme wie Mikrocontroller oder \acrshort{eingebettet}en Geräten(vgl. \cite{reese_understanding_2013}, Seite 2-10, 31-39).
+  
+
+    \needspace{5\baselineskip}
+    \subsection{Grundlagen eingebetteter Systeme}
+        \acrshort{eingebettet}e Systeme sind spezialisierte Computer, die fest in ein größeres technisches System integriert sind, 
+        um dort spezifische Steuerungs- oder Überwachungsaufgaben zu übernehmen. 
+        Sie verfügen in der Regel über begrenzte Ressourcen, arbeiten meist ohne Benutzerinteraktion und sind häufig auf Echtzeitanforderungen ausgelegt. 
+        Typische Einsatzbereiche reichen von Automobilsteuergeräten über Industrieanlagen bis hin zu Haushalts- und Medizingeräten.
+        Für die Entwicklung solcher Systeme kommt oft die Sprache C zum Einsatz, da sie hardwarenahe Programmierung mit feinkörniger Kontrolle über Speicher, Register und Peripherie ermöglicht (vgl. \cite{noergaard_embedded_2012}, Kap. 1.1–1.2).
+        Zentral für die Interaktion mit der Hardware ist der Zugriff auf sogenannte Memory-Mapped Register .Das sind festgelegte Speicheradressen, über die beispielsweise Timer, Sensoren oder LED-Ausgänge angesteuert werden. 
+        Solche Register werden üblicherweise über vordefinierte \acrshort{struktur}en und Bitmasken abstrahiert (vgl. \cite{unsalan_embedded_2022}, Kap. 4.3.2).
+
+        Zur Analyse und Fehlersuche dienen Debugger, die eine schrittweise Ausführung des Programmcodes, das Setzen von Breakpoints und das Auslesen von Speicherinhalten in Echtzeit ermöglichen. 
+        Gerade bei hardwarenahen Projekten wie der gezielten LED-Steuerung über Speicheradressen helfen Debugger dabei, Registerwerte direkt zu überwachen und das Timing des Programms präzise zu verifizieren.
+
+    \needspace{5\baselineskip}
+    \subsection{Grundlagen von Datenbanken}
+        Datenbanken stellen eine zentrale Infrastrukturkomponente moderner Softwaresysteme dar. 
+        Sie ermöglichen die dauerhafte, strukturierte und konsistente Speicherung großer Datenmengen und bilden damit das Rückgrat vieler Anwendungen 
+        wie beispielsweise in der Benutzerverwaltung, der Protokollierung von Prozessen oder im Umgang mit geschäftskritischen Informationen (vgl. \cite{elmasri_fundamentals_2013}, Seite 2).
+
+        Im Fokus dieser Arbeit steht der Zugriff auf relationale Datenbanken. 
+        Diese basieren auf dem relationalen Modell nach Codd und organisieren Daten in Tabellen, die über definierte Schlüsselbeziehungen miteinander verknüpft werden. 
+        Die Kommunikation mit der Datenbank erfolgt in der Regel über die deklarative Abfragesprache \acrshort(sql) (vgl. \cite{elmasri_fundamentals_2013}, Seite 55).
+
+
+
+        \needspace{5\baselineskip}
+        \textbf{Relationale Datenbanken}
+
+        Relationale Datenbanken gehören zu den am weitesten verbreiteten Datenbankmodellen. Ihre Grundlage bildet das relationale Datenbankmodell, das auf der mathematischen Mengenlehre basiert. 
+        In relationalen Datenbanken werden Daten in Tabellen gespeichert, die aus Spalten (Attributen) und Zeilen (Datensätzen) bestehen. 
+        Jede Zeile entspricht dabei einem Datensatz mit genau einem Wert pro Spalte.
+        Ein wesentliches Merkmal relationaler Datenbanken ist die Verwendung von Schlüsseln zur eindeutigen Identifizierung und Verknüpfung von Daten. 
+        Der Primärschlüssel identifiziert jeden Datensatz innerhalb einer Tabelle eindeutig. Fremdschlüssel hingegen stellen Beziehungen zwischen verschiedenen Tabellen her und ermöglichen es, 
+        Daten logisch miteinander zu verbinden, ohne sie zu duplizieren. So kann beispielsweise eine Benutzer-ID als Fremdschlüssel in einer Tabelle für Logeinträge verwendet werden, 
+        um den Zusammenhang zwischen Nutzer und Aktion herzustellen. Diese Struktur sorgt für Datenkonsistenz und fördert ein normalisiertes, redundanzfreies Datenmodell.
+        Relationale Datenbanksysteme bieten darüber hinaus zahlreiche Funktionen zur Datenhaltung, Sicherung, Wiederherstellung und Abfrageoptimierung an. 
+        Transaktionen ermöglichen es, mehrere Datenbankoperationen logisch zusammenzufassen und im Fehlerfall rückgängig zu machen, 
+        was insbesondere in sicherheitskritischen Anwendungen von großer Bedeutung ist (vgl. \cite{elmasri_fundamentals_2013}, Seite 84 ff.).
+
+        %%%%%%%%%%%%%%%%%%%%%%%%%%
+        \needspace{5\baselineskip}
+        \textbf{Aufbau von Tabellen und Schlüsselkonzepte}
+        
+        Beim Aufbau relationaler Datenbanktabellen müssen neben der inhaltlichen Struktur auch technische Aspekte berücksichtigt werden. 
+        Jede Spalte einer Tabelle besitzt einen spezifischen Datentyp (z.B. Ganzzahlen, Zeichenketten oder Datumswerte), der definiert, welche Art von Informationen dort gespeichert werden können 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 84–85). 
+        Ergänzend dazu können Einschränkungen wie „nicht leer“, „eindeutig“ oder „Standardwert“ definiert werden, um die Datenqualität zu sichern 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 85–86).
+
+        Die Definition und Pflege von Primär- und Fremdschlüsseln ist essenziell für die referenzielle Integrität innerhalb des Datenbankschemas 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 86–87). 
+        Durch Mechanismen wie das kaskadierende Löschen oder Aktualisieren lassen sich Inkonsistenzen vermeiden und ein konsistenter Datenbestand sicherstellen 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 86–87).
+
+        Ein durchdachtes Datenbankdesign ist besonders in komplexen Softwaresystemen von zentraler Bedeutung. 
+        Es hilft dabei, die Wartbarkeit zu erhöhen, die Erweiterbarkeit zu erleichtern und die Fehleranfälligkeit zu reduzieren. 
+        Visuelle Hilfsmittel wie Entity-Relationship-Diagramme (ER-Diagramme) oder UML-Klassendiagramme unterstützen diesen Entwurfsprozess 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 229–244 und 294–310).
+
+        \textbf{SQL-Befehle}
+
+        Die Interaktion mit relationalen Datenbanken erfolgt in der Regel über die strukturierte Abfragesprache SQL (Structured Query Language). 
+        SQL ist ein weltweit etablierter Standard und erlaubt sowohl die Definition der Datenstruktur als auch das Bearbeiten und Abfragen von Daten 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 84–89).
+
+        Der Einsatz von SQL-Befehlen erlaubt es, gezielt auf einzelne Daten zuzugreifen, komplexe Zusammenhänge abzubilden und verschiedenste Operationen auf effiziente Weise durchzuführen 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 84–89). 
+        
+        Eine saubere Abgrenzung von Anwendungs- und Datenbanklogik, wie sie in dieser Arbeit durch die Nutzung einer DLL erfolgt, sorgt dabei für ein klares und wartbares Systemdesign.
+
+        \textbf{Bedeutung im Kontext der Anwendung}
+
+        Im Rahmen dieser Arbeit wird eine MySQL-Datenbank eingesetzt, auf die über eine eigens entwickelte \csharp-Bibliothek zugegriffen wird. 
+        Diese Bibliothek kapselt alle Datenbankzugriffe in Form einer wiederverwendbaren DLL und stellt Methoden für das Öffnen und Schließen von Verbindungen, 
+        die Ausführung von SQL-Abfragen sowie die Fehlerbehandlung bereit.
+
+        Ein zentraler Aspekt dabei ist die Trennung von Datenzugriff und Anwendungslogik. Durch die Auslagerung des Datenbankzugriffs in eine separate Komponente wird die Wartbarkeit erhöht, 
+        die Testbarkeit verbessert und die Wiederverwendbarkeit gewährleistet. Die klare Struktur der Datenbanktabellen, die Verwendung von Schlüsseln zur Sicherung der Integrität 
+        sowie der gezielte Einsatz von SQL ermöglichen eine performante und robuste Datenhaltung, wie sie auch in produktiven Anwendungen in der Industrie üblich ist 
+        (vgl. \cite{elmasri_fundamentals_2013}, S. 35–39 und 84–87).
+
+
+%=================================================================================================================================================================================================
+\needspace{5\baselineskip}
+\section{Vorgehensweise bei der Softwareentwicklung}
+
+    \needspace{5\baselineskip}
+    \subsection{Zielsetzung}
+    Zu Beginn eines Softwareentwicklungsprozesses steht die präzise Ermittlung und Beschreibung der Anforderungen an das System.
+     Diese umfassen sowohl funktionale als auch nicht-funktionale Anforderungen. Die Zielsetzung in dieser Phase besteht darin, alle relevanten Anforderungsziele, 
+     Erwartungen der Nutzer, Erfolgskriterien und Rahmenbedingungen festzuhalten und im Idealfall zu formalisieren.
+
+    Ein zentrales Ziel ist die Erstellung einer Anforderungsspezifikation, die als vertragliche Grundlage zwischen Auftraggeber und Auftragnehmer dient. 
+    Die Spezifikation definiert, was ein System leisten soll, und bildet die Basis für Entwurfsentscheidungen, Verifikation, Validierung und letztlich für die Qualitätssicherung.
+    
+    Dabei wird besonderes Augenmerk auf die Vollständigkeit, Eindeutigkeit und Prüfbarkeit der Anforderungen gelegt. 
+    Die so dokumentierten Ziele ermöglichen es, die spätere Implementierung zu bewerten und den Grad der Zielerreichung objektiv zu überprüfen
+    
+    \needspace{5\baselineskip}
+    \subsection{Analyse}
+    Im Analyseeschritt steht die Frage im Vordergrund, wie sich die in der Anforderungsspezifikation beschriebenen fachlichen und technischen Anforderungen zu einem tragfähigen 
+    Architekturentwurf verdichten lassen. Dabei skizziert man zunächst eine grobe Schichtenarchitektur, in der typische Funktionsbereiche, wie etwa Präsentation, Geschäftslogik 
+    und Datenzugriff, klar voneinander getrennt werden. Diese erste Zerlegung erlaubt es, Verantwortlichkeiten eindeutig zuzuordnen und spätere Änderungsauswirkungen bereits auf 
+    konzeptioneller Ebene abzuschätzen.
+
+    Anschließend erfolgt die Auswahl bewährter Entwurfsmuster, um wiederkehrende Probleme systematisch zu lösen und Konsistenz im gesamten System zu gewährleisten. So kommt zum Beispiel 
+    das „Data Access Object“-Muster (DAO) zum Einsatz, um die Datenbankzugriffe von der Geschäftslogik zu entkoppeln, während das Schichtenmuster die Kommunikation zwischen Ober- 
+    und Unterschichten regelt. Auch Aspekt­orientierung oder Dependency Injection können frühzeitig integriert werden, um Querschnitts­belange wie Logging, Transaktions­management oder 
+    Sicherheit lose und doch zentral gesteuert abzubilden.
+
+    Ein wesentlicher Teil der Analyse ist zudem die Definition klarer Schnittstellen zwischen den Komponenten. Hier wird festgelegt, welche Methoden, Datentypen und Protokolle 
+    erforderlich sind, um die einzelnen Subsysteme miteinander zu verbinden, ohne deren Implementierungsdetails preiszugeben. Dieses Interface-Design legt den Grundstein für 
+    Parallel­entwicklungen in agilen Teams und ermöglicht schon sehr früh frühe Tests von \acrshort{mock}-Komponenten oder Prototypen.
+
+    Schließlich fließen in der Analyse auch nicht-funktionale Anforderungen wie Performanz, Skalierbarkeit oder Betriebssicherheit in die Architektur­entscheidungen ein. 
+    Schon in dieser frühen Phase wird geprüft, ob beispielsweise eine Microservices- oder eine monolithische Deployment­strategie besser geeignet ist 
+    und welche Infrastruktur­komponenten (Container, Messaging­systeme, Caching-Layer) erforderlich sein werden. Durch diese methodisch saubere Vorarbeit in der Analyse­phase 
+    entsteht eine flexible, wartbare und erweiterbare Systemarchitektur, auf die alle nachfolgenden Entwurfs- und Implementierungsschritte aufbauen können
+        
+    \needspace{5\baselineskip}
+    \subsection{Entwurf}
+
+   Für die Implementierung wird zwischen zwei Stufen unterschieden: Zunächst wählt man auf einer hohen Abstraktionsebene passende Algorithmen und Datenstrukturen aus 
+   und modelliert diese formal, um ihre Korrektheit und Effizienz verifizieren zu können. Darauf aufbauend erfolgt die konkrete Codierung in einer Programmiersprache und 
+   gegebenenfalls eine Optimierung, um sie auf einer bestimmten Ausführungsplattform performant zum Laufen zu bringen.
+
+.
+    \needspace{5\baselineskip}
+    \textbf{1. Abstrakte Implementierung}
+    In diesem Schritt wird das Programm „auf hoher Abstraktionsebene“ beschrieben. Man legt fest, welche Datenstrukturen (z. B. Listen, Bäume, Maps) und Algorithmen 
+    (z. B. Sortier- oder Suchverfahren) zum Einsatz kommen. Diese Spezifikation ist eng mit den Entwurfsspezifikationen verknüpft und erlaubt eine formale Verifikation, 
+    etwa durch Ableiten von Korrektheitsbeweisen oder Bestimmen der Laufzeitkomplexität.
+    
+    \needspace{5\baselineskip}
+    \textbf{2. Verifikation (auf der abstrakten Ebene)}
+
+    Die abstrakten Implementierungen werden gegen ihre Spezifikationen geprüft. Hierzu nutzt man formale Methoden wie:
+        
+    Beweis von Invarianten und Korrektheit mittels Induktion oder Fixpunktargumenten
+        
+    Analyse der Terminierung und Ressourcenabschätzung
+
+    Ziel ist, schon vor der eigentlichen Programmierung Fehler im Design aufzudecken und zu beheben.
+    
+    \needspace{5\baselineskip}
+    \textbf{3. Konkrete Implementierung}
+    
+    Nach erfolgreicher Verifikation vervollständigt man den Code in einer spezifischen Programmiersprache. Dabei werden Details wie Speicherverwaltung, 
+    Ein-/Ausgabe-Schnittstellen oder Sprachkonstrukte (z. B. Rekursion vs. Schleifen) berücksichtigt und oft optimiert, um auf der Zielplattform bestmögliche Performance zu erzielen.
+
+    \needspace{5\baselineskip}
+    \textbf{4. Verifikation (auf der konkreten Ebene)}
+    
+    Abschließend wird überprüft, dass die konkrete Implementierung die abstrakte Spezifikation tatsächlich erfüllt. Dies geschieht typischerweise durch Tests, statische Analysen 
+    oder erneut formale Beweise (z. B. Hoare-Logik oder Model Checking).
+
+    Dieser mehrstufige Ansatz, abstrakte Modellierung und Verifikation, gefolgt von konkreter Umsetzung und abschließender Prüfung, stellt sicher, dass bereits frühzeitig die 
+    konzeptionelle Korrektheit gewährleistet ist und spätere Optimierungen die funktionale Korrektheit nicht gefährden 
+    
+    \needspace{5\baselineskip}
+    \subsection{Umsetzung}
+        Unit Tests und Integrationstests
+        Dockerbasierter Testaufbau für MySQL
+
+
+
+%========Verbindungsbiblothek=======================================================
+%===================================================================================
+    
+    \needspace{5\baselineskip}
+
+    \section{Verbindungsbibliothek}
+
+    \subsection{Anforderungen}
+
+    \textbf{Fachliche Anforderungen:}
+
+    Die entwickelte Verbindungsbibliothek soll eine einfache, sichere und wiederverwendbare Schnittstelle für den Zugriff auf eine relationale \acrshort{mysql}-Datenbank bereitstellen. Dazu gehören insbesondere:
+
+    \begin{itemize}
+    \item Aufbau und Abbau einer Datenbankverbindung
+    \item Durchführung von \acrshort{sql}-Operationen: \texttt{SELECT}, \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}
+    \item Rückgabe konsistenter Fehlercodes über den \acrshort{enum} \texttt{errorValues}
+    \item Verwendung eines \acrshort{loggerintf} zur Protokollierung aller relevanten Vorgänge
+    \end{itemize}
+
+    \textbf{Technische Anforderungen:}
+
+    \begin{itemize}
+    \item Integration über ein generisches \acrshort{interface} (\texttt{IConnector.cs})
+    \item Implementierung in C# mit Unterstützung für Dependency Injection
+    \item Unterstützung typischer Fehlerquellen (z.,B. Authentifizierungsprobleme, Timeout, Syntaxfehler)
+    \item Kompatibilität mit allen modernen .NET-Versionen
+    \end{itemize}
+
+    \textbf{Nichtfunktionale Anforderungen:}
+
+    \begin{itemize}
+    \item \textit{Testbarkeit}: Unit- und \acrshort{integrationtest}s müssen möglich sein
+    \item \textit{Zuverlässigkeit}: Robust gegenüber ungültigen Eingaben oder fehlerhaften Abfragen
+    \item \textit{Wartbarkeit}: Durch saubere Trennung zwischen Schnittstelle und Implementierung
+    \item \textit{Erweiterbarkeit}: Leicht auf andere Datenbankanbieter übertragbar
+    \end{itemize}
+
+    \subsection{Konzept}
+
+    \textbf{Architekturübersicht:}
+
+    Die Bibliothek besteht aus einem klaren Interface \texttt{IConnector}, das von der konkreten Klasse \texttt{MySqlAccess} implementiert wird. Diese Trennung ermöglicht es, die konkrete Implementierung in Tests durch \acrshort{mock}-Objekte zu ersetzen und verschiedene Datenbank-Backends zu unterstützen.
+
+    \begin{itemize}
+    \item \texttt{IConnector.cs}: Definiert alle Methoden für die Interaktion mit einer Datenbank
+    \item \texttt{MySqlAccess.cs}: Implementiert das Interface für das spezifische DBMS \texttt{MySQL}
+    \item \texttt{ErrorCodes.cs}: Enthält das zentrale Enum \texttt{errorValues} zur Rückgabe standardisierter Statuswerte
+    \item \texttt{ErrorMessages.xml}: Ermöglicht sprachspezifische Rückmeldungen für Clients
+    \end{itemize}
+
+    \textbf{Klassenstruktur:}
+
+    Die Klasse \texttt{MySqlAccess} verwaltet die Lebensdauer der Verbindung und implementiert alle CRUD-Operationen (Create, Read, Update, Delete). Dabei wird bei jedem Methodenaufruf geprüft, ob die Verbindung geöffnet ist, und gegebenenfalls ein Reconnect durchgeführt. Fehler werden über den Logger dokumentiert und als strukturierte \texttt{errorValues} zurückgegeben.
+
+    Die Verwendung eines Logger-Interfaces (\texttt{ILogger<MySqlAccess>}) gewährleistet lose Kopplung und ermöglicht es, Log-Ausgaben gezielt zu steuern oder während Tests vollständig zu deaktivieren.
+
+    \textbf{Designentscheidungen:}
+
+    \begin{itemize}
+    \item \textbf{Dependency Injection}: Die \texttt{ILogger}-Instanz wird von außen eingespeist, um Testbarkeit und Flexibilität zu erhöhen
+    \item \textbf{Fehlertoleranz}: Durch umfassendes \texttt{try-catch} mit Fehlerdifferenzierung nach SQL-Fehlernummern (z.,B. \texttt{1045} für falsches Passwort)
+    \item \textbf{Kapselung}: Alle Details zur Verbindung, Fehlerbehandlung und SQL-Erstellung sind in einer Klasse gekapselt
+    \item \textbf{Transparenz}: Der Verbindungsstatus wird über das Attribut \texttt{flagStatus} jederzeit sichtbar gemacht
+    \end{itemize}
+
+    \subsection{Implementierung}
+
+    \textbf{Zentrale Klassen und Methoden:}
+
+    \begin{itemize}
+    \item \texttt{openConnection()}: Öffnet eine bestehende Verbindung oder gibt einen Fehler zurück (z.,B. \texttt{ServerConnectionFailed})
+    \item \texttt{closeConnection()}: Schließt eine aktive Verbindung, behandelt doppelte Aufrufe mit \texttt{ConnectionAlreadyClosed}
+    \item \texttt{select(...)}: Führt eine Abfrage durch und gibt die Ergebnisse in der Konsole aus
+    \item \texttt{insert(...)}: Fügt Datensätze ein, prüft auf Duplikate (\texttt{DuplicateEntry}) und Constraints
+    \item \texttt{update(...)}: Führt Aktualisierungen durch, optional mit JOIN- und WHERE-Klauseln
+    \item \texttt{delete(...)}: Löscht gezielt Datensätze mit optionalem LIMIT
+    \end{itemize}
+
+    \textbf{Wichtige Codebeispiele:}
+
+    \begin{lstlisting}[language=C]
+    public errorValues insert(string tableName, string values)
+    {
+    if (string.IsNullOrEmpty(tableName) || string.IsNullOrEmpty(values))
+    return errorValues.EmptyInputParameters;
+
+    csharp
+    Code kopieren
+    string query = $"INSERT INTO {tableName} VALUES({values});";
+
+    using (var cmd = new MySqlCommand(query, connection))
+    {
+        int affectedRows = cmd.ExecuteNonQuery();
+        return affectedRows > 0 ? errorValues.Success : errorValues.NoData;
+    }
+    }
+    \end{lstlisting}
+
+    \textbf{Teststrategie:}
+
+    Die Teststrategie folgt dem AAA-Muster (Arrange, Act, Assert) und deckt sowohl positive als auch negative Fälle ab:
+
+    \begin{itemize}
+    \item \textbf{Unit Tests:} Getrennte Tests für Konstruktor, Verbindungsaufbau, CRUD-Methoden
+    \item \textbf{Integration Tests:} Realer Zugriff auf eine Testdatenbank in einem Docker-Container mit echtem MySQL-Server
+    \item \textbf{Mocking:} Einsatz von \texttt{Moq} zur Simulation der Logger-Komponente
+    \item \textbf{CI-Integration:} Die Tests laufen automatisiert in einer \acrshort{ciPipeline} und melden regressionssicher alle Statuswerte zurück
+    \end{itemize}
+
+    \textbf{Beispiel für einen Unit-Test:}
+
+    \begin{lstlisting}[language=C]
+    [Fact]
+    public void Constructor_SetsFlagStatusToError_WhenParametersAreInvalid()
+    {
+    var mockLogger = new Mock<ILogger<MySqlAccess>>();
+    var mySqlAccess = new MySqlAccess(null, mockLogger.Object);
+    Assert.Equal(errorValues.EmptyInputParameters, mySqlAccess.flagStatus);
+    }
+    \end{lstlisting}
+
+    Durch diesen Testaufbau wird gewährleistet, dass sowohl ungültige Parameter als auch Verbindungsfehler, SQL-Probleme und Systemausfälle zuverlässig erkannt und differenziert behandelt werden können.
+
+\printbibliography  % Literaturverzeichnis einfügen
+
+\end{document}
+
+
+%Quellen

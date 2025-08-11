@@ -305,7 +305,7 @@
         Transaktionen ermöglichen es, mehrere Datenbankoperationen logisch zusammenzufassen und im Fehlerfall rückgängig zu machen, 
         was insbesondere in sicherheitskritischen Anwendungen von großer Bedeutung ist (vgl. \cite{elmasri_fundamentals_2013}, Seite 84 ff.).
 
-        %%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%% Hier nochmal vgl. prüfen %%%%%%%%%%%%%%%
         \needspace{5\baselineskip}
         \textbf{Aufbau von Tabellen und Schlüsselkonzepte}
         
@@ -352,84 +352,48 @@
 \needspace{5\baselineskip}
 \section{Vorgehensweise bei der Softwareentwicklung}
 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \needspace{5\baselineskip}
     \subsection{Zielsetzung}
-    Zu Beginn eines Softwareentwicklungsprozesses steht die präzise Ermittlung und Beschreibung der Anforderungen an das System.
-     Diese umfassen sowohl funktionale als auch nicht-funktionale Anforderungen. Die Zielsetzung in dieser Phase besteht darin, alle relevanten Anforderungsziele, 
-     Erwartungen der Nutzer, Erfolgskriterien und Rahmenbedingungen festzuhalten und im Idealfall zu formalisieren.
+    %  Sommerville, Ian: Software Engineering, 10th ed., Kap. 4 („Requirements Engineering“) – beschreibt sehr klar, wie man aus abstrakten Zielen konkrete Anforderungen ableitet.
+    % Pohl, Klaus: Requirements Engineering – Grundlagen, Prinzipien, Techniken, Kap. 2–3 – fokussiert auf Zielanalyse und Stakeholder-Bedürfnisse.
+    Die Zielsetzung eines Softwareentwicklungsprojekts beschreibt den angestrebten Zweck des Systems und dient als verbindliche Grundlage 
+    für alle nachfolgenden Aktivitäten im Entwicklungsprozess.
+    Sommerville definiert im Rahmen des Requirements Engineering, dass diese Zieldefinition sowohl aus den strategischen Geschäftszielen 
+    als auch aus den Bedürfnissen der Stakeholder abgeleitet werden muss. 
+    Sie umfasst dabei sowohl funktionale Ziele, wie die zu erbringenden Systemdienste. 
+    Als auch nicht-funktionale Ziele, welche Qualitätsmerkmale wie Leistung, Zuverlässigkeit, Sicherheit oder Wartbarkeit festlegen (vgl. \cite{sommerville_software_2012}, Seite 116–122).
 
-    Ein zentrales Ziel ist die Erstellung einer Anforderungsspezifikation, die als vertragliche Grundlage zwischen Auftraggeber und Auftragnehmer dient. 
-    Die Spezifikation definiert, was ein System leisten soll, und bildet die Basis für Entwurfsentscheidungen, Verifikation, Validierung und letztlich für die Qualitätssicherung.
+    Nach Sommerville gehören zu den zentralen Prüfkriterien für Anforderungen die Eindeutigkeit, Konsistenz, Vollständigkeit, Realisierbarkeit und Verifizierbarkeit. 
+    Diese Eigenschaften stellen sicher, dass Missverständnisse zwischen Auftraggeber und Entwicklungsteam minimiert werden, die Umsetzbarkeit gewährleistet ist 
+    und Anforderungen in späteren Projektphasen überprüfbar bleiben (vgl. \cite{sommerville_software_2012}, Seite 144).
+
+    Für das Projekt T1000 bedeutet dies konkret, eine modulare, wiederverwendbare \acrshort{dll} für den Datenbankzugriff zu entwickeln, 
+    die als einheitliche Schnittstelle zwischen Anwendungslogik und MySQL-Datenbank fungiert. 
     
-    Dabei wird besonderes Augenmerk auf die Vollständigkeit, Eindeutigkeit und Prüfbarkeit der Anforderungen gelegt. 
-    Die so dokumentierten Ziele ermöglichen es, die spätere Implementierung zu bewerten und den Grad der Zielerreichung objektiv zu überprüfen
+    Die spezifischen Ziele umfassen:
+    \begin{itemize}
+    \item Entwicklung einer klar definierten, entkoppelten Schnittstelle (\acrshort{interface}) für CRUD-Operationen,
+    \item Sicherstellung der Wiederverwendbarkeit in unterschiedlichen Projekten und Architekturen,
+    \item Implementierung standardisierter Mechanismen zur Fehlerbehandlung, zum Logging und für den \acrshort{retryMechanism},
+    \item Gewährleistung einer hohen Testbarkeit durch gezielte \acrshort{unittest}s und \acrshort{integrationtest}s.
+    \end{itemize}
+
+\subsection{Analyse} 
+    % Balzert, Helmut: Lehrbuch der Softwaretechnik – Basiskonzepte und Requirements Engineering, Kap. 3–4 – Vorgehensmodelle und Anforderungsanalyse.
+    % Pressman, Roger S.; Maxim, Bruce R.: Software Engineering: A Practitioner's Approach, Kap. 7–8 – Requirements Analysis und Modellierungstechniken.
+
+    \subsection{Entwurf} 
+    % Gamma, Erich et al.: Design Patterns – Elements of Reusable Object-Oriented Software, Einleitung + relevante Patterns wie „Adapter“ oder „Factory“, falls du Architekturmuster beschreibst.
+    % Martin, Robert C.: Clean Architecture, Kap. 7–11 – Schichtentrennung, Schnittstellendesign, Dependency Inversion.
     
-    \needspace{5\baselineskip}
-    \subsection{Analyse}
-    Im Analyseeschritt steht die Frage im Vordergrund, wie sich die in der Anforderungsspezifikation beschriebenen fachlichen und technischen Anforderungen zu einem tragfähigen 
-    Architekturentwurf verdichten lassen. Dabei skizziert man zunächst eine grobe Schichtenarchitektur, in der typische Funktionsbereiche, wie etwa Präsentation, Geschäftslogik 
-    und Datenzugriff, klar voneinander getrennt werden. Diese erste Zerlegung erlaubt es, Verantwortlichkeiten eindeutig zuzuordnen und spätere Änderungsauswirkungen bereits auf 
-    konzeptioneller Ebene abzuschätzen.
-
-    Anschließend erfolgt die Auswahl bewährter Entwurfsmuster, um wiederkehrende Probleme systematisch zu lösen und Konsistenz im gesamten System zu gewährleisten. So kommt zum Beispiel 
-    das „Data Access Object“-Muster (DAO) zum Einsatz, um die Datenbankzugriffe von der Geschäftslogik zu entkoppeln, während das Schichtenmuster die Kommunikation zwischen Ober- 
-    und Unterschichten regelt. Auch Aspekt­orientierung oder Dependency Injection können frühzeitig integriert werden, um Querschnitts­belange wie Logging, Transaktions­management oder 
-    Sicherheit lose und doch zentral gesteuert abzubilden.
-
-    Ein wesentlicher Teil der Analyse ist zudem die Definition klarer Schnittstellen zwischen den Komponenten. Hier wird festgelegt, welche Methoden, Datentypen und Protokolle 
-    erforderlich sind, um die einzelnen Subsysteme miteinander zu verbinden, ohne deren Implementierungsdetails preiszugeben. Dieses Interface-Design legt den Grundstein für 
-    Parallel­entwicklungen in agilen Teams und ermöglicht schon sehr früh frühe Tests von \acrshort{mock}-Komponenten oder Prototypen.
-
-    Schließlich fließen in der Analyse auch nicht-funktionale Anforderungen wie Performanz, Skalierbarkeit oder Betriebssicherheit in die Architektur­entscheidungen ein. 
-    Schon in dieser frühen Phase wird geprüft, ob beispielsweise eine Microservices- oder eine monolithische Deployment­strategie besser geeignet ist 
-    und welche Infrastruktur­komponenten (Container, Messaging­systeme, Caching-Layer) erforderlich sein werden. Durch diese methodisch saubere Vorarbeit in der Analyse­phase 
-    entsteht eine flexible, wartbare und erweiterbare Systemarchitektur, auf die alle nachfolgenden Entwurfs- und Implementierungsschritte aufbauen können
-        
-    \needspace{5\baselineskip}
-    \subsection{Entwurf}
-
-   Für die Implementierung wird zwischen zwei Stufen unterschieden: Zunächst wählt man auf einer hohen Abstraktionsebene passende Algorithmen und Datenstrukturen aus 
-   und modelliert diese formal, um ihre Korrektheit und Effizienz verifizieren zu können. Darauf aufbauend erfolgt die konkrete Codierung in einer Programmiersprache und 
-   gegebenenfalls eine Optimierung, um sie auf einer bestimmten Ausführungsplattform performant zum Laufen zu bringen.
-
-.
-    \needspace{5\baselineskip}
-    \textbf{1. Abstrakte Implementierung}
-    In diesem Schritt wird das Programm „auf hoher Abstraktionsebene“ beschrieben. Man legt fest, welche Datenstrukturen (z. B. Listen, Bäume, Maps) und Algorithmen 
-    (z. B. Sortier- oder Suchverfahren) zum Einsatz kommen. Diese Spezifikation ist eng mit den Entwurfsspezifikationen verknüpft und erlaubt eine formale Verifikation, 
-    etwa durch Ableiten von Korrektheitsbeweisen oder Bestimmen der Laufzeitkomplexität.
-    
-    \needspace{5\baselineskip}
-    \textbf{2. Verifikation (auf der abstrakten Ebene)}
-
-    Die abstrakten Implementierungen werden gegen ihre Spezifikationen geprüft. Hierzu nutzt man formale Methoden wie:
-        
-    Beweis von Invarianten und Korrektheit mittels Induktion oder Fixpunktargumenten
-        
-    Analyse der Terminierung und Ressourcenabschätzung
-
-    Ziel ist, schon vor der eigentlichen Programmierung Fehler im Design aufzudecken und zu beheben.
-    
-    \needspace{5\baselineskip}
-    \textbf{3. Konkrete Implementierung}
-    
-    Nach erfolgreicher Verifikation vervollständigt man den Code in einer spezifischen Programmiersprache. Dabei werden Details wie Speicherverwaltung, 
-    Ein-/Ausgabe-Schnittstellen oder Sprachkonstrukte (z. B. Rekursion vs. Schleifen) berücksichtigt und oft optimiert, um auf der Zielplattform bestmögliche Performance zu erzielen.
-
-    \needspace{5\baselineskip}
-    \textbf{4. Verifikation (auf der konkreten Ebene)}
-    
-    Abschließend wird überprüft, dass die konkrete Implementierung die abstrakte Spezifikation tatsächlich erfüllt. Dies geschieht typischerweise durch Tests, statische Analysen 
-    oder erneut formale Beweise (z. B. Hoare-Logik oder Model Checking).
-
-    Dieser mehrstufige Ansatz, abstrakte Modellierung und Verifikation, gefolgt von konkreter Umsetzung und abschließender Prüfung, stellt sicher, dass bereits frühzeitig die 
-    konzeptionelle Korrektheit gewährleistet ist und spätere Optimierungen die funktionale Korrektheit nicht gefährden 
-    
-    \needspace{5\baselineskip}
     \subsection{Umsetzung}
-        Unit Tests und Integrationstests
-        Dockerbasierter Testaufbau für MySQL
-
+    % Beck, Kent: Test Driven Development: By Example – falls du den testgetriebenen Aspekt deiner Implementierung betonen willst.
+    % Troelsen, Andrew; Japikse, Philip: Pro C# 9 with .NET 5, Kap. zu Assemblies/DLLs, ADO.NET/MySQL-Connector (passt direkt zu deinem MySqlAccess-Code).
+    
+    \subsection{Validierung}  
+    % Myers, Glenford J.; Sandler, Corey: The Art of Software Testing, Kap. 1–3 – allgemeine Testprinzipien.
+    % Meszaros, Gerard: xUnit Test Patterns, Kap. 2–4 – Teststrukturen, Mocks, Integrationstests (passt zu deinen UnitTests.cs und IntegrationTests.cs).
 
 
 %========Verbindungsbiblothek=======================================================

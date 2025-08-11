@@ -465,6 +465,45 @@
       \verb http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=5248269
       \endverb
     \endentry
+    \entry{sommerville_software_2012}{book}{}
+      \name{author}{1}{}{%
+        {{hash=70341b3bfcce7026902f4eb1e4111b58}{%
+           family={Sommerville},
+           familyi={S\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pearson Deutschland {GmbH}}%
+      }
+      \strng{namehash}{70341b3bfcce7026902f4eb1e4111b58}
+      \strng{fullhash}{70341b3bfcce7026902f4eb1e4111b58}
+      \strng{bibnamehash}{70341b3bfcce7026902f4eb1e4111b58}
+      \strng{authorbibnamehash}{70341b3bfcce7026902f4eb1e4111b58}
+      \strng{authornamehash}{70341b3bfcce7026902f4eb1e4111b58}
+      \strng{authorfullhash}{70341b3bfcce7026902f4eb1e4111b58}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-86326-512-0}
+      \field{title}{Software Engineering}
+      \field{urlday}{11}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb ProQuest Ebook Snapshot:files/24/detail.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=5133710
+      \endverb
+      \verb{url}
+      \verb http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=5133710
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

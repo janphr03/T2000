@@ -438,11 +438,13 @@
 
     \textbf{Fachliche Anforderungen:}
 
-    Die entwickelte Verbindungsbibliothek soll eine einfache, sichere und wiederverwendbare Schnittstelle für den Zugriff auf eine relationale \acrshort{mysql}-Datenbank bereitstellen. Dazu gehören insbesondere:
+    Die entwickelte Verbindungsbibliothek soll eine einfache, sichere und wiederverwendbare Schnittstelle für den Zugriff auf eine relationale \acrshort{mysql}-Datenbank bereitstellen. 
+    
+    Dazu gehören insbesondere:
 
     \begin{itemize}
     \item Aufbau und Abbau einer Datenbankverbindung
-    \item Durchführung von \acrshort{sql}-Operationen: \texttt{SELECT}, \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}
+    \item Durchführung von \acrshort{sql}-Operationen: \texttt{select}, \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}
     \item Rückgabe konsistenter Fehlercodes über den \acrshort{enum} \texttt{errorValues}
     \item Verwendung eines \acrshort{loggerintf} zur Protokollierung aller relevanten Vorgänge
     \end{itemize}
@@ -480,9 +482,12 @@
 
     \textbf{Klassenstruktur:}
 
-    Die Klasse \texttt{MySqlAccess} verwaltet die Lebensdauer der Verbindung und implementiert alle CRUD-Operationen (Create, Read, Update, Delete). Dabei wird bei jedem Methodenaufruf geprüft, ob die Verbindung geöffnet ist, und gegebenenfalls ein Reconnect durchgeführt. Fehler werden über den Logger dokumentiert und als strukturierte \texttt{errorValues} zurückgegeben.
+    Die Klasse \texttt{MySqlAccess} verwaltet die Lebensdauer der Verbindung und implementiert alle CRUD-Operationen (Create, Read, Update, Delete). 
+    Dabei wird bei jedem Methodenaufruf geprüft, ob die Verbindung geöffnet ist, und gegebenenfalls ein Reconnect durchgeführt. 
+    Fehler werden über den Logger dokumentiert und als strukturierte \texttt{errorValues} zurückgegeben.
 
-    Die Verwendung eines Logger-Interfaces (\texttt{ILogger<MySqlAccess>}) gewährleistet lose Kopplung und ermöglicht es, Log-Ausgaben gezielt zu steuern oder während Tests vollständig zu deaktivieren.
+    Die Verwendung eines Logger-Interfaces (\texttt{ILogger<MySqlAccess>}) gewährleistet lose Kopplung und ermöglicht es, 
+    Log-Ausgaben gezielt zu steuern oder während Tests vollständig zu deaktivieren.
 
     \textbf{Designentscheidungen:}
 

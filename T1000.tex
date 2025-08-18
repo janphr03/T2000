@@ -429,34 +429,40 @@
 
 %========Verbindungsbiblothek=======================================================
 %===================================================================================
-    
+
     \needspace{5\baselineskip}
 
     \section{Verbindungsbibliothek}
 
     \subsection{Anforderungen}
 
-    \textbf{Fachliche Anforderungen:}
+    \textbf{Funktionale Anforderungen:}
 
-    Die entwickelte Verbindungsbibliothek soll eine einfache, sichere und wiederverwendbare Schnittstelle für den Zugriff auf eine relationale \acrshort{mysql}-Datenbank bereitstellen. 
-    
-    Dazu gehören insbesondere:
-
-    \begin{itemize}
-    \item Aufbau und Abbau einer Datenbankverbindung
-    \item Durchführung von \acrshort{sql}-Operationen: \texttt{select}, \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}
-    \item Rückgabe konsistenter Fehlercodes über den \acrshort{enum} \texttt{errorValues}
-    \item Verwendung eines \acrshort{loggerintf} zur Protokollierung aller relevanten Vorgänge
-    \end{itemize}
-
-    \textbf{Technische Anforderungen:}
+    Die funktionalen Anforderungen beschreiben, welche zentralen Leistungen die Verbindungsbibliothek erbringen muss, um den Zugriff auf eine relationale \acrshort{mysql}-Datenbank zuverlässig und praxisnah zu unterstützen. 
+    Im Vordergrund stehen die grundlegenden Operationen, die in nahezu allen datengetriebenen Anwendungen benötigt werden:
 
     \begin{itemize}
-    \item Integration über ein generisches \acrshort{interface} (\texttt{IConnector.cs})
-    \item Implementierung in C# mit Unterstützung für Dependency Injection
-    \item Unterstützung typischer Fehlerquellen (z.,B. Authentifizierungsprobleme, Timeout, Syntaxfehler)
-    \item Kompatibilität mit allen modernen .NET-Versionen
+    \item \textbf{Aufbau und Abbau einer Datenbankverbindung:}  
+    Die Bibliothek muss eine stabile Verbindung zu einer MySQL-Datenbank herstellen können und diese nach Abschluss der Operationen geordnet schließen. 
+    Dabei ist zu prüfen, ob eine Verbindung bereits geöffnet oder geschlossen ist, um Ressourcenlecks und unnötige Fehlermeldungen zu vermeiden.
+
+    \item \textbf{Unterstützung der CRUD-Operationen:}  
+    Es müssen alle grundlegenden Datenbankoperationen verfügbar sein:  
+    \texttt{SELECT} zum Auslesen von Daten,  
+    \texttt{INSERT} zum Einfügen neuer Datensätze,  
+    \texttt{UPDATE} zur Aktualisierung bestehender Einträge  
+    sowie \texttt{DELETE} zum Entfernen von Daten.  
+    Zusätzlich sollen optionale Parameter wie \texttt{WHERE}-, \texttt{ORDER BY}- oder \texttt{LIMIT}-Klauseln unterstützt werden, damit praxisnahe Abfragen möglich sind.
+
+    \item \textbf{Rückgabe konsistenter Statuswerte:}  
+    Anstatt Ausnahmen unkontrolliert weiterzureichen, soll die Bibliothek alle relevanten Fehler- und Erfolgsszenarien über ein einheitliches \acrshort{enum} (\texttt{errorValues}) abbilden. 
+    Dies ermöglicht eine klare Differenzierung zwischen verschiedenen Fällen (z.\,B. Authentifizierungsfehler, Datenbank nicht gefunden, keine Datensätze vorhanden) und erleichtert die strukturierte Weiterverarbeitung im Anwendungscode.
+
+    \item \textbf{Protokollierung relevanter Vorgänge:}  
+    Alle wesentlichen Aktionen wie das Öffnen und Schließen von Verbindungen, die Ausführung von SQL-Operationen oder das Auftreten von Fehlern müssen über ein \acrshort{loggerintf} dokumentiert werden. 
+    Dies erhöht die Transparenz für Entwickler, erleichtert die Fehlersuche und unterstützt den Betrieb in produktiven Umgebungen.
     \end{itemize}
+
 
     \textbf{Nichtfunktionale Anforderungen:}
 
@@ -467,6 +473,16 @@
     \item \textit{Erweiterbarkeit}: Leicht auf andere Datenbankanbieter übertragbar
     \end{itemize}
 
+
+    \textbf{Technische Anforderungen:}
+
+    \begin{itemize}
+    \item Integration über ein generisches \acrshort{interface} (\texttt{IConnector.cs})
+    \item Implementierung in C# mit Unterstützung für Dependency Injection
+    \item Unterstützung typischer Fehlerquellen (z.,B. Authentifizierungsprobleme, Timeout, Syntaxfehler)
+    \item Kompatibilität mit allen modernen .NET-Versionen
+    \end{itemize}
+%===============================
     \subsection{Konzept}
 
     \textbf{Architekturübersicht:}
@@ -556,7 +572,13 @@
 
     Durch diesen Testaufbau wird gewährleistet, dass sowohl ungültige Parameter als auch Verbindungsfehler, SQL-Probleme und Systemausfälle zuverlässig erkannt und differenziert behandelt werden können.
 
+    \section{LED-Pin-Mapping}
+    
+
+
 \printbibliography  % Literaturverzeichnis einfügen
+
+
 
 \end{document}
 

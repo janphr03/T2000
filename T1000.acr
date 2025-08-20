@@ -15,7 +15,7 @@
 \glsgroupheading{C}\relax \glsresetentrylist %
 \glossentry{ciPipeline}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{16}}}%
+		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{connPooling}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}}}%
 \glossentry{connector}{\glossaryentrynumbers{\relax 
@@ -40,7 +40,7 @@
 \glossentry{interface}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{6\delimN 7}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{11\delimN 12}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{14}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{15}}}\glsgroupskip
 \glsgroupheading{K}\relax \glsresetentrylist %
 \glossentry{oopKlasse}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7}}}%
@@ -54,7 +54,7 @@
 		\setentrycounter[]{page}\glsnumberformat{7}}}%
 \glossentry{mock}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{6}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{14}}}%
+		\setentrycounter[]{page}\glsnumberformat{15}}}%
 \glossentry{mysql}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{13}}}\glsgroupskip
 \glsgroupheading{O}\relax \glsresetentrylist %
@@ -78,7 +78,8 @@
 		\setentrycounter[]{page}\glsnumberformat{8}}}%
 \glossentry{unittest}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{11}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{11}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{14}}}\glsgroupskip
 \glsgroupheading{V}\relax \glsresetentrylist %
 \glossentry{oopVererbung}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7\delimN 8}}}\glsgroupskip

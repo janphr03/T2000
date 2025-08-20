@@ -464,14 +464,45 @@
     \end{itemize}
 
 
-    \textbf{Nichtfunktionale Anforderungen:}
+    \textbf{Nicht-funktionale Anforderungen:}
+
+    Neben den fachlich-funktionalen Leistungen muss die Verbindungsbibliothek eine Reihe von Qualitätsmerkmalen erfüllen, 
+    die ihre Zuverlässigkeit, Wartbarkeit und Erweiterbarkeit sicherstellen. 
+    Diese nicht-funktionalen Anforderungen betreffen nicht direkt das \textit{Was}, sondern das \textit{Wie} der Implementierung:
+
+
+    \textbf{Nicht-funktionale Anforderungen:}
+
+    Die nicht-funktionalen Anforderungen bilden die Qualitätskriterien, die das Verhalten und die Architektur der Verbindungsbibliothek prägen. 
+    Im Projekt wurden insbesondere vier zentrale Eigenschaften verfolgt, die auch als Leitprinzipien in der Softwareentwicklung gelten: 
+    \textit{Erweiterbarkeit}, \textit{Robustheit}, \textit{Testbarkeit} und \textit{Modularität}.
 
     \begin{itemize}
-    \item \textit{Testbarkeit}: Unit- und \acrshort{integrationtest}s müssen möglich sein
-    \item \textit{Zuverlässigkeit}: Robust gegenüber ungültigen Eingaben oder fehlerhaften Abfragen
-    \item \textit{Wartbarkeit}: Durch saubere Trennung zwischen Schnittstelle und Implementierung
-    \item \textit{Erweiterbarkeit}: Leicht auf andere Datenbankanbieter übertragbar
+    \item \textbf{Erweiterbarkeit:}  
+    Die Bibliothek soll so entworfen sein, dass sich zusätzliche Datenbankanbieter oder Funktionen mit minimalem Aufwand integrieren lassen. 
+    Da die Anwendungslogik ausschließlich über das Interface \texttt{IConnector} kommuniziert, kann eine alternative Implementierung 
+    (z.\,B. für PostgreSQL oder SQLite) entwickelt werden, ohne Änderungen im Anwendungscode vorzunehmen. 
+    Ebenso sind Erweiterungen wie Transaktionsunterstützung oder Connection Pooling denkbar, ohne den bestehenden Code zu brechen.
+    
+    \item \textbf{Robustheit:}  
+    Die Bibliothek muss auch bei ungültigen Eingaben, Netzwerkfehlern oder fehlerhaften Abfragen stabil bleiben. 
+    Anstatt in einen undefinierten Zustand zu gelangen, gibt sie definierte Fehlercodes aus dem Enum \texttt{errorValues} zurück 
+    (z.\,B. \texttt{ConnectionFailed}, \texttt{NoData}, \texttt{DuplicateEntry}). 
+    Dadurch können Anwendungen Fehler kontrolliert behandeln und stabil weiterlaufen.
+    
+    \item \textbf{Testbarkeit:}  
+    Die Architektur wurde so gestaltet, dass sowohl \acrshort{unittest}s als auch \acrshort{integrationtest}s möglich sind. 
+    Unit-Tests decken Konstruktorlogik, Verbindungsaufbau und CRUD-Operationen ab.  
+    Zudem ist vorgesehen, Integrationstests gegen eine MySQL-Instanz in einem Docker-Container zu realisieren, um praxisnahe Szenarien zu prüfen. 
+    Dank des Interfaces \texttt{IConnector} und des Logging-Interfaces lassen sich Mocks gezielt einsetzen, um Komponenten isoliert zu testen.
+    
+    \item \textbf{Modularität:}  
+    Durch die Trennung von Schnittstelle (\texttt{IConnector}) und Implementierung (\texttt{MySqlAccess}) sowie die Kapselung in einer \acrshort{dll} wird eine klare Modulstruktur geschaffen. 
+    Änderungen an der Implementierung, wie die Erweiterung der SQL-Funktionalität oder Anpassungen beim Logging, 
+    erfordern keine Änderungen am aufrufenden Anwendungscode. 
+    Diese lose Kopplung erleichtert Wartung und Wiederverwendung in unterschiedlichen Projekten.
     \end{itemize}
+
 
 
     \textbf{Technische Anforderungen:}

@@ -66,7 +66,8 @@
 \glossaryentry{MySQL?\glossentry{mysql}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{Enum?\glossentry{enum}|setentrycounter[]{page}"\glsnumberformat}{14}
 \glossaryentry{Logger-Interface?\glossentry{loggerintf}|setentrycounter[]{page}"\glsnumberformat}{14}
+\glossaryentry{Unit-Test?\glossentry{unittest}|setentrycounter[]{page}"\glsnumberformat}{14}
 \glossaryentry{Integrationstest?\glossentry{integrationtest}|setentrycounter[]{page}"\glsnumberformat}{14}
-\glossaryentry{Interface?\glossentry{interface}|setentrycounter[]{page}"\glsnumberformat}{14}
-\glossaryentry{Mock?\glossentry{mock}|setentrycounter[]{page}"\glsnumberformat}{14}
-\glossaryentry{CI-Pipeline?\glossentry{ciPipeline}|setentrycounter[]{page}"\glsnumberformat}{16}
+\glossaryentry{Interface?\glossentry{interface}|setentrycounter[]{page}"\glsnumberformat}{15}
+\glossaryentry{Mock?\glossentry{mock}|setentrycounter[]{page}"\glsnumberformat}{15}
+\glossaryentry{CI-Pipeline?\glossentry{ciPipeline}|setentrycounter[]{page}"\glsnumberformat}{17}

@@ -32,6 +32,10 @@
 
 \usepackage[acronym]{glossaries}
 
+\let\oldsection\section
+\renewcommand{\section}{\clearpage\oldsection}
+
+
 \newacronym{dll}{DLL}{Dynamic Linked Library -- eine zur Laufzeit ladbare Programmbibliothek}
 \newacronym{mysql}{MySQL}{Open-Source-Datenbankmanagementsystem}
 \newacronym{sql}{SQL}{Structured Query Language -- Sprache zur Verwaltung und Abfrage relationaler Datenbanken}
@@ -466,13 +470,6 @@
 
     \textbf{Nicht-funktionale Anforderungen:}
 
-    Neben den fachlich-funktionalen Leistungen muss die Verbindungsbibliothek eine Reihe von Qualitätsmerkmalen erfüllen, 
-    die ihre Zuverlässigkeit, Wartbarkeit und Erweiterbarkeit sicherstellen. 
-    Diese nicht-funktionalen Anforderungen betreffen nicht direkt das \textit{Was}, sondern das \textit{Wie} der Implementierung:
-
-
-    \textbf{Nicht-funktionale Anforderungen:}
-
     Die nicht-funktionalen Anforderungen bilden die Qualitätskriterien, die das Verhalten und die Architektur der Verbindungsbibliothek prägen. 
     Im Projekt wurden insbesondere vier zentrale Eigenschaften verfolgt, die auch als Leitprinzipien in der Softwareentwicklung gelten: 
     \textit{Erweiterbarkeit}, \textit{Robustheit}, \textit{Testbarkeit} und \textit{Modularität}.
@@ -481,13 +478,13 @@
     \item \textbf{Erweiterbarkeit:}  
     Die Bibliothek soll so entworfen sein, dass sich zusätzliche Datenbankanbieter oder Funktionen mit minimalem Aufwand integrieren lassen. 
     Da die Anwendungslogik ausschließlich über das Interface \texttt{IConnector} kommuniziert, kann eine alternative Implementierung 
-    (z.\,B. für PostgreSQL oder SQLite) entwickelt werden, ohne Änderungen im Anwendungscode vorzunehmen. 
+    für einen anderen Datenbankanbieter entwickelt werden, ohne Änderungen im Anwendungscode vorzunehmen. 
     Ebenso sind Erweiterungen wie Transaktionsunterstützung oder Connection Pooling denkbar, ohne den bestehenden Code zu brechen.
     
     \item \textbf{Robustheit:}  
     Die Bibliothek muss auch bei ungültigen Eingaben, Netzwerkfehlern oder fehlerhaften Abfragen stabil bleiben. 
     Anstatt in einen undefinierten Zustand zu gelangen, gibt sie definierte Fehlercodes aus dem Enum \texttt{errorValues} zurück 
-    (z.\,B. \texttt{ConnectionFailed}, \texttt{NoData}, \texttt{DuplicateEntry}). 
+    (z.B. \texttt{ConnectionFailed}, \texttt{NoData}, \texttt{DuplicateEntry}). 
     Dadurch können Anwendungen Fehler kontrolliert behandeln und stabil weiterlaufen.
     
     \item \textbf{Testbarkeit:}  
@@ -507,102 +504,162 @@
 
     \textbf{Technische Anforderungen:}
 
+    Die technischen Anforderungen legen die Rahmenbedingungen fest, unter denen die Verbindungsbibliothek entwickelt und betrieben wird. 
+    Sie betreffen sowohl die eingesetzten Technologien als auch die Integration in bestehende Softwareumgebungen:
+
     \begin{itemize}
-    \item Integration über ein generisches \acrshort{interface} (\texttt{IConnector.cs})
-    \item Implementierung in C# mit Unterstützung für Dependency Injection
-    \item Unterstützung typischer Fehlerquellen (z.,B. Authentifizierungsprobleme, Timeout, Syntaxfehler)
-    \item Kompatibilität mit allen modernen .NET-Versionen
-    \end{itemize}
-%===============================
+    \item \textbf{Integration über ein generisches Interface:}  
+    Die zentrale Schnittstelle \texttt{IConnector.cs} definiert alle Methoden für den Datenbankzugriff und dient als vertragliche Grundlage zwischen Anwendungslogik und Implementierung. 
+    Dadurch wird eine lose Kopplung erreicht, die den Austausch der konkreten Datenbankimplementierung jederzeit ermöglicht.
+
+    \item \textbf{Implementierung in C\#:}  
+    Die Bibliothek ist vollständig in \csharp{} entwickelt und für das Ziel-Framework \texttt{.NET~8.0} umgesetzt. 
+    Damit wird die Nutzung aktueller Sprach- und Plattformfeatures ermöglicht und eine einfache Integration in moderne .NET-Projekte gewährleistet.
+
+    \item \textbf{Unterstützung von Dependency Injection:}  
+    Für die Protokollierung wird das Logger-Interface \texttt{ILogger<MySqlAccess>} genutzt, das per Dependency Injection eingebunden wird. 
+    Dadurch bleibt die Implementierung flexibel, testbar und unabhängig vom konkreten Logging-Framework. 
+    In der Beispielanwendung wurde Serilog als Logging-Bibliothek verwendet.
+
+    \item \textbf{Behandlung typischer Fehlerquellen:}  
+    Die Bibliothek muss auf typische Datenbankfehler reagieren können, darunter Authentifizierungsfehler (falscher Benutzername oder Passwort), 
+    Zeitüberschreitungen beim Verbindungsaufbau oder fehlerhafte SQL-Syntax. 
+    Diese Fälle werden differenziert erkannt und über definierte Fehlercodes im Enum \texttt{errorValues} zurückgemeldet.
+\end{itemize}
+
+
+
+    %===============================
     \subsection{Konzept}
 
     \textbf{Architekturübersicht:}
 
-    Die Bibliothek besteht aus einem klaren Interface \texttt{IConnector}, das von der konkreten Klasse \texttt{MySqlAccess} implementiert wird. Diese Trennung ermöglicht es, die konkrete Implementierung in Tests durch \acrshort{mock}-Objekte zu ersetzen und verschiedene Datenbank-Backends zu unterstützen.
+    Die Verbindungsbibliothek ist in zwei Kernkomponenten gegliedert: ein Interface als vertragliche Abstraktion und eine konkrete Implementierung für MySQL. 
+    Diese Trennung erlaubt es, die Implementierung in Tests durch \acrshort{mock}-Objekte zu ersetzen und perspektivisch weitere Datenbank-Backends anzubinden.
 
     \begin{itemize}
-    \item \texttt{IConnector.cs}: Definiert alle Methoden für die Interaktion mit einer Datenbank
-    \item \texttt{MySqlAccess.cs}: Implementiert das Interface für das spezifische DBMS \texttt{MySQL}
-    \item \texttt{ErrorCodes.cs}: Enthält das zentrale Enum \texttt{errorValues} zur Rückgabe standardisierter Statuswerte
-    \item \texttt{ErrorMessages.xml}: Ermöglicht sprachspezifische Rückmeldungen für Clients
+        \item \texttt{IConnector.cs}: Definiert sämtliche Methoden für den Datenbankzugriff.
+        \item \texttt{MySqlAccess.cs}: Implementiert \texttt{IConnector} für das DBMS \acrshort{mysql}.
+        \item \texttt{ErrorCodes.cs}: Enthält das zentrale \texttt{enum} \texttt{errorValues} zur standardisierten Rückgabe von Status- und Fehlerzuständen.
     \end{itemize}
 
-    \textbf{Klassenstruktur:}
+    \textbf{Verantwortlichkeiten und Lebenszyklus:}
 
-    Die Klasse \texttt{MySqlAccess} verwaltet die Lebensdauer der Verbindung und implementiert alle CRUD-Operationen (Create, Read, Update, Delete). 
-    Dabei wird bei jedem Methodenaufruf geprüft, ob die Verbindung geöffnet ist, und gegebenenfalls ein Reconnect durchgeführt. 
-    Fehler werden über den Logger dokumentiert und als strukturierte \texttt{errorValues} zurückgegeben.
+    Die Klasse \texttt{MySqlAccess} verwaltet den kompletten Lebenszyklus der Datenbankverbindung und führt die übergebenen SQL-Befehle aus. 
+    Ein interner Statusindikator (\texttt{flagStatus}) macht den Verbindungs- und Ausführungszustand nach außen sichtbar. 
+    Vor jeder Operation wird geprüft, ob die Verbindung geöffnet ist, andernfalls wird ein entsprechender Fehlerstatus gesetzt und geloggt.
 
-    Die Verwendung eines Logger-Interfaces (\texttt{ILogger<MySqlAccess>}) gewährleistet lose Kopplung und ermöglicht es, 
-    Log-Ausgaben gezielt zu steuern oder während Tests vollständig zu deaktivieren.
-
-    \textbf{Designentscheidungen:}
+    \textbf{Entwurfsentscheidungen:}
 
     \begin{itemize}
-    \item \textbf{Dependency Injection}: Die \texttt{ILogger}-Instanz wird von außen eingespeist, um Testbarkeit und Flexibilität zu erhöhen
-    \item \textbf{Fehlertoleranz}: Durch umfassendes \texttt{try-catch} mit Fehlerdifferenzierung nach SQL-Fehlernummern (z.,B. \texttt{1045} für falsches Passwort)
-    \item \textbf{Kapselung}: Alle Details zur Verbindung, Fehlerbehandlung und SQL-Erstellung sind in einer Klasse gekapselt
-    \item \textbf{Transparenz}: Der Verbindungsstatus wird über das Attribut \texttt{flagStatus} jederzeit sichtbar gemacht
+        \item \textbf{Abstraktion über Interface:} Das Interface \texttt{IConnector} entkoppelt Anwendungslogik und Datenzugriff. 
+        Anwendungen programmieren gegen die Abstraktion und bleiben damit unabhängig vom konkreten DB-Provider.
+        \item \textbf{Dependency Injection für Logging:} Das Logger-Interface \texttt{ILogger<MySqlAccess>} wird per \acrshort{di} injiziert. 
+        Dadurch bleibt die Bibliothek testbar und unabhängig von einem konkreten Logging-Framework. 
+        In der Beispielanwendung wird Serilog angebunden, die DLL selbst kennt jedoch nur \texttt{ILogger<T>}.
+        \item \textbf{Fehlercodierung statt ungefilterter Exceptions:} Relevante Fehlerfälle werden in \texttt{errorValues} abgebildet. 
+        Unerwartete Fehler werden generisch als \texttt{UnknownError} gemeldet und zusätzlich geloggt.
+        \item \textbf{SQL-Durchleitung:} Die Bibliothek erwartet vollständige SQL-Strings von der aufrufenden Schicht und führt diese direkt aus. 
+        Ein Query-Builder oder parametrisierte Abfragen sind derzeit nicht enthalten, können aber zukünftig ergänzt werden.
     \end{itemize}
+
+    \textbf{Grenzen und geplante Erweiterungen:}
+
+    \begin{itemize}
+        \item Aktuell wird ausschließlich \acrshort{mysql} unterstützt, weitere Provider sind über separate \texttt{IConnector}-Implementierungen möglich.
+        \item SQL-Befehle werden derzeit als String entgegengenommen, die Nutzung parametrisierter Befehle ist als Sicherheits- und Robustheitsverbesserung vorgesehen.
+        \item Transaktionen, Connection Pooling und asynchrone Aufrufe sind nicht Bestandteil der ersten Version, können aber ohne Bruch der Schnittstelle ergänzt werden.
+    \end{itemize}
+
 
     \subsection{Implementierung}
 
     \textbf{Zentrale Klassen und Methoden:}
 
     \begin{itemize}
-    \item \texttt{openConnection()}: Öffnet eine bestehende Verbindung oder gibt einen Fehler zurück (z.,B. \texttt{ServerConnectionFailed})
-    \item \texttt{closeConnection()}: Schließt eine aktive Verbindung, behandelt doppelte Aufrufe mit \texttt{ConnectionAlreadyClosed}
-    \item \texttt{select(...)}: Führt eine Abfrage durch und gibt die Ergebnisse in der Konsole aus
-    \item \texttt{insert(...)}: Fügt Datensätze ein, prüft auf Duplikate (\texttt{DuplicateEntry}) und Constraints
-    \item \texttt{update(...)}: Führt Aktualisierungen durch, optional mit JOIN- und WHERE-Klauseln
-    \item \texttt{delete(...)}: Löscht gezielt Datensätze mit optionalem LIMIT
+        \item \texttt{openConnection()}: Öffnet die Datenbankverbindung. 
+        Typische Fehlerzustände werden erkannt, geloggt und als \texttt{errorValues} zurückgegeben.
+        \item \texttt{closeConnection()}: Schließt eine aktive Verbindung kontrolliert. 
+        Mehrfache Aufrufe werden abgefangen und führen nicht zu Ausnahmen.
+        \item \texttt{select(\dots)}: Führt einen Lesezugriff aus und liefert die Ergebnisse über einen \texttt{DataTable} an den Aufrufer zurück. 
+        Eine Konsolenausgabe erfolgt nicht innerhalb der Bibliothek. die Darstellung obliegt der Anwendungsschicht.
+        \item \texttt{insert(\dots)}, \texttt{update(\dots)}, \texttt{delete(\dots)}: Führen schreibende Operationen aus und melden anhand der betroffenen Zeilen 
+        (\textit{affected rows}) \texttt{Success} oder \texttt{NoData}. Duplikatverletzungen werden als entsprechender Fehlercode zurückgegeben.
     \end{itemize}
 
-    \textbf{Wichtige Codebeispiele:}
+    \textbf{Fehlerbehandlung und Logging:}
 
-    \begin{lstlisting}[language=C]
+    Die Implementierung differenziert zwischen häufigen Fehlerklassen und weist diesen passende \texttt{errorValues} zu. 
+    Unbekannte oder nicht explizit behandelte SQL-Fehler werden derzeit als \texttt{UnknownError} gemeldet. 
+    Alle Fehler- und Statusübergänge werden über \texttt{ILogger<MySqlAccess>} protokolliert, um Diagnose und Nachvollziehbarkeit zu unterstützen.
+
+    \textbf{Sicherheits- und Qualitätsaspekte:}
+
+    In der aktuellen Version werden SQL-Strings direkt ausgeführt. 
+    Für robuste Produktivszenarien wird der Einsatz \emph{parametrisierter} Befehle empfohlen, um SQL-Injection vorzubeugen und Typkonvertierungen sauber zu kapseln. 
+    Nachfolgend ein Ausschnitt, wie die insert Methode derzeit aufgebaut ist. 
+
+    \textbf{Beispiel: aktuelles Insert (String-basiert):}
+
+    \begin{lstlisting}[language= \csharp{}]
+   
     public errorValues insert(string tableName, string values)
     {
     if (string.IsNullOrEmpty(tableName) || string.IsNullOrEmpty(values))
-    return errorValues.EmptyInputParameters;
+        return errorValues.EmptyInputParameters;
 
-    csharp
-    Code kopieren
     string query = $"INSERT INTO {tableName} VALUES({values});";
 
-    using (var cmd = new MySqlCommand(query, connection))
+    try
     {
-        int affectedRows = cmd.ExecuteNonQuery();
-        return affectedRows > 0 ? errorValues.Success : errorValues.NoData;
+        using (var cmd = new MySqlCommand(query, connection))
+        {
+            int affectedRows = cmd.ExecuteNonQuery();
+            return affectedRows > 0 ? errorValues.Success : errorValues.NoData;
+        }
     }
+    catch (MySqlException ex)
+    {
+        return MapMySqlError(ex); // Fehlercode-Mapping + Logging
     }
+}
     \end{lstlisting}
 
+    
     \textbf{Teststrategie:}
 
-    Die Teststrategie folgt dem AAA-Muster (Arrange, Act, Assert) und deckt sowohl positive als auch negative Fälle ab:
+    Die Tests folgen dem AAA-Prinzip (\emph{Arrange – Act – Assert}) und decken sowohl Erfolgs- als auch Fehlerszenarien ab.
 
     \begin{itemize}
-    \item \textbf{Unit Tests:} Getrennte Tests für Konstruktor, Verbindungsaufbau, CRUD-Methoden
-    \item \textbf{Integration Tests:} Realer Zugriff auf eine Testdatenbank in einem Docker-Container mit echtem MySQL-Server
-    \item \textbf{Mocking:} Einsatz von \texttt{Moq} zur Simulation der Logger-Komponente
-    \item \textbf{CI-Integration:} Die Tests laufen automatisiert in einer \acrshort{ciPipeline} und melden regressionssicher alle Statuswerte zurück
+        \item \textbf{Unit-Tests:} Prüfen Konstruktorlogik, Verbindungsaufbau sowie die Rückgabewerte der CRUD-Methoden unter kontrollierten Bedingungen. 
+        Das Logging wird über Mocks isoliert (\texttt{ILogger<MySqlAccess>}).
+        \item \textbf{Integrationstests (geplant):} Integrationstests gegen eine reale \acrshort{mysql}-Instanz (z.\,B. in einem \acrshort{docker}-Container) sind konzeptionell vorgesehen, 
+        um das Verhalten der Bibliothek in einer realistischen Umgebung zu verifizieren. 
+        Diese Tests sind im aktuellen Projektstand noch nicht vollständig umgesetzt.
+        \item \textbf{CI-Eignung:} Die Tests sind so strukturiert, dass sie in eine \acrshort{ciPipeline} integriert werden können, auch wenn aktuell noch keine vollständige Pipeline existiert.
     \end{itemize}
 
-    \textbf{Beispiel für einen Unit-Test:}
+    \textbf{Beispiel-Unit-Test (AAA):}
 
     \begin{lstlisting}[language=C]
     [Fact]
     public void Constructor_SetsFlagStatusToError_WhenParametersAreInvalid()
     {
-    var mockLogger = new Mock<ILogger<MySqlAccess>>();
-    var mySqlAccess = new MySqlAccess(null, mockLogger.Object);
-    Assert.Equal(errorValues.EmptyInputParameters, mySqlAccess.flagStatus);
+        // Arrange
+        var mockLogger = new Mock<ILogger<MySqlAccess>>();
+        var mySqlAccess = new MySqlAccess(null, mockLogger.Object);
+
+        // Act
+        var status = mySqlAccess.flagStatus;
+
+        // Assert
+        Assert.Equal(errorValues.EmptyInputParameters, status);
     }
     \end{lstlisting}
 
-    Durch diesen Testaufbau wird gewährleistet, dass sowohl ungültige Parameter als auch Verbindungsfehler, SQL-Probleme und Systemausfälle zuverlässig erkannt und differenziert behandelt werden können.
-
+    Durch diese Umsetzung wird gewährleistet, dass sowohl ungültige Eingaben als auch Verbindungsfehler, typische SQL-Probleme und Systemausfälle 
+    definiert behandelt, sauber geloggt und über \texttt{errorValues} konsistent an die aufrufende Schicht kommuniziert werden.
+        
     \section{LED-Pin-Mapping}
     
 

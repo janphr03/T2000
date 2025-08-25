@@ -572,26 +572,98 @@
     \end{itemize}
 
 
+
+    %==========================HIER NOCH AUSFÜHRLICHER SCHREIBEN=================================
     \subsection{Implementierung}
 
     \textbf{Zentrale Klassen und Methoden:}
 
+    Die Klasse \texttt{MySqlAccess} bildet den Kern der Verbindungsbibliothek. Sie kapselt den gesamten Lebenszyklus einer Datenbankverbindung und stellt Methoden für die grundlegenden CRUD-Operationen bereit.  
+    Jede dieser Methoden folgt demselben Ablaufmuster:  
+    \begin{enumerate}
+        \item Validierung der Eingabeparameter,
+        \item Konstruktion und Ausführung des SQL-Befehls,
+        \item Differenzierte Fehlerbehandlung,
+        \item Rückgabe eines standardisierten Statuswertes.
+    \end{enumerate}
+
     \begin{itemize}
-        \item \texttt{openConnection()}: Öffnet die Datenbankverbindung. 
-        Typische Fehlerzustände werden erkannt, geloggt und als \texttt{errorValues} zurückgegeben.
-        \item \texttt{closeConnection()}: Schließt eine aktive Verbindung kontrolliert. 
-        Mehrfache Aufrufe werden abgefangen und führen nicht zu Ausnahmen.
-        \item \texttt{select(\dots)}: Führt einen Lesezugriff aus und liefert die Ergebnisse über einen \texttt{DataTable} an den Aufrufer zurück. 
-        Eine Konsolenausgabe erfolgt nicht innerhalb der Bibliothek. die Darstellung obliegt der Anwendungsschicht.
-        \item \texttt{insert(\dots)}, \texttt{update(\dots)}, \texttt{delete(\dots)}: Führen schreibende Operationen aus und melden anhand der betroffenen Zeilen 
-        (\textit{affected rows}) \texttt{Success} oder \texttt{NoData}. Duplikatverletzungen werden als entsprechender Fehlercode zurückgegeben.
+
+        \item \texttt{openConnection()}:  
+        Diese Methode ist für den Aufbau der Datenbankverbindung verantwortlich.  
+        Vor dem eigentlichen Verbindungsaufbau wird zunächst geprüft, ob bereits eine aktive Verbindung besteht. 
+        Auf diese Weise werden doppelte Öffnungen vermieden, die sonst zu Ressourcenlecks oder widersprüchlichen Zuständen führen könnten.  
+        Schlägt der Aufbau fehl, was durch falsche Zugangsdaten, einer nicht existierenden Datenbank oder eines nicht erreichbaren Servers ausgelöst werden kann, 
+        wird der Status \texttt{errorValues.ConnectionFailed} zurückgegeben. Gleichzeitig wird der Fehler im Logger dokumentiert, sodass die Ursache später nachvollziehbar bleibt. 
+        Damit ist sichergestellt, dass die Anwendung reproduzierbare Statusmeldungen erhält, anstatt ungefilterte Exceptions behandeln zu müssen.
+
+        \item \texttt{closeConnection()}:  
+        Das kontrollierte Schließen einer aktiven Verbindung ist ebenso wichtig wie der Verbindungsaufbau.  
+        In dieser Methode wird geprüft, ob die Verbindung tatsächlich geöffnet ist. 
+        Liegt bereits ein geschlossener Zustand vor, löst die Bibliothek keine Ausnahme aus, sondern liefert den klar definierten Status \texttt{errorValues.ConnectionAlreadyClosed}.  
+        Dadurch können Aufrufer auch bei mehrfachen Schließversuchen stabil weiterarbeiten, was vor allem in größeren Anwendungen mit komplexen Steuerungsflüssen relevant ist. 
+        Neben der Robustheit spielt hier auch die Ressourcenschonung eine Rolle, da Datenbankverbindungen stets aktiv Systemressourcen belegen.
+
+        \item \texttt{select(\dots)}:  
+        Für Leseoperationen wird ein \texttt{MySqlCommand} mit dem übergebenen SQL-Statement erstellt und ein \texttt{MySqlDataReader} geöffnet.  
+        Dieser Reader ermöglicht ein effizientes sequentielles Auslesen der Ergebnismenge direkt vom Server.  
+        Anschließend werden die Daten in ein \texttt{DataTable}-Objekt geladen, das an den Aufrufer zurückgegeben wird.  
+        Dieses Vorgehen verbindet die Performancevorteile des Readers mit dem Komfort einer tabellarischen Datenstruktur, die sich leicht weiterverarbeiten, filtern oder serialisieren lässt.  
+        Eine Konsolenausgabe innerhalb der Bibliothek erfolgt nicht. Die Darstellung bleibt bewusst der Anwendungsschicht überlassen, um die Trennung von Logik und Präsentation zu wahren.
+
+        \item \texttt{insert(\dots)}, \texttt{update(\dots)}, \texttt{delete(\dots)}:  
+        Die schreibenden Operationen folgen einem einheitlichen Muster: Nach Validierung der Eingabeparameter wird der SQL-Befehl konstruiert und mit \texttt{ExecuteNonQuery()} ausgeführt.  
+        Das Ergebnis dieser Ausführung wird über die Anzahl betroffener Zeilen bestimmt.  
+        Wird mindestens eine Zeile verändert, gibt die Methode den Status \texttt{Success} zurück. Bleibt die Anzahl bei null, so signalisiert die Bibliothek \texttt{NoData}.  
+        Bei Verstößen gegen Integritätsbedingungen, etwa durch doppelte Primärschlüssel, erfolgt eine gezielte Abbildung auf \texttt{errorValues.DuplicateEntry}.  
+        Damit wird nicht nur sichergestellt, dass Fehler kontrolliert behandelt werden, sondern auch, dass Anwendungen klar unterscheiden können, ob ein Befehl erfolgreich war, keine Wirkung hatte oder aufgrund einer Datenbankregel scheiterte.
     \end{itemize}
 
-    \textbf{Fehlerbehandlung und Logging:}
 
-    Die Implementierung differenziert zwischen häufigen Fehlerklassen und weist diesen passende \texttt{errorValues} zu. 
-    Unbekannte oder nicht explizit behandelte SQL-Fehler werden derzeit als \texttt{UnknownError} gemeldet. 
-    Alle Fehler- und Statusübergänge werden über \texttt{ILogger<MySqlAccess>} protokolliert, um Diagnose und Nachvollziehbarkeit zu unterstützen.
+
+    \textbf{Fehlerbehandlung:}
+
+    Ein zentrales Designziel der Verbindungsbibliothek ist die robuste und differenzierte Behandlung typischer Fehlerfälle. 
+    Während der Standard-MySQL-Connector in \csharp{} im Fehlerfall rohe \texttt{MySqlException}s wirft, 
+    kapselt die Bibliothek diese intern und übersetzt sie in wohldefinierte Statuswerte des Enums \texttt{errorValues}. 
+    Dadurch entfällt für die aufrufende Anwendung die Notwendigkeit, Datenbank-spezifische Exceptions im Detail auswerten zu müssen. 
+    Stattdessen erhält der Entwickler eine konsistente und klar interpretierbare Rückmeldung, die unabhängig von der zugrunde liegenden Datenbank-Engine funktioniert. 
+
+    Besonders relevant ist dies bei häufig auftretenden Fehlern, die im Produktivbetrieb immer wieder auftreten können:  
+
+    \begin{itemize}
+        \item Fehlernummer \texttt{1045} (\textit{Access Denied}): tritt auf, wenn falsche Zugangsdaten wie Benutzername oder Passwort übergeben wurden.  
+        In diesem Fall wird der Status \texttt{errorValues.AuthenticationFailed} zurückgegeben.  
+        Dies erlaubt es der Anwendung, gezielt darauf zu reagieren, etwa durch das erneute Anfordern korrekter Credentials oder eine Benutzerbenachrichtigung.
+
+        \item Fehlernummer \texttt{1049} (\textit{Unknown Database}): signalisiert, dass die in der Verbindungszeichenkette angegebene Datenbank nicht existiert.  
+        Statt einen Abbruch durch eine Exception zu riskieren, meldet die Bibliothek diesen Zustand über \texttt{errorValues.DatabaseNotFound}.  
+        So kann die Anwendung etwa automatisiert eine Fallback-Strategie ausführen oder die initiale Einrichtung einer neuen Datenbank anstoßen.
+
+        \item Fehlernummer \texttt{1062} (\textit{Duplicate Entry}): entsteht bei Verletzungen von Eindeutigkeits- oder Primärschlüssel-Constraints, beispielsweise beim Einfügen eines Datensatzes mit bereits existierender ID.  
+        Die Bibliothek differenziert diesen Fall klar und gibt \texttt{errorValues.DuplicateEntry} zurück.  
+        Auf diese Weise können Anwendungen gezielt Benutzerfeedback geben oder alternative Insert-Strategien (z.\,B. \texttt{ON DUPLICATE KEY UPDATE}) einsetzen.
+    \end{itemize}
+
+    Für alle weiteren, nicht explizit abgebildeten Fehler wird der generische Status \texttt{errorValues.UnknownError} zurückgegeben.  
+    Damit wird sichergestellt, dass auch unerwartete Ausnahmefälle nicht unkontrolliert an die Anwendung durchgereicht werden und diese in einen instabilen Zustand versetzen. 
+    Das Mapping erfolgt zentral in der Hilfsmethode \texttt{MapMySqlError}, sodass eine einheitliche Behandlung in allen CRUD-Operationen gewährleistet ist.  
+
+    Dieser Ansatz bietet mehrere Vorteile:  
+    \begin{itemize}
+        \item \textbf{Konsistenz:} Alle Methoden geben Statuswerte im gleichen Format zurück, unabhängig davon, welcher konkrete MySQL-Fehler aufgetreten ist.  
+        \item \textbf{Robustheit:} Anwendungslogik muss keine rohen Exceptions auswerten, wodurch Laufzeitfehler reduziert werden.  
+        \item \textbf{Erweiterbarkeit:} Neue Fehlernummern können leicht ergänzt und auf zusätzliche Statuswerte gemappt werden, ohne dass Änderungen in der Anwendungslogik erforderlich sind.  
+        \item \textbf{Transparenz:} Durch die Kombination mit dem Logger bleibt die konkrete Ursache dennoch nachvollziehbar (z.\,B. durch Speichern von Fehlernummer und Fehlermeldung).
+    \end{itemize}
+
+    Damit verbindet die Verbindungsbibliothek eine für den Entwickler einfach nutzbare Oberfläche mit der notwendigen technischen Tiefe, um reale Betriebsfehler differenziert zu behandeln und kontrolliert weiterzugeben.
+
+
+
+    \textbf{Logging:}
+
+
 
     \textbf{Sicherheits- und Qualitätsaspekte:}
 
@@ -625,7 +697,7 @@
 }
     \end{lstlisting}
 
-    
+
     \textbf{Teststrategie:}
 
     Die Tests folgen dem AAA-Prinzip (\emph{Arrange – Act – Assert}) und decken sowohl Erfolgs- als auch Fehlerszenarien ab.

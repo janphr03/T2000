@@ -1,22 +1,22 @@
-[1] Config.pm:307> INFO - This is Biber 2.19
-[2] Config.pm:310> INFO - Logfile is 'T1000.blg'
-[244] biber-MSWIN64:340> INFO - === 
-[407] Biber.pm:419> INFO - Reading 'T1000.bcf'
-[644] Biber.pm:979> INFO - Found 12 citekeys in bib section 0
-[669] Biber.pm:4419> INFO - Processing section 0
-[705] Biber.pm:4610> INFO - Looking for bibtex file 'literature.bib' for section 0
-[893] bibtex.pm:1713> INFO - LaTeX decoding ...
-[910] bibtex.pm:1519> INFO - Found BibTeX data source 'literature.bib'
-[953] Biber.pm:4610> INFO - Looking for bibtex file 'Meine Bibliothek.bib' for section 0
-[1164] bibtex.pm:1713> INFO - LaTeX decoding ...
-[1259] bibtex.pm:1519> INFO - Found BibTeX data source 'Meine Bibliothek.bib'
-[1438] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1438] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1439] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
-[1439] Biber.pm:4245> INFO - No sort tailoring available for locale 'de-DE'
-[1456] bbl.pm:660> INFO - Writing 'T1000.bbl' with encoding 'UTF-8'
-[1466] bbl.pm:763> INFO - Output to T1000.bbl
-[1467] Biber.pm:131> WARN - Duplicate entry key: 'heimeshoff_certification_2025' in file 'Meine Bibliothek.bib', skipping ...
-[1468] Biber.pm:131> WARN - Duplicate entry key: 'kim_planck_2025' in file 'Meine Bibliothek.bib', skipping ...
-[1468] Biber.pm:131> WARN - ISBN '978-1-4493-4418-4 978-1-4493-4456-6' in entry 'reese_understanding_2013' is invalid - run biber with '--validate_datamodel' for details.
-[1469] Biber.pm:133> INFO - WARNINGS: 3
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'T1000.blg'
+[311] biber-MSWIN64:340> INFO - === 
+[462] Biber.pm:419> INFO - Reading 'T1000.bcf'
+[610] Biber.pm:979> INFO - Found 12 citekeys in bib section 0
+[625] Biber.pm:4419> INFO - Processing section 0
+[672] Biber.pm:4610> INFO - Looking for bibtex file 'literature.bib' for section 0
+[759] bibtex.pm:1713> INFO - LaTeX decoding ...
+[788] bibtex.pm:1519> INFO - Found BibTeX data source 'literature.bib'
+[802] Biber.pm:4610> INFO - Looking for bibtex file 'Meine Bibliothek.bib' for section 0
+[906] bibtex.pm:1713> INFO - LaTeX decoding ...
+[959] bibtex.pm:1519> INFO - Found BibTeX data source 'Meine Bibliothek.bib'
+[1230] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1230] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1231] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
+[1231] Biber.pm:4245> INFO - No sort tailoring available for locale 'de-DE'
+[1336] bbl.pm:660> INFO - Writing 'T1000.bbl' with encoding 'UTF-8'
+[1344] bbl.pm:763> INFO - Output to T1000.bbl
+[1345] Biber.pm:131> WARN - Duplicate entry key: 'heimeshoff_certification_2025' in file 'Meine Bibliothek.bib', skipping ...
+[1345] Biber.pm:131> WARN - Duplicate entry key: 'kim_planck_2025' in file 'Meine Bibliothek.bib', skipping ...
+[1345] Biber.pm:131> WARN - ISBN '978-1-4493-4418-4 978-1-4493-4456-6' in entry 'reese_understanding_2013' is invalid - run biber with '--validate_datamodel' for details.
+[1346] Biber.pm:133> INFO - WARNINGS: 3

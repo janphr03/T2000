@@ -434,7 +434,6 @@
 %========Verbindungsbiblothek=======================================================
 %===================================================================================
 
-    \needspace{5\baselineskip}
 
     \section{Verbindungsbibliothek}
 
@@ -746,8 +745,131 @@
         
 
 
-    \newpage{}    
+
+
+
+
+
+
     \section{LED-Pin-Mapping}
+
+    \subsection{Motivation und Rahmenbedingungen}
+    Die Fertigung beschreibt an einer festen Speicheradresse für jede LED einen numerischen Code, 
+    der definiert, ob die LED ausgeschaltet, rot oder grün leuchten soll. 
+    Meine Aufgabe bestand darin, diese Werte auszulesen und mit den bestehenden API-Funktionen 
+    (\texttt{ledHandler\_set()}) auf die Hardware abzubilden. 
+    Die dafür notwendigen Datentypen und Schnittstellen wurden bereits im Projekt von der 
+    Softwarearchitektur bereitgestellt. 
+    Die Eigenleistung liegt in der Kombination dieser Bausteine zu einer 
+    kohärenten Methode.
+
+    \subsection{Datenhaltung im Speicher}
+    Damit die Fertigung überhaupt Werte hinterlegen kann, wird ein spezieller Speicherbereich 
+    im Flash als zweidimensionales Array reserviert.  
+    Jede Zeile des Arrays repräsentiert eine LED-Klasse (z. B. \texttt{pin1}, \texttt{pin2}, 
+    Versorgungsspannung oder Corner-LED), jede Spalte eine konkrete Instanz.  
+    So entsteht eine Matrix aus fünf Zeilen und acht Spalten, die den Zustand aller LEDs abbildet.  
+
+    \begin{lstlisting}[language=C]
+    #define ROWS 5
+    #define COLLS 8
+
+    uint8_t colors_from_pins_arr[ROWS][COLLS] 
+        __attribute__((section(".myNewSection")));
+    \end{lstlisting}
+
+    \textbf{Hintergedanke:} Die Fertigung muss nur an einer bekannten Speicherstelle schreiben, 
+    die Firmware liest später an genau dieser Stelle die Werte aus. 
+    So bleibt die Schnittstelle zwischen Hardware und Software eindeutig.
+
+    \subsection{Initialisierung}
+    Beim Start des Systems wird das Array mit Nullen belegt. 
+    Das stellt sicher, dass keine undefinierten Werte vorliegen, falls die Fertigung 
+    den Speicherbereich noch nicht beschrieben hat.  
+
+    \begin{lstlisting}[language=C]
+    void initColors(void) {
+        memset(colors_from_pins_arr, 0, sizeof(colors_from_pins_arr));
+    }
+    \end{lstlisting}
+
+    \textbf{Hintergedanke:} Ein deterministischer Startzustand verhindert unvorhersehbares Verhalten 
+    (z. B. zufälliges Aufleuchten von LEDs).
+
+    \subsection{Abbildung von LED-Zuständen}
+    Um die Werte aus dem Array in konkrete LED-Zustände übersetzen zu können, 
+    wird eine Struktur definiert, die die drei zentralen Parameter einer LED zusammenfasst:  
+    \begin{itemize}
+    \item die \textbf{Klasse} der LED (welcher Pin sie repräsentiert),  
+    \item das \textbf{Verhalten} (aus, konstant, blinken),  
+    \item die \textbf{Farbe} (rot, grün, gelb).  
+    \end{itemize}
+
+    \begin{lstlisting}[language=C]
+    typedef struct {
+        ledHandler_ledClass_t pin_ID;
+        ledHandler_behavior_t behavior;
+        ledHandler_color_t color;
+    } pin_state_t;
+    \end{lstlisting}
+
+    \textbf{Hintergedanke:} Durch diese Struktur kann der Zustand jeder LED logisch zusammengefasst 
+    werden, ohne dass man an mehreren Stellen im Code dieselben Parameter handhaben muss.
+
+    \subsection{Die Mapping-Funktion \texttt{evaluate\_led\_color()}}
+    Der zentrale Bestandteil ist die Funktion, die alle Werte durchläuft, interpretiert 
+    und über die API an die LEDs weitergibt.  
+
+    1. Zunächst wird für jede Zeile (also jede LED-Klasse) bestimmt, 
+    welche Enumeration (\texttt{ledHandler\_ledClass\_t}) zugeordnet ist.  
+    2. Danach werden alle Instanzen dieser Klasse durchlaufen.  
+    3. Der gespeicherte Wert (0, 1, 2, …) wird ausgelesen und in ein Verhalten sowie eine Farbe übersetzt.  
+    \begin{itemize}
+        \item 0 = LED aus  
+        \item 1 = LED rot, konstant  
+        \item 2 = LED grün, konstant  
+        \item weitere Werte können später für Blinkmuster oder zusätzliche Farben reserviert werden  
+    \end{itemize}
+    4. Abschließend wird die Funktion \texttt{ledHandler\_set()} aufgerufen, 
+    die bereits von der Architektur bereitgestellt wurde.  
+
+    \begin{lstlisting}[language=C]
+    void evaluate_led_color(void){
+        for(uint8_t row = 0; row < ROWS; row++){
+            ledHandler_ledClass_t current_pin = ...; // Klasse bestimmen
+
+            for(uint8_t inst = 0; inst < COLLS; inst++){
+                uint8_t code = colors_from_pins_arr[row][inst];
+
+                if(code == 0){
+                    behavior = ledHandler_behavior_off;
+                    color    = ledHandler_color_red;
+                } else if(code == 1){
+                    behavior = ledHandler_behavior_solid;
+                    color    = ledHandler_color_red;
+                } else if(code == 2){
+                    behavior = ledHandler_behavior_solid;
+                    color    = ledHandler_color_green;
+                } else {
+                    behavior = ledHandler_behavior_solid;
+                    color    = ledHandler_color_yellow;
+                }
+
+                ledHandler_set(current_pin, inst, behavior, color);
+            }
+        }
+    }
+    \end{lstlisting}
+
+    \textbf{Hintergedanke:} Die Logik bildet eine Brücke zwischen den von der Fertigung 
+    hinterlegten Rohdaten (Zahlenwerte) und der abstrakten LED-API. 
+    Die Implementierung ist bewusst generisch, damit spätere Erweiterungen (weitere Farben, Blinkmuster) 
+    leicht ergänzt werden können.
+
+    \subsection{Zusammenfassung}
+    Damit konnte eine Funktion entwickelt werden, die die Schnittstelle zwischen Fertigungsdaten 
+    und Hardware-Ansteuerung herstellt. Die Architektur (API und Datentypen) blieb dabei unverändert, 
+    die Eigenleistung liegt in der methodischen Kombination und der Umsetzung der Mapping-Logik.
     
 
 

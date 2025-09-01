@@ -15,6 +15,7 @@
 % Grafiken und Bilder einf\"ugen
 \usepackage{graphicx}  
 \usepackage{float}      % Bessere Kontrolle \über die Platzierung
+\graphicspath{{figures/}} % Bilder in ./figures/ ablegen
 
 % Tabellen verbessern
 \usepackage{array, booktabs}
@@ -422,14 +423,30 @@
     Die klare Trennung zwischen diesen Schichten ermöglicht es, Änderungen an der Datenbankimplementierung vorzunehmen, ohne die Anwendungsschicht anzupassen, und erleichtert die Wiederverwendbarkeit der \acrshort{dll} in unterschiedlichen Projekten. 
     Zudem wird die Testbarkeit erhöht, da sich durch die Verwendung des Interfaces \texttt{IConnector} sowohl Unit-Tests mit Mocks als auch Integrationstests gegen eine reale Datenbankumgebung durchführen lassen.
 
-    \subsection{Umsetzung}
-    % Beck, Kent: Test Driven Development: By Example – falls du den testgetriebenen Aspekt deiner Implementierung betonen willst.
-    % Troelsen, Andrew; Japikse, Philip: Pro C# 9 with .NET 5, Kap. zu Assemblies/DLLs, ADO.NET/MySQL-Connector (passt direkt zu deinem MySqlAccess-Code).
-    
-    \subsection{Validierung}  
-    % Myers, Glenford J.; Sandler, Corey: The Art of Software Testing, Kap. 1–3 – allgemeine Testprinzipien.
-    % Meszaros, Gerard: xUnit Test Patterns, Kap. 2–4 – Teststrukturen, Mocks, Integrationstests (passt zu deinen UnitTests.cs und IntegrationTests.cs).
 
+    \subsection{Umsetzung}
+
+    Die DLL wurde in \texttt{.NET 8} umgesetzt. Zentrale Artefakte: \texttt{IConnector} (Abstraktion), 
+    \texttt{MySqlAccess} (Implementierung), \texttt{ErrorValues} (Fehlerenum), Logging via 
+    \texttt{ILogger<T>} (DI). Entscheidungen: (1) Fehlercodierung statt ungefilterter Exceptions, 
+    (2) SQL-Strings zunächst direkt; parametrisierte Queries als Ausblick, 
+    (3) Austauschbarkeit des DB-Providers durch Programmierung gegen das Interface.
+    Werkzeuge: Visual Studio / \texttt{dotnet}, MySQL-Connector. 
+    Herausforderung: sauberes Mapping typischer MySQL-Fehler → \texttt{AuthenticationFailed}, 
+    \texttt{DatabaseNotFound}, \texttt{DuplicateEntry}. 
+    Dieses Vorgehen entspricht den Empfehlungen zur Trennung von Schnittstellen und Implementierung 
+    sowie zur Nutzung von Dependency Injection für flexible und testbare Architekturen 
+    (vgl. \cite{martin_clean_2018}, Kap.~7–11; \cite{troelsen_pro_2017}, S.~509, 560).
+
+    \subsection{Validierung}
+    Unit-Tests (AAA) prüfen u.\,a. Verbindungsaufbau mit falschen Credentials (→ 
+    \texttt{AuthenticationFailed}), idempotentes Schließen (\texttt{ConnectionAlreadyClosed}) 
+    und Schreiboperationen ohne betroffene Zeilen (\texttt{NoData}). 
+    Logging wurde über Mocks isoliert. Geplante Integrationstests: MySQL in Docker für 
+    End-to-End-Verhalten. Ergebnis: definierte Fehlerpfade und Statusrückgaben verhalten sich 
+    wie spezifiziert; verbleibende Risiken betreffen parametrisierte Queries und Transaktionen (Ausblick).
+    Die gewählte Teststrategie orientiert sich an etablierten Prinzipien für Softwaretests 
+    (vgl. \cite{sommerville_software_2012}, Kap.~20).
 
 %========Verbindungsbiblothek=======================================================
 %===================================================================================
@@ -536,11 +553,30 @@
     Die Verbindungsbibliothek ist in zwei Kernkomponenten gegliedert: ein Interface als vertragliche Abstraktion und eine konkrete Implementierung für MySQL. 
     Diese Trennung erlaubt es, die Implementierung in Tests durch \acrshort{mock}-Objekte zu ersetzen und perspektivisch weitere Datenbank-Backends anzubinden.
 
+    Wie in Abbildung~\ref{fig:uml-connector} gezeigt, stellen die Interfaces eine Schnittstelle zur Verfügung 
+    die beliebig erweiterbar und in der Anwendung generisch zu verwenden ist.
+
     \begin{itemize}
-        \item \texttt{IConnector.cs}: Definiert sämtliche Methoden für den Datenbankzugriff.
-        \item \texttt{MySqlAccess.cs}: Implementiert \texttt{IConnector} für das DBMS \acrshort{mysql}.
-        \item \texttt{ErrorCodes.cs}: Enthält das zentrale \texttt{enum} \texttt{errorValues} zur standardisierten Rückgabe von Status- und Fehlerzuständen.
-    \end{itemize}
+  \item \texttt{IConnector.cs}: Definiert die vertraglichen Methoden für den Datenbankzugriff.
+  \item \texttt{MySqlAccess.cs}: Konkrete Implementierung von \texttt{IConnector} für \acrshort{mysql}.
+  \item \texttt{ErrorValues.cs}: Zentrales \texttt{enum} \texttt{ErrorValues} für Status- und Fehlerzustände.
+\end{itemize}
+
+
+    \begin{figure}[tbp]
+    \centering
+    \includegraphics[
+        page=1,
+        width=\textwidth,            % maximale Breite
+        height=.9\textheight,        % und hoch ausreizen
+        keepaspectratio,             % Seitenverhältnis behalten
+        trim=30mm 8mm 45mm 70mm,      % L U R O (links, unten, rechts, oben)
+        clip
+    ]{UMLKlassendiagrammDbConnector.pdf}
+    \caption{Klassendiagramm der Verbindungsbibliothek (\texttt{App}, \texttt{IConnector}, \texttt{MySqlAccess}, \texttt{ILogger}, \texttt{ErrorValues}).}
+    \label{fig:uml-connector}
+    \end{figure}
+
 
     \textbf{Verantwortlichkeiten und Lebenszyklus:}
 

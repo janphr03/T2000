@@ -1,5 +1,0 @@
-[0] Config.pm:307> INFO - This is Biber 2.19
-[3] Config.pm:310> INFO - Logfile is 'H:\LaTex\T1000.tex.blg'
-[126] biber-MSWIN64:340> INFO - === 
-[510] Utils.pm:410> ERROR - Cannot find 'H:\LaTex\T1000.tex.bcf'!
-[514] Biber.pm:136> INFO - ERRORS: 1

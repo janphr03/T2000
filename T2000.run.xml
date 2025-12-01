@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>T1000.bcf</file>
+      <file>T2000.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>T1000.bbl</file>
+      <file>T2000.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -68,19 +68,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>T1000</infile>
+      <infile>T2000</infile>
     </cmdline>
     <input>
-      <file>T1000.bcf</file>
+      <file>T2000.bcf</file>
     </input>
     <output>
-      <file>T1000.bbl</file>
+      <file>T2000.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>T1000.bbl</file>
+      <file>T2000.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>T1000.bcf</file>
+      <file>T2000.bcf</file>
     </requires>
     <requires type="editable">
       <file>literature.bib</file>

@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{article} % Standard für Hausarbeiten
+
+% Sprachunterst\"utzung f\"ur deutsche Umlaute und Silbentrennung
+\usepackage[utf8]{inputenc}  % Zeichencodierung
+\usepackage[T1]{fontenc}     % Korrekte Darstellung von Umlauten
+\usepackage[ngerman]{babel}  % Deutsche Sprache und Silbentrennung
+\usepackage{csquotes}
+
+% Seitenr\"ander sch\"oner machen
+\usepackage[a4paper, left=3cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+% Mathematik-Symbole
+\usepackage{amsmath, amssymb}
+
+% Grafiken und Bilder einf\"ugen
+\usepackage{graphicx}  
+\usepackage{float}      % Bessere Kontrolle \über die Platzierung
+
+% Tabellen verbessern
+\usepackage{array, booktabs}
+
+% Literaturverzeichnis mit BibTeX
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{literature.bib}
+\addbibresource{Meine Bibliothek.bib}
+
+% Quellcode schön darstellen
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{needspace} % in der Präambel
+
+\usepackage[acronym]{glossaries}
+
+
+
+\newacronym{loggerintf}{Logger-Interface}{Abstraktes Interface f\"ur Logging, das per DI eingespeist wird}
+
+
+
+
+\makeglossaries
+
+
+
+\lstset{ 
+    language=C, % oder C++, Java, Python etc.
+    basicstyle=\ttfamily\small, 
+    keywordstyle=\color{blue}, 
+    commentstyle=\color{gray}, 
+    stringstyle=\color{red},
+    breaklines=true
+}
+
+%Commands/ Style-Definitions====================================
+\newcommand{\csharp}{C\#}
+
+\setlength{\parskip}{1em}    % Abstand zwischen Abs\"atzen
+\setlength{\parindent}{0pt}  % Kein Einzug bei neuen Abs\"atzen
+
+
+% compile \"uber Konsole
+% pdflatex test.tex
+% biber test
+% dann wieder pdflatex test.tex
+% ba Datei Pfad anpassen
+%T999-Beginn==================================================
+\begin{document}
+
+
+\title{T2000} 
+\author{Jan Herrmann}
+\date{\today}
+\maketitle
+
+%\section{Test}
+%\Das ist meine LaTeX-Hausarbeit.
+%\parencite{heimeshoff_certification_2024}
+%testZitat
+%\parencite{kim_planck_2024}
+
+
+\tableofcontents
+\newpage
+
+%–– Im Dokument dann an der Stelle, an der du dein Abkürzungsverzeichnis haben willst ––
+\printglossary[type=\acronymtype,title=Abkürzungsverzeichnis]
+
+
+
+\section{Einleitung}
+
+\section{Theoretischer Hintergrund}
+
+\section{Vorgehensweise}
+
+    \subsection{Zielsetzung}
+    \subsection{Analyse}
+    \subsection{Entwurf}
+    \subsection{Umsetzung}
+    \subsection{Validierung}
+
+\section{Applikation}
+
+
+
+\printbibliography  % Literaturverzeichnis einfügen
+
+
+
+\end{document}
+
+
+%Quellen

@@ -1,8 +1,8 @@
 @echo off
 REM ======= Einstellungen =======
 REM LaTeX-Dateiname ohne Endung:
-set "BASENAME=T1000"
-set "DIR=C:\Users\herrmannja\Downloads\LaTexNeu\"
+set "BASENAME=T2000"
+set "DIR=C:\Users\herrmannja\Downloads\LaTexT2000Neu\"
 set "FILE=%DIR%\%BASENAME%.tex"
 
 REM ======= Prüfung =======

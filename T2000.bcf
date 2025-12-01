@@ -2363,32 +2363,6 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">Meine Bibliothek.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">martin_clean_2018</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">chelliah_architectural_2017</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">broy_grundlagen_2019</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">bloch_effective_2008</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">troelsen_pro_2017</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">rumpe_klassendiagramme_2011</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">omg_uml_2.5.1</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">rumpe_klassendiagramme_2011</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">reese_understanding_2013</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">noergaard_embedded_2012</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">unsalan_embedded_2022</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">elmasri_fundamentals_2013</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">sommerville_software_2012</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">sommerville_software_2012</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">sommerville_software_2012</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">sommerville_software_2012</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

@@ -92,23 +92,43 @@
 
 DEVELOP Test
 
+
 \section{Theoretischer Hintergrund}
     
-    \subsection{Einführung in KI}
-    
-        ML vs DL vs KI
-
 
     \subsection{künstliche Intelligenz}
+    Bevor eine präzise Definition von Künstlicher Intelligenz möglich ist, muss zunächst geklärt werden, welches Ziel KI-Systeme überhaupt verfolgen sollen. 
+    Russell und Norvig zeigen, dass sich KI-Definitionen in wissenschaftlicher Literatur entlang zweier Dimensionen unterscheiden: 
+    Zum einen kann der Fokus darauf liegen, ob ein System wie ein Mensch denkt oder handelt. 
+    Zum anderen kann beurteilt werden, ob ein System rational denken oder rational handeln soll, 
+    also ob sein Verhalten an einem idealen, logisch korrekten Maßstab orientiert wird. 
+    Aus dieser Kombination ergeben sich vier grundlegende Perspektiven auf KI, 
+    die historisch alle verfolgt wurden und bis heute unterschiedliche Forschungsrichtungen repräsentieren (vgl. \cite{russell_artificial_1995} S.~4). 
+    
+    Die folgende Tabelle fasst diese vier Sichtweisen zusammen.
+    
 
-        - Definition
+        \begin{table}[h]
+        \centering
+        \begin{tabular}{|p{4cm}|p{9cm}|}
+        \hline
+        \textbf{Kategorie} & \textbf{Beschreibung} \\ \hline
+        Systeme, die wie Menschen denken & Fokus auf Nachbildung menschlicher Denkprozesse, z.\,B. durch kognitive Modelle oder psychologische Theorien. \\ \hline
+        Systeme, die wie Menschen handeln & Intelligenz wird anhand menschlich ähnlichen Verhaltens beurteilt, unabhängig vom zugrunde liegenden Denkprozess. \\ \hline
+        Systeme, die rational denken & Fokus auf logische Schlussfolgerungen und formale Wissensrepräsentation. \\ \hline
+        Systeme, die rational handeln & Intelligente Agenten handeln zielgerichtet und optimal in ihrer Umgebung. \\ \hline
+        \end{tabular}
+        \caption{Eigene Darstellung in Anlehnung an \cite{russell_artificial_1995}, S.~5.}
+        \end{table}
 
-        - Abgrenzung zu KI& ML
+        - Abgrenzung zu KI & ML
+
 
 
     \subsection{Grundlagen machine Learning}
 
         \subsubsection{Arten des Lernens}
+
         - überwacht
 
         - unüberwacht
@@ -122,6 +142,8 @@ DEVELOP Test
         - feature engineering vs feature learning
 
         - Datenqualität, BIAS, Overfitting, Underfitting
+
+
 
     \subsection{deep Learning}
         \subsubsection{Grundlagen neuronale Netze}
@@ -150,6 +172,7 @@ DEVELOP Test
     \subsection{Entwurf}
     \subsection{Umsetzung}
     \subsection{Validierung}
+
 
 \section{Applikation}
 

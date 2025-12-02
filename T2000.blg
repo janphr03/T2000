@@ -1,9 +1,9 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'T2000.blg'
-[356] biber-MSWIN64:340> INFO - === 
-[565] Biber.pm:419> INFO - Reading 'T2000.bcf'
-[663] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
-[675] bbl.pm:660> INFO - Writing 'T2000.bbl' with encoding 'UTF-8'
-[675] bbl.pm:763> INFO - Output to T2000.bbl
-[676] Biber.pm:131> WARN - The file 'T2000.bcf' does not contain any citations!
-[676] Biber.pm:133> INFO - WARNINGS: 1
+[112] biber-MSWIN64:340> INFO - === 
+[151] Biber.pm:419> INFO - Reading 'T2000.bcf'
+[252] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
+[264] bbl.pm:660> INFO - Writing 'T2000.bbl' with encoding 'UTF-8'
+[265] bbl.pm:763> INFO - Output to T2000.bbl
+[266] Biber.pm:131> WARN - The file 'T2000.bcf' does not contain any citations!
+[266] Biber.pm:133> INFO - WARNINGS: 1

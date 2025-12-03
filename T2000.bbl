@@ -60,6 +60,147 @@
       \verb PDF:files/27/Russell und Norvig - 1995 - Artificial intelligence a modern approach.pdf:application/pdf
       \endverb
     \endentry
+    \entry{ma_comprehensive_2025}{misc}{}
+      \name{author}{19}{}{%
+        {{hash=6170af1d06971013df5b44a3bec188d2}{%
+           family={Ma},
+           familyi={M\bibinitperiod},
+           given={Le},
+           giveni={L\bibinitperiod}}}%
+        {{hash=90a19aa2fbf7fc18c6cc07430ece08f3}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d9942c8f94de98edbe308f40f0e2e4b3}{%
+           family={Han},
+           familyi={H\bibinitperiod},
+           given={Yikun},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=8a4587a0fe0fd22f27beebaf925dac46}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Shirui},
+           giveni={S\bibinitperiod}}}%
+        {{hash=5b7727d4920d8a77a04972dfebca1887}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Zaitian},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=47cc45241cfe257441ce8c01b1dd1480}{%
+           family={Ning},
+           familyi={N\bibinitperiod},
+           given={Zhiyuan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=79da4cae8f949eeacf9871a347b43b97}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jinghan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=56296b2fca0239a30ba5983073009f40}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Ping},
+           giveni={P\bibinitperiod}}}%
+        {{hash=f0aadf5de65ea90dd6bbece091f8af99}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Pengjiang},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7f1819a2766c380b6995ff381e753a7a}{%
+           family={Ju},
+           familyi={J\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod}}}%
+        {{hash=ea1fab8979cc9aaa8f8ac5e6b5fb3e05}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Chong},
+           giveni={C\bibinitperiod}}}%
+        {{hash=f89e457033ec814b873db80b2d89fe2e}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Dongjie},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a3c728f4b40a169c3129a2143707fe5d}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Kunpeng},
+           giveni={K\bibinitperiod}}}%
+        {{hash=383f6a19f33570e9728b845565696929}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Pengyang},
+           giveni={P\bibinitperiod}}}%
+        {{hash=d3bba33b51acaa0a272de7a2f6dfa233}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Pengfei},
+           giveni={P\bibinitperiod}}}%
+        {{hash=30ae9e14692d8631346a8a8ab6beebd5}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Yanjie},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=d7ef2818d06a3deb289a104d667457f3}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Chunjiang},
+           giveni={C\bibinitperiod}}}%
+        {{hash=840edade569a44955bbe6b6cdc7e9a6c}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Yuanchun},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=0020134a2e62698855d909d1958ac498}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Chang-Tien},
+           giveni={C\bibinithyphendelim T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{70616c05f21fe1b1cea1bacc98706222}
+      \strng{fullhash}{b37668d4f142928c123a3afadba64494}
+      \strng{bibnamehash}{70616c05f21fe1b1cea1bacc98706222}
+      \strng{authorbibnamehash}{70616c05f21fe1b1cea1bacc98706222}
+      \strng{authornamehash}{70616c05f21fe1b1cea1bacc98706222}
+      \strng{authorfullhash}{b37668d4f142928c123a3afadba64494}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Vector databases ({VDBs}) have emerged to manage high-dimensional data that exceed the capabilities of traditional database management systems, and are now tightly integrated with large language models as well as widely applied in modern artificial intelligence systems. Although relatively few studies describe existing or introduce new vector database architectures, the core technologies underlying {VDBs}, such as approximate nearest neighbor search, have been extensively studied and are well documented in the literature. In this work, we present a comprehensive review of the relevant algorithms to provide a general understanding of this booming research area. Specifically, we first provide a review of storage and retrieval techniques in {VDBs}, with detailed design principles and technological evolution. Then, we conduct an in-depth comparison of several advanced {VDB} solutions with their strengths, limitations, and typical application scenarios. Finally, we also outline emerging opportunities for coupling {VDBs} with large language models, including open research problems and trends, such as novel indexing strategies. This survey aims to serve as a practical resource, enabling readers to quickly gain an overall understanding of the current knowledge landscape in this rapidly developing area.}
+      \field{day}{16}
+      \field{eprinttype}{arxiv}
+      \field{month}{6}
+      \field{number}{{arXiv}:2310.11703}
+      \field{shorttitle}{A Comprehensive Survey on Vector Database}
+      \field{title}{A Comprehensive Survey on Vector Database: Storage and Retrieval Technique, Challenge}
+      \field{urlday}{3}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2310.11703
+      \endverb
+      \verb{eprint}
+      \verb 2310.11703 [cs]
+      \endverb
+      \verb{file}
+      \verb Preprint PDF:files/31/Ma et al. - 2025 - A Comprehensive Survey on Vector Database Storage and Retrieval Technique, Challenge.pdf:application/pdf;Snapshot:files/30/2310.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2310.11703
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2310.11703
+      \endverb
+      \keyw{Computer Science - Artificial Intelligence,Computer Science - Databases}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

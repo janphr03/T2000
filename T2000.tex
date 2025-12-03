@@ -154,14 +154,77 @@ DEVELOP Test
         
 
     \subsection{Vektorstore}
-            Vektorstore ist nur ein Konzept, welche Unterschiede gibt es da?
-            Konzept: "Eine DB die Embeddings speichert und semantische Ähnlichkeitssuche durchführen kann"
+        
+        Vektor Stores bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
+        Embeddings, also numerischen Repräsentationen von Text- oder Produktdaten, und ermöglichen effiziente Nearest-Neighbor-Abfragen. 
+        Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben.
+
+        Da der Begriff „Vektorstore“ in der Literatur häufig als Sammelbezeichnung für leichtgewichtige, embeddingbasierte Speichersysteme verwendet wird,
+        ist eine Abgrenzung zu vollwertigen Vektordatenbanken notwendig. 
+        Letztere integrieren zusätzliche Mechanismen wie Sharding, interne Partitionierung, Caching oder Replikation 
+        und unterscheiden sich damit deutlich in ihrer Komplexität und Skalierbarkeit.
+
+        Im Folgenden werden zunächst die grundlegenden Konzepte erläutert, bevor
+        die für Vektordatenbanken zentralen Speicherverfahren systematisch dargestellt werden.
             
-            Vektor Store vs Vektor Datenbank
-            \textbf{Vektor Store}
 
-            \textbf{}
+        \subsubsection{Abgrenzung Vektor-Store und Vektor-Datenbank}
+            
+            Der Begriff \emph{Vektor-Store} wird in der Literatur nicht einheitlich verwendet und dient häufig als 
+            Sammelbezeichnung für leichtgewichtige Systeme, die Embeddings speichern und eine grundlegende 
+            semantische Ähnlichkeitssuche bereitstellen. Solche Systeme konzentrieren sich in der Regel auf das 
+            Einfügen von Embeddings und die Ausführung von k-nächste-Nachbarn-Abfragen, ohne jedoch 
+            erweiterte Datenbankfunktionen bereitzustellen.
 
+            Unter einer \emph{Vektordatenbank} werden hingegen vollwertige Datenbanksysteme verstanden, die 
+            neben der Speicherung und Suche von Embeddings zusätzliche Verwaltungs- und Infrastrukturmechanismen 
+            integrieren. Dazu zählen insbesondere Sharding, interne Partitionierung, Caching, Replikation, 
+            Indexstrukturen für Approximate Nearest Neighbor (ANN) sowie Metadatenverwaltung und Konsistenzmodelle. 
+            Diese Systeme sind auf hohe Skalierbarkeit, Robustheit und Performanz im produktiven Einsatz ausgelegt.
+
+            Für die vorliegende Arbeit wird daher folgende Unterscheidung getroffen:
+
+            \begin{itemize}
+                \item \textbf{Vektor-Store:} leichtgewichtiges System zur Speicherung von Embeddings und zur 
+                Durchführung semantischer Ähnlichkeitssuchen.
+                \item \textbf{Vektordatenbank:} vollständiges Datenbankmanagementsystem mit skalierbaren 
+                Speicher- und Verwaltungsmechanismen.
+            \end{itemize}
+
+            Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe 
+            im weiteren Verlauf der Arbeit fest.
+
+        \subsubsection{Speicherverfahren}
+             \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
+             bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
+             Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
+             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite{ma_comprehensive_2025} S.~3).
+
+            \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} Die horizontale Datenpartitionierung innerhalb einer Maschine 
+            bezeichnet die Aufteilung der in einer einzelnen Datenbankinstanz gespeicherten Vektordaten in mehrere 
+            logisch getrennte Teilmengen („Partitionen“). Im Unterschied zum Sharding, das Daten über mehrere physische Knoten verteilt, 
+            erfolgt diese Form der Partitionierung ausschließlich innerhalb eines Systems.
+            Ziel ist es, lokale Abfragen effizienter auszuführen, Speicherressourcen besser auszunutzen und parallele Verarbeitung zu ermöglichen.
+            Partitionen können beispielsweise über Wertebereiche (Range-Partitioning), vordefinierte Kategorien (List-Partitioning) oder Hash-Verfahren gebildet werden.
+            Durch diese interne Strukturierung müssen Suchanfragen nur gegen relevante Partitionen ausgeführt werden, 
+            was insbesondere bei großen Einbettungsräumen die Latenz der semantischen Ähnlichkeitssuche reduziert (vgl. \cite{ma_comprehensive_2025}, S.~3f.).
+
+            In modernen Vektordatenbanken wird Partitionierung häufig mit Sharding kombiniert: 
+            
+            Während Sharding die Skalierung über mehrere Knoten ermöglicht, 
+            optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
+            Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
+
+            \textbf{Caching}
+
+            \textbf{Replication}
+
+
+
+        \subsubsection{Suchverfahren}
+        \subsubsection{Herausforderungen moderner Vektordatenbanken}
+        \subsubsection{Integration in LLMs (RAG)}
+            
 
             
     \subsection{Neuronale Netze}
@@ -198,8 +261,17 @@ DEVELOP Test
         \subsection{Durchführung}
         Wer bewertet Texte, Bewertungsbogen, Wie viele Bewertungen pro Text 
 
-        \subsection{}
-    
+        \subsection{Ergebnis}
+        
+        \subsection{Diskussion}
+            LLM ohne RAG halluziniert → schlecht für PIM-Daten (Faktentreue).
+
+            Prompt mit Rollenbeschreibung („Du bist ein Marketing-Experte…“) besser als generischer Prompt.
+
+            Techniktexte brauchen präzisere Struktur → Template hilft.
+
+            Marketingtexte profitieren von höherer Kreativität → Temperatur-Einstellungen diskutieren.
+            
         
 
 \printbibliography  % Literaturverzeichnis einfügen

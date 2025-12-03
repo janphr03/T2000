@@ -191,10 +191,9 @@ DEVELOP Test
                 Speicher- und Verwaltungsmechanismen.
             \end{itemize}
 
-            Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe 
-            im weiteren Verlauf der Arbeit fest.
+            Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe im weiteren Verlauf der Arbeit fest.
 
-        \subsubsection{Speicherverfahren}
+        \subsubsection{Speicherverfahren für Vektordatenbanken}
              \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
              bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
              Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
@@ -215,14 +214,72 @@ DEVELOP Test
             optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
             Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
 
-            \textbf{Caching}
+        \textbf{Caching-Mechanismen in Vektordatenbanken} beschreiben das Zwischenspeichern häufig oder kürzlich genutzter Daten in besonders schnellen Speichermedien (z.B. RAM), 
+            um Zugriffszeiten zu reduzieren und die Last auf der eigentlichen Datenbank zu verringern. 
+            Für Vektordatenbanken ist Caching ein zentraler Mechanismus, da semantische Ähnlichkeitssuchen typischerweise 
+            rechenintensiv sind und von wiederholten Abfragen profitieren (vgl. \cite{ma_comprehensive_2025}, S.~4f.).
 
-            \textbf{Replication}
+            Im Gegensatz zu klassischen Schlüssel-Wert-Caches (etwa Redis) ist das Caching in VDBs herausfordernder, 
+            da Embeddings hochdimensionale Vektoren darstellen und identische Anfragen selten auftreten. 
+            Daher kommen allgemeine Cache-Strategien zum Einsatz, die unabhängig vom genauen Vektorinhalt arbeiten,
+            da der Vergleich hochdimensionaler Vektoren zur Bestimmung von Cache-Schlüsseln ungeeignet ist. 
+           
+            Zu den gängigen Verfahren zählen:
+                
+            \begin{itemize}
+                \item \textbf{First-In First-Out (FIFO):} entfernt das älteste Element im Cache; einfach, aber
+                ohne Berücksichtigung der Zugriffshäufigkeit.
+                \item \textbf{Least Recently Used (LRU):} löscht den am längsten nicht genutzten Eintrag; gut
+                geeignet für Arbeitslasten mit zeitlicher Lokalität.
+                \item \textbf{Most Recently Used (MRU):} entfernt das zuletzt genutzte Element; sinnvoll bei
+                einmaligen Zugriffsmustern.
+                \item \textbf{Least Frequently Used (LFU):} bevorzugt das Entfernen seltener genutzter Einträge;
+                vorteilhaft bei stabilen Zugriffshäufigkeiten.
+            \end{itemize}
+
+                Einige Systeme nutzen zudem \textbf{partitioniertes Caching}, bei dem Vektordaten in Gruppen (z.B. nach Kategorien oder Zugriffsmustern) getrennt gecacht werden, um Ressourcen gezielt zu optimieren. 
+                Insgesamt trägt Caching wesentlich zur Reduktion der Abfragelatenz und zur Stabilisierung der Systemlast bei, insbesondere bei wiederkehrenden Ähnlichkeitsanfragen.
 
 
+        \textbf{Replikation} bezeichnet das Anlegen und Verteilen mehrerer Kopien von Vektordaten
+            auf unterschiedliche Knoten eines verteilten Systems, um Ausfallsicherheit, Verfügbarkeit und Leselastverteilung zu erhöhen.
+            Während sie für die semantische Ähnlichkeitssuche nicht unmittelbar leistungsbestimmend ist, stellt sie einen zentralen Mechanismus für die
+            betriebliche Robustheit moderner Vektordatenbanken dar. 
+            In der Literatur werden drei grundlegende Replikationsstrategien unterschieden (vgl.~\cite{ma_comprehensive_2025}, S.~5f.).
+
+            Für den im Rahmen dieser Arbeit entwickelten Prototypen spielt Replikation 
+            keine operative Rolle, da der Vektorstore in einer Single-Node-Architektur betrieben wird. 
+            Der folgende Abschnitt dient daher der theoretischen Einordnung, um die Funktionsweise produktiver Vektordatenbanksysteme besser zu verstehen.
+
+            \textbf{Leader-Follower-Replikation}  
+            Bei der Leader-Follower-Replikation übernimmt ein einzelner Knoten die Rolle
+            des Leaders und verarbeitet sämtliche Schreiboperationen. Die erzeugten Updates
+            werden anschließend an mehrere Follower-Knoten repliziert, die ausschließlich
+            Leseanfragen bearbeiten (vgl.~\cite{ma_comprehensive_2025}, S.~5f.). 
+            
+            Dieses Modell ermöglicht eine klare Konsistenzsemantik, da alle Änderungen zentral koordiniert werden. 
+            Gleichzeitig entsteht jedoch ein Single Point of Failure, was eine zusätzliche Failover-Mechanik erforderlich macht.
+
+            \textbf{Multi-Leader-Replikation}  
+            Mehrere Knoten können parallel Schreiboperationen entgegennehmen. 
+            Die dabei entstehenden Aktualisierungen werden zwischen den beteiligten Knoten ausgetauscht. 
+            Dieses Modell erhöht die Schreibkapazität, erfordert jedoch Strategien zur Auflösung konkurrierender Updates (vgl.~\cite{ma_comprehensive_2025}, S.~5f.).
+
+            \textbf{Leaderless-Replikation}  
+            Leaderless-Replikation verzichtet vollständig auf die Unterscheidung zwischen Leader- und Follower-Knoten. 
+            Jeder Knoten kann Lese- und Schreiboperationen ausführen, wodurch weder zentrale Engpässe noch einzelne Ausfallpunkte entstehen. 
+            Konsistenz wird über Quorum-Modelle oder koordinationsbasierte Protokolle sichergestellt. 
+            Dieses Modell bietet hohe Fehlertoleranz, bringt aber ggf. erhöhte Komplexität hinsichtlich Konsistenz- und Konfliktbehandlung mit sich (vgl.~\cite{ma_comprehensive_2025}, S.~5f.).
+
+            Insgesamt trägt Replikation wesentlich zur Robustheit und Verfügbarkeit verteilter Vektordatenbanksysteme bei, steht jedoch weniger im direkten
+            Zentrum der Ähnlichkeitssuche als vielmehr ihrer infrastrukturellen Betriebsstabilität.
+
+            Da die vorliegende Arbeit den Fokus auf die Funktionsweise von Vektor-Stores im Rahmen einer RAG-Architektur legt und nicht auf die Untersuchung verteilter 
+            Systemszenarien abzielt, wird Replikation in dieser Arbeit ausschließlich theoretisch betrachtet. 
+            Die beschriebenen Replikationsmechanismen sind jedoch wesentliche Bestandteile produktiver Vektordatenbanksysteme und dienen der 
+            Verortung der später eingesetzten Technologie im Gesamtkontext verteilter Datenbanksysteme.
 
         \subsubsection{Suchverfahren}
-        \subsubsection{Herausforderungen moderner Vektordatenbanken}
         \subsubsection{Integration in LLMs (RAG)}
             
 

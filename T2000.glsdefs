@@ -1,0 +1,15 @@
+\glsdefs@newdocentry{.\spacefactor \sfcode `\unhbox \voidb@x \bgroup \let \unhbox \voidb@x \setbox \@tempboxa \hbox {\global \mathchardef \accent@spacefactor \spacefactor }\let \begingroup \let \typeout \protect \begingroup \def \MessageBreak {
+(Font)              }\let \protect \immediate\write \m@ne {LaTeX Font Info:    \def  { } on input line 5.}\endgroup \endgroup \relax \let \ignorespaces \relax \accent 10 \egroup \spacefactor \accent@spacefactor }%
+{%
+name={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+sort={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+type={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+first={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+firstplural={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+text={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+plural={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+description={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+descriptionplural={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+symbol={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+symbolplural={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%
+user1={\glo@arent @index\endcsname !ort\endcsname ?\subglossentry{evel\endcsname }{.\spacefactor \sfcode `\. }},%

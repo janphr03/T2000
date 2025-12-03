@@ -92,63 +92,78 @@
     \subsection{Problemstellung}
     \subsection{Zielsetzung}
 
+DEVELOP Test
+\acrshort{ML}
+
 
 \section{Theoretischer Hintergrund}
+    
+
 
         \subsection{Künstliche Intelligenz}
 
-        Bevor eine präzise Definition von künstlicher Intelligenz möglich ist, muss geklärt werden, welches Ziel ein intelligentes System verfolgen soll. 
-        Russell und Norvig zeigen, dass gängige KI-Definitionen in der wissenschaftlichen Literatur entlang zweier zentraler Dimensionen variieren (vgl. \cite{russell_artificial_1995}, Kap.~1.1):
+            Bevor eine präzise Definition von künstlicher Intelligenz möglich ist, muss geklärt werden, welches Ziel ein intelligentes System verfolgen soll. 
+            Russell und Norvig zeigen, dass gängige KI-Definitionen in der wissenschaftlichen Literatur entlang zweier zentraler Dimensionen variieren (vgl. \cite{russell_artificial_1995}, Kap.~1.1):
 
-        \begin{itemize}
-            \item \textbf{Mensch vs. Rationalität} Soll ein System wie ein Mensch denken oder handeln, oder soll es unabhängig vom Menschen ideal rational agieren?
-            \item \textbf{Denken vs. Handeln} Soll Intelligenz anhand interner Denkprozesse oder anhand des beobachtbaren Verhaltens beurteilt werden?
-        \end{itemize}
+            \begin{itemize}
+                \item \textbf{Mensch vs. Rationalität} Soll ein System wie ein Mensch denken oder handeln, oder soll es unabhängig vom Menschen ideal rational agieren?
+                \item \textbf{Denken vs. Handeln} Soll Intelligenz anhand interner Denkprozesse oder anhand des beobachtbaren Verhaltens beurteilt werden?
+            \end{itemize}
 
-        Aus diesen beiden Dimensionen ergeben sich vier grundlegende Perspektiven auf KI, die unterschiedliche historische Forschungsrichtungen geprägt haben. 
-        Eine Übersicht dieser Einordnung zeigt Tabelle~\ref{tab:ki-perspektiven}
-    
-
-        \begin{table}[h]
-        \centering
-        \begin{tabular}{|p{4cm}|p{9cm}|}
-        \hline
-        \textbf{Kategorie} & \textbf{Beschreibung} \\ \hline
-        Systeme, die wie Menschen denken & Fokus auf Nachbildung menschlicher Denkprozesse, z.B. durch kognitive Modelle oder psychologische Theorien. \\ \hline
-        Systeme, die wie Menschen handeln & Intelligenz wird anhand menschlich ähnlichen Verhaltens beurteilt, unabhängig vom zugrunde liegenden Denkprozess. \\ \hline
-        Systeme, die rational denken & Fokus auf logische Schlussfolgerungen und formale Wissensrepräsentation. \\ \hline
-        Systeme, die rational handeln & Intelligente Agenten handeln zielgerichtet und optimal in ihrer Umgebung. \\ \hline
-        \end{tabular}
-        \caption{Eigene Darstellung in Anlehnung an \cite{russell_artificial_1995}, Kap.~1.1}
-        \label{tab:ki-perspektiven}
-        \end{table}
-
-
-       \textbf{Abgrenzung von KI und ML}
-
-        Künstliche Intelligenz (\acrshort{ki}) umfasst alle Verfahren, die darauf abzielen,
-        intelligentes Verhalten technisch zu realisieren. Dazu gehören sowohl symbolische
-        Ansätze wie Wissensrepräsentation und logisches Schließen als auch
-        datengetriebene Methoden zur Wahrnehmung oder Sprachverarbeitung
-        (vgl. \cite{russell_artificial_1995}, Kap.~1.1).
-
-        Maschinelles Lernen (\acrshort{ml}) stellt ein klar abgegrenztes Teilgebiet der KI dar.
-        Russell und Norvig beschreiben es als das Teilfeld der künstlichen Intelligenz,
-        das sich mit Programmen befasst, die aus Erfahrung lernen
-        (vgl. \cite{russell_artificial_1995}, Einleitung zu Teil~VI).
+            Aus diesen beiden Dimensionen ergeben sich vier grundlegende Perspektiven auf KI, die unterschiedliche historische Forschungsrichtungen geprägt haben. 
+            Eine Übersicht dieser Einordnung zeigt Tabelle~\ref{tab:ki-perspektiven}
         
 
-        Während KI somit als Oberbegriff sämtliche Methoden intelligenter Problemlösung
-        einschließt, konzentriert sich ML ausschließlich auf Verfahren, die Wissen nicht
-        explizit vorgegeben bekommen, sondern selbstständig aus Daten oder Erfahrungen
-        erschließen. ML bildet damit die Grundlage für viele moderne KI-Anwendungen,
-        insbesondere für datengetriebene Systeme wie neuronale Netze oder Large Language Models.
-        
+            \begin{table}[h]
+            \centering
+            \begin{tabular}{|p{4cm}|p{9cm}|}
+            \hline
+            \textbf{Kategorie} & \textbf{Beschreibung} \\ \hline
+            Systeme, die wie Menschen denken & Fokus auf Nachbildung menschlicher Denkprozesse, z.B. durch kognitive Modelle oder psychologische Theorien. \\ \hline
+            Systeme, die wie Menschen handeln & Intelligenz wird anhand menschlich ähnlichen Verhaltens beurteilt, unabhängig vom zugrunde liegenden Denkprozess. \\ \hline
+            Systeme, die rational denken & Fokus auf logische Schlussfolgerungen und formale Wissensrepräsentation. \\ \hline
+            Systeme, die rational handeln & Intelligente Agenten handeln zielgerichtet und optimal in ihrer Umgebung. \\ \hline
+            \end{tabular}
+            \caption{Eigene Darstellung in Anlehnung an \cite{russell_artificial_1995}, Kap.~1.1}
+            \label{tab:ki-perspektiven}
+            \end{table}
+
+
+            \textbf{Abgrenzung von KI und ML}
+
+            Künstliche Intelligenz (\acrshort{ki}) umfasst alle Verfahren, die darauf abzielen,
+            intelligentes Verhalten technisch zu realisieren. Dazu gehören sowohl symbolische
+            Ansätze wie Wissensrepräsentation und logisches Schließen als auch
+            datengetriebene Methoden zur Wahrnehmung oder Sprachverarbeitung
+            (vgl. \cite{russell_artificial_1995}, Kap.~1.1).
+
+            Maschinelles Lernen (\acrshort{ml}) stellt ein klar abgegrenztes Teilgebiet der KI dar.
+            Russell und Norvig beschreiben es als das Teilfeld der künstlichen Intelligenz,
+            das sich mit Programmen befasst, die aus Erfahrung lernen
+            (vgl. \cite{russell_artificial_1995}, Einleitung zu Teil~VI).
+            
+
+            Während KI somit als Oberbegriff sämtliche Methoden intelligenter Problemlösung
+            einschließt, konzentriert sich ML ausschließlich auf Verfahren, die Wissen nicht
+            explizit vorgegeben bekommen, sondern selbstständig aus Daten oder Erfahrungen
+            erschließen. ML bildet damit die Grundlage für viele moderne KI-Anwendungen,
+            insbesondere für datengetriebene Systeme wie neuronale Netze oder Large Language Models.
+            
 
 
         
 
     \subsection{Vektorstore}
+            Vektorstore ist nur ein Konzept, welche Unterschiede gibt es da?
+            Konzept: "Eine DB die Embeddings speichert und semantische Ähnlichkeitssuche durchführen kann"
+            
+            Vektor Store vs Vektor Datenbank
+            \textbf{Vektor Store}
+
+            \textbf{}
+
+
+            
     \subsection{Neuronale Netze}
     \subsection{Large Language Models}
     \subsection{Retrieval-Augmented Generation} % LLM mit Datenquelle
@@ -169,13 +184,21 @@
     \subsection{Promptdesign}
 
 
+\section{Implementierung des Prototyps}
+    \subsection{Überblick über die Systemkomponenten}
+    \subsection{Umsetzung der Schnittstellen (Vector Store / Applikation / LLM)}
+    \subsection{Datenimport und -export}
+    \subsection{Integration des LLMs und Promptlogik}
+    \subsection{Fehlerbehandlung und Parallelität}
+
+
 \section{Evaluation}
         \subsection{Aufbau der Evaluationsbewertung}
         \subsection{Bewertungsmetrik/ -kriterien} %
         \subsection{Durchführung}
         Wer bewertet Texte, Bewertungsbogen, Wie viele Bewertungen pro Text 
 
-        \subsection{Ergebnisse in Tabelle}
+        \subsection{}
     
         
 

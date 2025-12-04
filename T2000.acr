@@ -9,4 +9,6 @@
 \glsgroupheading{V}\relax \glsresetentrylist %
 \glossentry{vektorstore}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{4\delimN 5}}}%
+\glossentry{vektordatenbank}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{5}}}%
 \end{theglossary}\glossarypostamble

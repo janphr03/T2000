@@ -194,6 +194,13 @@ DEVELOP Test
             Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe im weiteren Verlauf der Arbeit fest.
 
         \subsubsection{Speicherverfahren für Vektordatenbanken}
+            Die im Folgenden beschriebenen Mechanismen stellen zentrale Bestandteile moderner, skalierbarer Vektordatenbanksysteme dar. Sie werden im produktiven Umfeld zur 
+            Optimierung von Leistung, Verfügbarkeit und Robustheit eingesetzt. 
+            Für den im Rahmen dieser Arbeit entwickelten Prototypen spielen diese Konzepte jedoch keine operative Rolle, 
+            da ein leichtgewichtiges Single-Node-System ohne verteilte Architektur eingesetzt wird. 
+            Die Ausführungen dienen daher der theoretischen Einordnung und sollen den technologischen Kontext verdeutlichen, in dem sich Vektordatenbanken typischerweise bewegen.
+
+
              \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
              bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
              Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
@@ -247,15 +254,9 @@ DEVELOP Test
             betriebliche Robustheit moderner Vektordatenbanken dar. 
             In der Literatur werden drei grundlegende Replikationsstrategien unterschieden (vgl.~\cite{ma_comprehensive_2025}, S.~5f.).
 
-            Für den im Rahmen dieser Arbeit entwickelten Prototypen spielt Replikation 
-            keine operative Rolle, da der Vektorstore in einer Single-Node-Architektur betrieben wird. 
-            Der folgende Abschnitt dient daher der theoretischen Einordnung, um die Funktionsweise produktiver Vektordatenbanksysteme besser zu verstehen.
-
             \textbf{Leader-Follower-Replikation}  
-            Bei der Leader-Follower-Replikation übernimmt ein einzelner Knoten die Rolle
-            des Leaders und verarbeitet sämtliche Schreiboperationen. Die erzeugten Updates
-            werden anschließend an mehrere Follower-Knoten repliziert, die ausschließlich
-            Leseanfragen bearbeiten (vgl.~\cite{ma_comprehensive_2025}, S.~5f.). 
+            Bei der Leader-Follower-Replikation übernimmt ein einzelner Knoten die Rolle des Leaders und verarbeitet sämtliche Schreiboperationen. 
+            Die erzeugten Updates werden anschließend an mehrere Follower-Knoten repliziert, die ausschließlich Leseanfragen bearbeiten (vgl.~\cite{ma_comprehensive_2025}, S.~5f.). 
             
             Dieses Modell ermöglicht eine klare Konsistenzsemantik, da alle Änderungen zentral koordiniert werden. 
             Gleichzeitig entsteht jedoch ein Single Point of Failure, was eine zusätzliche Failover-Mechanik erforderlich macht.
@@ -274,12 +275,9 @@ DEVELOP Test
             Insgesamt trägt Replikation wesentlich zur Robustheit und Verfügbarkeit verteilter Vektordatenbanksysteme bei, steht jedoch weniger im direkten
             Zentrum der Ähnlichkeitssuche als vielmehr ihrer infrastrukturellen Betriebsstabilität.
 
-            Da die vorliegende Arbeit den Fokus auf die Funktionsweise von Vektor-Stores im Rahmen einer RAG-Architektur legt und nicht auf die Untersuchung verteilter 
-            Systemszenarien abzielt, wird Replikation in dieser Arbeit ausschließlich theoretisch betrachtet. 
-            Die beschriebenen Replikationsmechanismen sind jedoch wesentliche Bestandteile produktiver Vektordatenbanksysteme und dienen der 
-            Verortung der später eingesetzten Technologie im Gesamtkontext verteilter Datenbanksysteme.
-
         \subsubsection{Suchverfahren}
+            \textbf{}
+
         \subsubsection{Integration in LLMs (RAG)}
             
 
@@ -292,19 +290,19 @@ DEVELOP Test
 
 
 \section{Anforderungsanalyse}
-    \subsection{Zielgruppenanalyse}
+    \subsection{Analyse}
     \subsection{Benötigte Daten aus dem PIM System}
     \subsection{Vergleich der LLM Modelle}
 
 
-\section{Konzeption und Realisierung}
+\section{Konzeption}
     \subsection{Architektur}
     \subsection{Datenfluss zwischen Vektor Store und Applikation}
     \subsection{Schnittstellendesign}
     \subsection{Promptdesign}
 
 
-\section{Implementierung des Prototyps}
+\section{Implementierung}
     \subsection{Überblick über die Systemkomponenten}
     \subsection{Umsetzung der Schnittstellen (Vector Store / Applikation / LLM)}
     \subsection{Datenimport und -export}
@@ -325,7 +323,7 @@ DEVELOP Test
 
             Prompt mit Rollenbeschreibung („Du bist ein Marketing-Experte…“) besser als generischer Prompt.
 
-            Techniktexte brauchen präzisere Struktur → Template hilft.
+            Techniktexte brauchen präzisere Struktur -> Template hilft.
 
             Marketingtexte profitieren von höherer Kreativität → Temperatur-Einstellungen diskutieren.
             

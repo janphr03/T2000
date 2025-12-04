@@ -34,8 +34,51 @@
 
 
 
-\newacronym{ki}{KI}{künstliche Intelligenz}
-\newacronym{ml}{ML}{Machine learning}
+% --- Grundbegriffe KI / ML ---
+\newacronym{ki}{KI}{Künstliche Intelligenz}
+\newacronym{ml}{ML}{Maschinelles Lernen}
+\newacronym{llm}{LLM}{Large Language Model}
+\newacronym{rag}{RAG}{Retrieval-Augmented Generation}
+\newacronym{embedding}{Embedding}{Numerische Repräsentation von Text oder Objekten im Vektorraum}
+
+% --- NNS / ANN ---
+\newacronym{nns}{NNS}{Nearest Neighbor Search, Verfahren zur Suche nach nächsten Nachbarn}
+\newacronym{ann}{ANN}{Approximate Nearest Neighbor, Näherungsverfahren für schnelle Ähnlichkeitssuche}
+\newacronym{knn}{kNN}{k-Nächste-Nachbarn-Suche}
+
+% --- Vektorstore / Vektordatenbank ---
+\newacronym{vektorstore}{Vektor-Store}{Leichtgewichtiges System zur Speicherung von Embeddings und Ausführung semantischer Ähnlichkeitssuchen}
+\newacronym{vektordatenbank}{Vektordatenbank}{Datenbanksystem für Embeddings mit Mechanismen wie Sharding, Partitionierung, Caching und Replikation}
+
+% --- Speicherverfahren ---
+\newacronym{sharding}{Sharding}{Horizontale Datenpartitionierung über mehrere Maschinen zur Skalierung und Lastverteilung}
+\newacronym{partitionierung}{Partitionierung}{Aufteilung eines Datensatzes in logisch getrennte Teilmengen}
+\newacronym{rangepartition}{Range-Partitioning}{Partitionierung nach Wertebereichen}
+\newacronym{listpartition}{List-Partitioning}{Partitionierung anhand expliziter Wertelisten}
+\newacronym{hashpartition}{Hash-Partitioning}{Partitionierung mithilfe einer Hashfunktion}
+
+% --- Caching ---
+\newacronym{caching}{Caching}{Zwischenspeicherung häufig genutzter Daten zur Reduktion von Latenz und Systemlast}
+\newacronym{fifo}{FIFO}{Cache-Strategie: First-In First-Out}
+\newacronym{lru}{LRU}{Cache-Strategie: Least Recently Used}
+\newacronym{mru}{MRU}{Cache-Strategie: Most Recently Used}
+\newacronym{lfu}{LFU}{Cache-Strategie: Least Frequently Used}
+
+% --- Replikation ---
+\newacronym{replikation}{Replikation}{Anlegen mehrerer Datenkopien zur Erhöhung der Verfügbarkeit und Ausfallsicherheit}
+\newacronym{leaderfollower}{Leader-Follower-Replikation}{Replikationsmodell mit einem schreibenden Leader und mehreren lesenden Followern}
+\newacronym{multileader}{Multi-Leader-Replikation}{Replikationsmodell mit mehreren parallel schreibenden Knoten}
+\newacronym{leaderless}{Leaderless-Replikation}{Replikationsmodell ohne Leader; Konsistenz über Quorum-Protokolle}
+
+% --- Tree-Based Search ---
+\newacronym{kd-tree}{KD-Tree}{Baumstruktur zur Organisation von Datenpunkten in k-dimensionalen Räumen}
+\newacronym{ball-tree}{Ball-Tree}{Baumstruktur, die Daten in hypersphärischen Regionen gruppiert}
+\newacronym{r-tree}{R-Tree}{Baumstruktur zur Organisation von Daten in hyperrechteckigen Bereichen}
+\newacronym{m-tree}{M-Tree}{Baumstruktur auf Basis von Distanzen und Covering Radii}
+
+% --- Geometrische Begriffe ---
+\newacronym{mbr}{MBR}{Minimum Bounding Rectangle, kleinstes umschließendes Rechteck einer Punktmenge}
+\newacronym{coveringradius}{Covering Radius}{Maximale Distanz zwischen einem Routing-Objekt und seinen Kindobjekten}
 
 
 \makeglossaries
@@ -43,7 +86,7 @@
 
 
 \lstset{ 
-    language=C, % oder C++, Java, Python etc.
+    language=Python, % oder C++, Java, Python etc.
     basicstyle=\ttfamily\small, 
     keywordstyle=\color{blue}, 
     commentstyle=\color{gray}, 
@@ -153,9 +196,9 @@ DEVELOP Test
 
         
 
-    \subsection{Vektorstore}
+    \subsection{Vektor-Store}
         
-        Vektor Stores bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
+        \acrshort{vektorstore}s bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
         Embeddings, also numerischen Repräsentationen von Text- oder Produktdaten, und ermöglichen effiziente Nearest-Neighbor-Abfragen. 
         Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben.
 
@@ -170,7 +213,7 @@ DEVELOP Test
 
         \subsubsection{Abgrenzung Vektor-Store und Vektor-Datenbank}
             
-            Der Begriff \emph{Vektor-Store} wird in der Literatur nicht einheitlich verwendet und dient häufig als 
+            Der Begriff \acrshort{vektorstore} wird in der Literatur nicht einheitlich verwendet und dient häufig als 
             Sammelbezeichnung für leichtgewichtige Systeme, die Embeddings speichern und eine grundlegende 
             semantische Ähnlichkeitssuche bereitstellen. Solche Systeme konzentrieren sich in der Regel auf das 
             Einfügen von Embeddings und die Ausführung von k-nächste-Nachbarn-Abfragen, ohne jedoch 

@@ -2,8 +2,8 @@
 REM ======= Einstellungen =======
 REM LaTeX-Dateiname ohne Endung:
 set "BASENAME=T2000"
-set "DIR=C:\Users\herrmannja\Downloads\LaTexT2000Neu\"
-set "FILE=%DIR%\%BASENAME%.tex"
+set "FILE=%BASENAME%.tex"
+
 
 REM ======= Prüfung =======
 IF NOT EXIST "%FILE%" (

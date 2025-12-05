@@ -28,6 +28,10 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+
 \usepackage{needspace} % in der Präambel
 
 \usepackage[acronym]{glossaries}
@@ -192,6 +196,23 @@ DEVELOP Test
             erschließen. ML bildet damit die Grundlage für viele moderne KI-Anwendungen,
             insbesondere für datengetriebene Systeme wie neuronale Netze oder Large Language Models.
             
+            
+        \begin{figure}[htbp]
+            \centering
+                \begin{tikzpicture}[font=\small]
+
+                    % KI (Obermenge)
+                    \filldraw[fill=gray!9, draw=gray!70, thick] (0,0) circle (3cm);
+                    \node[font=\normalsize\bfseries] at (-0.4 , 3.2) {Künstliche Intelligenz};
+
+                    % ML (Teilmenge in KI)
+                    \filldraw[fill=gray!24, draw=gray!80, thick] (0.9,-0.2) circle (2cm);
+                    \node[font=\normalsize\bfseries] at (0.8 , 0.0) {Maschinelles Lernen};
+
+                \end{tikzpicture}
+            \caption{Einordnung von Maschinellem Lernen als Teilgebiete der Künstlichen Intelligenz}
+            \label{fig:ki-ml-dl}
+        \end{figure} 
 
 
         
@@ -264,6 +285,7 @@ DEVELOP Test
             optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
             Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
 
+            
         \textbf{Caching-Mechanismen in Vektordatenbanken} beschreiben das Zwischenspeichern häufig oder kürzlich genutzter Daten in besonders schnellen Speichermedien (z.B. RAM), 
             um Zugriffszeiten zu reduzieren und die Last auf der eigentlichen Datenbank zu verringern. 
             Für Vektordatenbanken ist Caching ein zentraler Mechanismus, da semantische Ähnlichkeitssuchen typischerweise 

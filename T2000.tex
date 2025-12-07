@@ -18,6 +18,10 @@
 
 % Tabellen verbessern
 \usepackage{array, booktabs}
+\usepackage{pifont}     % für Häkchen/Kreuz
+
+\newcommand{\cmark}{\ding{51}} % ✓
+\newcommand{\xmark}{\ding{55}} % ✗
 
 % Literaturverzeichnis mit BibTeX
 \usepackage[style=ieee, backend=biber]{biblatex}
@@ -29,7 +33,7 @@
 \usepackage{xcolor}
 
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{positioning, fit, shapes.misc}
 
 
 \usepackage{needspace} % in der Präambel
@@ -83,7 +87,6 @@
 }
 
 %Commands/ Style-Definitions====================================
-\newcommand{\csharp}{C\#}
 
 \setlength{\parskip}{1em}    % Abstand zwischen Abs\"atzen
 \setlength{\parindent}{0pt}  % Kein Einzug bei neuen Abs\"atzen
@@ -117,20 +120,18 @@
 \printglossary[type=\acronymtype,title=Abkürzungsverzeichnis]
 
 
-
+\newpage
 \section{Einleitung}
     \subsection{Motivation}
     \subsection{Problemstellung}
     \subsection{Zielsetzung}
 
-DEVELOP Test
 \acrshort{ML}
 
 
+\newpage
 \section{Theoretischer Hintergrund}
     
-
-
         \subsection{Künstliche Intelligenz}
 
             Bevor eine präzise Definition von künstlicher Intelligenz möglich ist, muss geklärt werden, welches Ziel ein intelligentes System verfolgen soll. 
@@ -200,7 +201,7 @@ DEVELOP Test
 
 
         
-
+    \newpage
     \subsection{Vektor-Store}
         
         \acrshort{vektorstore}s bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
@@ -212,9 +213,38 @@ DEVELOP Test
         Letztere integrieren zusätzliche Mechanismen wie Sharding, interne Partitionierung, Caching oder Replikation 
         und unterscheiden sich damit deutlich in ihrer Komplexität und Skalierbarkeit.
 
-       Im Folgenden werden die in \textcite{ma_comprehensive_2025} vorgestellten Speicher- und Suchmechanismen von Vektordatenbanken zusammengefasst 
-       und auf das Anwendungsszenario dieser Arbeit übertragen. 
+        Im Folgenden werden die in \textcite{ma_comprehensive_2025} vorgestellten Speicher- und Suchmechanismen von Vektordatenbanken zusammengefasst 
+        und auf das Anwendungsszenario dieser Arbeit übertragen. 
             
+        \begin{table}[htbp]
+            \centering
+            \caption{Abgrenzung von Vektor-Store und Vektordatenbank}
+            \label{tab:vektorstore-vektordatenbank}
+            \begin{tabular}{p{0.48\textwidth}cc}
+                \toprule
+                \textbf{Merkmal} & \textbf{Vektor-Store} & \textbf{Vektordatenbank} \\
+                \midrule
+                Speicherung von Embeddings 
+                    & \cmark & \cmark \\
+                k-nächste-Nachbarn-Suche (k-NN) 
+                    & \cmark & \cmark \\
+                Sharding über mehrere Knoten 
+                    & \xmark & \cmark \\
+                Interne Partitionierung innerhalb eines Knotens 
+                    & \xmark & \cmark \\
+                Caching-Mechanismen 
+                    & \xmark & \cmark \\
+                Replikation 
+                    & \xmark & \cmark \\
+                Approximate Nearest Neighbor (ANN)-Indexe 
+                    & \xmark & \cmark \\
+                Metadatenverwaltung und Konsistenzmodelle 
+                    & \xmark & \cmark \\
+                \bottomrule
+            \end{tabular}
+        \end{table}
+
+
 
         \subsubsection{Abgrenzung Vektor-Store und Vektor-Datenbank}
             
@@ -269,7 +299,58 @@ DEVELOP Test
             optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
             Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
 
-            
+           \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        shard/.style={
+            rectangle, rounded corners, draw, thick,
+            minimum width=3.5cm, minimum height=2.2cm,
+        },
+        partition/.style={
+            rectangle, draw, thick,
+            minimum width=0.8cm, minimum height=0.8cm
+        },
+        arrow/.style={-stealth, thick}
+    ]
+
+    % Anfrage (oben)
+    \node[font=\bfseries\Medium] (anfrage) {Anfrage:};
+
+    % Drei Shards
+    \node[shard, below left=1.7cm and 3.5cm of anfrage] (s1) {};
+    \node[shard, below=1.7cm of anfrage] (s2) {};
+    \node[shard, below right=1.7cm and 3.5cm of anfrage] (s3) {};
+
+    % Labels inside Shards
+    \node at (s1) {Shard 1};
+    \node at (s2) {Shard 2};
+    \node at (s3) {Shard 3};
+
+    % Partitions under Shard 2
+    \node[partition, below=0.5cm of s2.south, xshift=-1cm] (p1) {};
+    \node[partition, below=0.5cm of s2.south] (p2) {};
+    \node[partition, below=0.5cm of s2.south, xshift=1cm] (p3) {};
+
+    % Arrows from Anfrage to Shards
+    \draw[arrow] (anfrage.south) -- (s2.north);
+    \draw[arrow] ([xshift=-0.2cm] anfrage.south) -- ([yshift=0.2cm] s1.north);
+    \draw[arrow] ([xshift=0.2cm] anfrage.south) -- ([yshift=0.2cm] s3.north);
+
+    % Arrows from Shard 2 to Partitions
+    \draw[arrow] (s2.south) -- (p1.north);
+    \draw[arrow] (s2.south) -- (p2.north);
+    \draw[arrow] (s2.south) -- (p3.north);
+
+    % Label Partitions
+    \node[below=0.5cm of p2] {\footnotesize Partitionen};
+
+    \end{tikzpicture}
+
+    \caption{Sharding über mehrere Maschinen und interne Partitionierung innerhalb eines Shards}
+    \label{fig:sharding-partitionierung-tikz}
+\end{figure}
+
+        
             \textbf{Caching-Mechanismen in Vektordatenbanken} beschreiben das Zwischenspeichern häufig oder kürzlich genutzter Daten in besonders schnellen Speichermedien (z.B. RAM), 
             um Zugriffszeiten zu reduzieren und die Last auf der eigentlichen Datenbank zu verringern. 
             Für Vektordatenbanken ist Caching ein zentraler Mechanismus, da semantische Ähnlichkeitssuchen typischerweise 
@@ -340,14 +421,14 @@ DEVELOP Test
         \subsubsection{Integration in LLMs (RAG)} 
             
 
-            
+    \newpage        
     \subsection{Neuronale Netze}
     \subsection{Large Language Models}
     \subsection{Retrieval-Augmented Generation} % LLM mit Datenquelle
     \subsection{Schnittstellentechnologie}
     \subsection{prompt Engineering}
 
-
+\newpage
 \section{Anforderungsanalyse}
     \subsection{Analyse}
     \subsection{Benötigte Daten aus dem PIM System}

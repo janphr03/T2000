@@ -5,3 +5,15 @@
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+
+*.acn
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.glo
+*.ist
+*.log
+*.toc
+
+

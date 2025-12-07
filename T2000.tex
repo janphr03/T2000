@@ -206,14 +206,14 @@
         
         \acrshort{vektorstore}s bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
         Embeddings, also numerischen Repräsentationen von Text- oder Produktdaten, und ermöglichen effiziente Nearest-Neighbor-Abfragen. 
-        Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben.
+        Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben (vgl. Abschnitt~\ref{subsec:rag}).
 
         Da der Begriff „Vektorstore“ in der Literatur häufig als Sammelbezeichnung für leichtgewichtige, embeddingbasierte Speichersysteme verwendet wird,
         ist eine Abgrenzung zu vollwertigen Vektordatenbanken notwendig. 
         Letztere integrieren zusätzliche Mechanismen wie Sharding, interne Partitionierung, Caching oder Replikation 
         und unterscheiden sich damit deutlich in ihrer Komplexität und Skalierbarkeit.
 
-        Im Folgenden werden die in \textcite{ma_comprehensive_2025} vorgestellten Speicher- und Suchmechanismen von Vektordatenbanken zusammengefasst 
+        Im Folgenden werden die in \cite{ma_comprehensive_2025} vorgestellten Speicher- und Suchmechanismen von Vektordatenbanken zusammengefasst 
         und auf das Anwendungsszenario dieser Arbeit übertragen. 
             
         \begin{table}[htbp]
@@ -293,62 +293,62 @@
             Durch diese interne Strukturierung müssen Suchanfragen nur gegen relevante Partitionen ausgeführt werden, 
             was insbesondere bei großen Einbettungsräumen die Latenz der semantischen Ähnlichkeitssuche reduziert (vgl. \cite{ma_comprehensive_2025}, S.~3f.).
 
-            In modernen Vektordatenbanken wird Partitionierung häufig mit Sharding kombiniert: 
+            In modernen Vektordatenbanken wird Partitionierung häufig mit Sharding kombiniert (vgl. Abbildung~\ref{fig:sharding-partitionierung-tikz}).
             
             Während Sharding die Skalierung über mehrere Knoten ermöglicht, 
             optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
             Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
 
            \begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[
-        shard/.style={
-            rectangle, rounded corners, draw, thick,
-            minimum width=3.5cm, minimum height=2.2cm,
-        },
-        partition/.style={
-            rectangle, draw, thick,
-            minimum width=0.8cm, minimum height=0.8cm
-        },
-        arrow/.style={-stealth, thick}
-    ]
+                \centering
+                \begin{tikzpicture}[
+                    shard/.style={
+                        rectangle, rounded corners, draw, thick,
+                        minimum width=3.5cm, minimum height=2.2cm,
+                    },
+                    partition/.style={
+                        rectangle, draw, thick,
+                        minimum width=0.8cm, minimum height=0.8cm
+                    },
+                    arrow/.style={-stealth, thick}
+                ]
 
-    % Anfrage (oben)
-    \node[font=\bfseries\Medium] (anfrage) {Anfrage:};
+                % Anfrage (oben)
+                \node[font=\bfseries\normalsize] (anfrage) {Anfrage:};
 
-    % Drei Shards
-    \node[shard, below left=1.7cm and 3.5cm of anfrage] (s1) {};
-    \node[shard, below=1.7cm of anfrage] (s2) {};
-    \node[shard, below right=1.7cm and 3.5cm of anfrage] (s3) {};
+                % Drei Shards
+                \node[shard, below left=1.7cm and 3.5cm of anfrage] (s1) {};
+                \node[shard, below=1.7cm of anfrage] (s2) {};
+                \node[shard, below right=1.7cm and 3.5cm of anfrage] (s3) {};
 
-    % Labels inside Shards
-    \node at (s1) {Shard 1};
-    \node at (s2) {Shard 2};
-    \node at (s3) {Shard 3};
+                % Labels inside Shards
+                \node at (s1) {Shard 1};
+                \node at (s2) {Shard 2};
+                \node at (s3) {Shard 3};
 
-    % Partitions under Shard 2
-    \node[partition, below=0.5cm of s2.south, xshift=-1cm] (p1) {};
-    \node[partition, below=0.5cm of s2.south] (p2) {};
-    \node[partition, below=0.5cm of s2.south, xshift=1cm] (p3) {};
+                % Partitions under Shard 2
+                \node[partition, below=0.5cm of s2.south, xshift=-1cm] (p1) {};
+                \node[partition, below=0.5cm of s2.south] (p2) {};
+                \node[partition, below=0.5cm of s2.south, xshift=1cm] (p3) {};
 
-    % Arrows from Anfrage to Shards
-    \draw[arrow] (anfrage.south) -- (s2.north);
-    \draw[arrow] ([xshift=-0.2cm] anfrage.south) -- ([yshift=0.2cm] s1.north);
-    \draw[arrow] ([xshift=0.2cm] anfrage.south) -- ([yshift=0.2cm] s3.north);
+                % Arrows from Anfrage to Shards
+                \draw[arrow] (anfrage.south) -- (s2.north);
+                \draw[arrow] ([xshift=-0.2cm] anfrage.south) -- ([yshift=0.2cm] s1.north);
+                \draw[arrow] ([xshift=0.2cm] anfrage.south) -- ([yshift=0.2cm] s3.north);
 
-    % Arrows from Shard 2 to Partitions
-    \draw[arrow] (s2.south) -- (p1.north);
-    \draw[arrow] (s2.south) -- (p2.north);
-    \draw[arrow] (s2.south) -- (p3.north);
+                % Arrows from Shard 2 to Partitions
+                \draw[arrow] (s2.south) -- (p1.north);
+                \draw[arrow] (s2.south) -- (p2.north);
+                \draw[arrow] (s2.south) -- (p3.north);
 
-    % Label Partitions
-    \node[below=0.5cm of p2] {\footnotesize Partitionen};
+                % Label Partitions
+                \node[below=0.5cm of p2] {\footnotesize Partitionen};
 
-    \end{tikzpicture}
+                \end{tikzpicture}
 
-    \caption{Sharding über mehrere Maschinen und interne Partitionierung innerhalb eines Shards}
-    \label{fig:sharding-partitionierung-tikz}
-\end{figure}
+                \caption{Sharding über mehrere Maschinen und interne Partitionierung innerhalb eines Shards}
+                \label{fig:sharding-partitionierung-tikz}
+            \end{figure}
 
         
             \textbf{Caching-Mechanismen in Vektordatenbanken} beschreiben das Zwischenspeichern häufig oder kürzlich genutzter Daten in besonders schnellen Speichermedien (z.B. RAM), 
@@ -387,8 +387,86 @@
             Zentrum der Ähnlichkeitssuche als vielmehr ihrer infrastrukturellen Betriebsstabilität.
 
         \subsubsection{Suchverfahren}
-            Diese Arbeit befasst sich mit zwei Kategorien von Suchverfahren 
-            und wann diese eingesetzt werden. 
+            Diese Arbeit befasst sich mit zwei Kategorien von Suchverfahren, deren grundlegende 
+    Funktionsweise in Abbildung~\ref{nns-ann-cluster} schematisch gegenübergestellt ist. 
+    Die Darstellung der approximierenden Suche stellt hierbei ein vereinfachtes, 
+    heuristisches Beispiel dar: Es illustriert das Prinzip, dass ANN-Verfahren den 
+    Suchraum gezielt einschränken, ohne jeden Punkt im Vektorraum zu prüfen. 
+    In der Praxis existieren verschiedene ANN-Algorithmen (z.B. HNSW, IVF, LSH), die 
+    dieses Prinzip auf unterschiedliche Weise umsetzen. Die Abbildung dient somit der 
+    didaktischen Veranschaulichung des Grundkonzepts.
+
+
+
+            \begin{figure}[htbp]
+                \centering
+                \begin{tikzpicture}[font=\small]
+
+                    % ========== EXAKTE SUCHE ==========
+                    \node[font=\bfseries] at (0, 3) {Exakte Suche (NNS)};
+
+                    % Query Punkt
+                    \filldraw[black] (-0.3,0.8) circle (2pt);
+                    \node[anchor=east, font=\bfseries] at (-0.35,0.8) {q};
+
+                    % Zufällige Punkte
+                    \foreach \i/\x/\y in {
+                        a/0.8/0.5,
+                        b/1.6/0.7,
+                        c/1.2/1.4,
+                        d/0.5/1.9,
+                        e/1.8/2.3,
+                        f/2.3/1.4,
+                        g/2.7/0.9,
+                        h/2.1/0.4,
+                        i/1.4/2.5
+                    }{
+                        \node[circle, fill=gray!40, inner sep=3pt] (\i) at (\x,\y) {};
+                        % direkte Distanzlinien zu q
+                        \draw[red!80, dashed] (-0.3,0.8) -- (\i);
+                    }
+
+                    % ===== RECHTSEITE: ANN (verbesserte Darstellung) =====
+                    \node[font=\bfseries] at (8, 3) {Approximierende Suche (ANN)};
+
+                    % Query rechts
+                    \filldraw[black] (5.8,0.8) circle (2pt);
+                    \node[anchor=east, font=\bfseries] at (5.75,0.8) {q};
+
+                    % Cluster Kreise
+                    \draw[gray!50, dashed] (6.6,1.0) circle (0.8cm);
+                    \draw[gray!50, dashed] (7.9,2.0) circle (0.8cm);
+                    \draw[gray!50, dashed] (5.6,2.0) circle (0.8cm);
+
+                    % Punkte im relevanten Cluster (die ANN wirklich prüft)
+                    \coordinate (b1) at (6.2,1.2);
+                    \coordinate (b2) at (6.7,0.6);
+                    \coordinate (b3) at (6.9,1.2);
+
+                    \foreach \p in {b1,b2,b3}{
+                        \node[circle, fill=gray!40, inner sep=3pt] at (\p) {};
+                    }
+
+                    % Punkte in irrelevanten Clustern (ausgegraut)
+                    \foreach \x/\y in {5.3/1.8, 5.8/2.3, 6.1/2.1, 7.7/1.9, 8.0/2.2, 8.2/1.8}{
+                        \node[circle, fill=gray!15, inner sep=3pt] at (\x,\y) {};
+                    }
+
+                    % ANN: direkte Distanzlinien NUR zu Kandidaten
+                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b2);
+                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b1);
+                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b3);
+                \end{tikzpicture}
+
+                
+                \caption{
+                Vergleich zwischen exakter Nearest-Neighbor-Suche (NNS) und approximierender Suche (ANN).
+                Bei exakter Suche berechnet das System die Distanz zwischen der Anfrage und \emph{jedem} Punkt im Raum (rote Linien).
+                ANN-Verfahren durchsuchen hingegen nur relevante Regionen des Suchraums (blauer Pfad).
+                }
+                \label{nns-anns-cluster}
+            \end{figure}
+
 
             \textbf{Exakte Nearest-Neighbor-Suche (NNS)} bezeichnet das Verfahren, 
             für einen gegebenen Anfragevektor denjenigen Vektor in einer Menge zu bestimmen, 
@@ -418,13 +496,12 @@
             sind approximierende Verfahren bei skalierbaren Vektordatenbanken mit einer großen Anzahl von Embeddings sinnvoll.
 
 
-        \subsubsection{Integration in LLMs (RAG)} 
-            
-
     \newpage        
     \subsection{Neuronale Netze}
     \subsection{Large Language Models}
     \subsection{Retrieval-Augmented Generation} % LLM mit Datenquelle
+            \label{subsec:rag}
+
     \subsection{Schnittstellentechnologie}
     \subsection{prompt Engineering}
 

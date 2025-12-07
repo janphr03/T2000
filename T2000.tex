@@ -1,10 +1,15 @@
 \documentclass[12pt,a4paper]{article} % Standard für Hausarbeiten
 
+
 % Sprachunterst\"utzung f\"ur deutsche Umlaute und Silbentrennung
 \usepackage[utf8]{inputenc}  % Zeichencodierung
 \usepackage[T1]{fontenc}     % Korrekte Darstellung von Umlauten
 \usepackage[ngerman]{babel}  % Deutsche Sprache und Silbentrennung
 \usepackage{csquotes}
+
+% Schrift
+\usepackage{lmodern}
+\usepackage{microtype}
 
 % Seitenr\"ander sch\"oner machen
 \usepackage[a4paper, left=3cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
@@ -19,7 +24,6 @@
 % Tabellen verbessern
 \usepackage{array, booktabs}
 \usepackage{pifont}     % für Häkchen/Kreuz
-
 \newcommand{\cmark}{\ding{51}} % ✓
 \newcommand{\xmark}{\ding{55}} % ✗
 
@@ -47,7 +51,7 @@
 \newacronym{ml}{ML}{Maschinelles Lernen}
 \newacronym{llm}{LLM}{Large Language Model}
 \newacronym{rag}{RAG}{Retrieval-Augmented Generation}
-\newacronym{embedding}{Embedding}{Numerische Repräsentation von Text oder Objekten im Vektorraum}
+\newacronym{embedding}{Embedding} {Numerische Vektorrepräsentation von Text-, Bild- oder Produktdaten, die semantische Inhalte in einem hochdimensionalen Raum abbildet}
 
 % --- Vektorstore / Vektordatenbank ---
 \newacronym{vektorstore}{Vektor-Store}{Leichtgewichtiges System zur Speicherung von Embeddings und Ausführung semantischer Ähnlichkeitssuchen}
@@ -70,7 +74,6 @@
 % --- Suchverfahren
 \newacronym{nns}{NNS}{Exakte Nearest-Neighbor-Suche}
 \newacronym{anns}{ANNS}{Approximierende Nearest-Neighbor-Suche}
-\newacronym{embedding}{Embedding} {Numerische Vektorrepräsentation von Text-, Bild- oder Produktdaten, die semantische Inhalte in einem hochdimensionalen Raum abbildet}
 \newacronym{distanzmaß}{Distanzmaß}{Funktion zur Berechnung der Ähnlichkeit oder Unähnlichkeit zweier Vektoren, z.B. mittels euklidischer Distanz oder Kosinusdistanz}
 
 \makeglossaries
@@ -126,7 +129,7 @@
     \subsection{Problemstellung}
     \subsection{Zielsetzung}
 
-\acrshort{ML}
+
 
 
 \newpage
@@ -236,7 +239,7 @@
                     & \xmark & \cmark \\
                 Replikation 
                     & \xmark & \cmark \\
-                Approximate Nearest Neighbor (ANN)-Indexe 
+                Approximate Nearest Neighbor (ANNS)-Indexe 
                     & \xmark & \cmark \\
                 Metadatenverwaltung und Konsistenzmodelle 
                     & \xmark & \cmark \\
@@ -257,7 +260,7 @@
             Unter einer \acrshort{vektordatenbank} werden hingegen vollwertige Datenbanksysteme verstanden, die 
             neben der Speicherung und Suche von Embeddings zusätzliche Verwaltungs- und Infrastrukturmechanismen 
             integrieren. Dazu zählen insbesondere Sharding, interne Partitionierung, Caching, Replikation, 
-            Indexstrukturen für Approximate Nearest Neighbor (ANN) sowie Metadatenverwaltung und Konsistenzmodelle. 
+            sowie Indexstrukturen für Approximate-Nearest-Neighbor-Search (\acrshort{anns}). 
             Diese Systeme sind auf hohe Skalierbarkeit, Robustheit und Performanz im produktiven Einsatz ausgelegt.
 
             Für die vorliegende Arbeit wird daher folgende Unterscheidung getroffen:
@@ -388,13 +391,13 @@
 
         \subsubsection{Suchverfahren}
             Diese Arbeit befasst sich mit zwei Kategorien von Suchverfahren, deren grundlegende 
-    Funktionsweise in Abbildung~\ref{nns-ann-cluster} schematisch gegenübergestellt ist. 
-    Die Darstellung der approximierenden Suche stellt hierbei ein vereinfachtes, 
-    heuristisches Beispiel dar: Es illustriert das Prinzip, dass ANN-Verfahren den 
-    Suchraum gezielt einschränken, ohne jeden Punkt im Vektorraum zu prüfen. 
-    In der Praxis existieren verschiedene ANN-Algorithmen (z.B. HNSW, IVF, LSH), die 
-    dieses Prinzip auf unterschiedliche Weise umsetzen. Die Abbildung dient somit der 
-    didaktischen Veranschaulichung des Grundkonzepts.
+            Funktionsweise in Abbildung~\ref{nns-anns-cluster} schematisch gegenübergestellt ist. 
+            Die Darstellung der approximierenden Suche stellt hierbei ein vereinfachtes, 
+            heuristisches Beispiel dar: Es illustriert das Prinzip, dass ANN-Verfahren den 
+            Suchraum gezielt einschränken, ohne jeden Punkt im Vektorraum zu prüfen. 
+            In der Praxis existieren verschiedene ANN-Algorithmen (z.B. HNSW, IVF, LSH), die 
+            dieses Prinzip auf unterschiedliche Weise umsetzen. Die Abbildung dient somit der 
+            didaktischen Veranschaulichung des Grundkonzepts.
 
 
 
@@ -498,6 +501,11 @@
 
     \newpage        
     \subsection{Neuronale Netze}
+            \subsubsection{}
+            \subsubsection{}
+            \subsubsection{}
+
+
     \subsection{Large Language Models}
     \subsection{Retrieval-Augmented Generation} % LLM mit Datenquelle
             \label{subsec:rag}

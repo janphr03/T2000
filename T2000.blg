@@ -1,20 +1,20 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'T2000.blg'
-[92] biber-MSWIN64:340> INFO - === 
-[119] Biber.pm:419> INFO - Reading 'T2000.bcf'
-[246] Biber.pm:979> INFO - Found 2 citekeys in bib section 0
-[261] Biber.pm:4419> INFO - Processing section 0
-[273] Biber.pm:4610> INFO - Looking for bibtex file 'literature.bib' for section 0
-[320] bibtex.pm:1713> INFO - LaTeX decoding ...
-[327] bibtex.pm:1519> INFO - Found BibTeX data source 'literature.bib'
-[336] Biber.pm:4610> INFO - Looking for bibtex file 'Meine Bibliothek.bib' for section 0
-[376] bibtex.pm:1713> INFO - LaTeX decoding ...
-[384] bibtex.pm:1519> INFO - Found BibTeX data source 'Meine Bibliothek.bib'
-[453] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[453] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[453] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
-[453] Biber.pm:4245> INFO - No sort tailoring available for locale 'de-DE'
-[460] bbl.pm:660> INFO - Writing 'T2000.bbl' with encoding 'UTF-8'
-[464] bbl.pm:763> INFO - Output to T2000.bbl
-[465] Biber.pm:131> WARN - ISBN '978-0-13-103805-9 978-0-13-360124-4' in entry 'russell_artificial_1995' is invalid - run biber with '--validate_datamodel' for details.
-[465] Biber.pm:133> INFO - WARNINGS: 1
+[160] biber-MSWIN64:340> INFO - === 
+[187] Biber.pm:419> INFO - Reading 'T2000.bcf'
+[280] Biber.pm:979> INFO - Found 2 citekeys in bib section 0
+[294] Biber.pm:4419> INFO - Processing section 0
+[306] Biber.pm:4610> INFO - Looking for bibtex file 'literature.bib' for section 0
+[349] bibtex.pm:1713> INFO - LaTeX decoding ...
+[355] bibtex.pm:1519> INFO - Found BibTeX data source 'literature.bib'
+[363] Biber.pm:4610> INFO - Looking for bibtex file 'Meine Bibliothek.bib' for section 0
+[400] bibtex.pm:1713> INFO - LaTeX decoding ...
+[409] bibtex.pm:1519> INFO - Found BibTeX data source 'Meine Bibliothek.bib'
+[475] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[475] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[476] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
+[476] Biber.pm:4245> INFO - No sort tailoring available for locale 'de-DE'
+[483] bbl.pm:660> INFO - Writing 'T2000.bbl' with encoding 'UTF-8'
+[487] bbl.pm:763> INFO - Output to T2000.bbl
+[487] Biber.pm:131> WARN - ISBN '978-0-13-103805-9 978-0-13-360124-4' in entry 'russell_artificial_1995' is invalid - run biber with '--validate_datamodel' for details.
+[488] Biber.pm:133> INFO - WARNINGS: 1

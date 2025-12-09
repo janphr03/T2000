@@ -212,16 +212,45 @@
 
 
         \subsubsection{Konventionelles Machine Learning (ML)}
-        Nach der klassischen Definition von Mitchell ``a computer program is said to learn from experience~E 
+        Nach der klassischen Definition von Mitchell gilt ein Programm als lernfähig, wenn \emph{``a computer program is said to learn from experience~E 
         with respect to some class of tasks~T and performance measure~P, if its performance at tasks in~T, 
-        as measured by~P, improves with experience~E'' \cite[S.~2]{mitchell1997machine}.
-
+        as measured by~P, improves with experience~E''} \cite[S.~2]{mitchell1997machine}.
+        Konventionelles maschinelles Lernen umfasst somit Verfahren, die statistische 
+        Muster in Daten erkennen und auf dieser Basis Vorhersagen oder Entscheidungen treffen können.
     
 
-        \subsubsection{Representation-learning (RL)}
+        LeCun, Bengio und Hinton ordnen maschinelles Lernen als zentralen Bestandteil moderner digitaler Systeme ein. 
+        ML-Methoden werden unter anderem zur Objekterkennung in Bildern, zur Umwandlung von Sprache in Text oder 
+        zur Relevanzsortierung von Inhalten eingesetzt \cite[S.~436f.]{lecun_deep_2015}. 
+        Diese Anwendungen verdeutlichen den praktischen Nutzen konventioneller ML-Verfahren in einer datengetriebenen Gesellschaft.
+
+        Ein wesentlicher Engpass konventioneller ML-Verfahren besteht darin, dass Modelle Rohdaten wie Pixelwerte, Audiosignale oder Text 
+        nicht direkt verarbeiten können.
+        Stattdessen müssen die relevanten Merkmale zunächst manuell aus den Daten extrahiert werden. 
+        Dieser arbeitsintensive Prozess, bei dem Expertinnen und Experten geeignete Eingaberepräsentationen gestalten, wird als \emph{Feature 
+        Engineering} bezeichnet.
+        Da die Modellleistung maßgeblich von der Qualität dieser handentwickelten Merkmale abhängt, stellte dieser Ansatz über Jahrzehnte hinweg
+        eine zentrale Begrenzung klassischer ML-Systeme dar \cite[S.~436f.]{lecun_deep_2015}.
+
+        Diese Einschränkung bildet den Ausgangspunkt für das Representation Learning, das darauf abzielt, 
+        Merkmale automatisch aus Rohdaten zu lernen und die Abhängigkeit vom Feature Engineering zu reduzieren.
+
         
-        Definition von Representation Learning als Methode, die es der Maschine erlaubt, die benötigten Repräsentationen (Features) 
-        automatisch aus Rohdaten zu entdecken
+        \subsubsection{Representation Learning (RL)}
+            Representation Learning umfasst Methoden, die es ermöglichen, aus Rohdaten 
+            automatisch diejenigen Merkmale zu extrahieren, die für eine bestimmte Aufgabe 
+            relevant sind. Im Gegensatz zum konventionellen Machine Learning entfällt dabei 
+            die Notwendigkeit, Merkmalsextraktoren manuell zu definieren. Stattdessen lernt 
+            das Modell eigenständig geeignete interne Repräsentationen, die zentrale 
+            Informationen betonen und irrelevante Variationen unterdrücken \cite[S.~436]{lecun_deep_2015}.
+
+            Representation Learning bildet damit die methodische Grundlage moderner KI-Verfahren. 
+            Deep Learning stellt eine spezielle Ausprägung davon dar, bei der viele solcher Repräsentationsebenen
+            zu besonders leistungsfähigen Modellen gestapelt werden.
+
+
+
+        
 
         \subsubsection{Deep-learning (DL)}
 
@@ -311,7 +340,7 @@
              \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
              bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
              Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
-             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3]{ma_comprehensive_2025}).
+             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3f]{ma_comprehensive_2025}).
 
             \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} die horizontale Datenpartitionierung innerhalb einer Maschine 
             bezeichnet die Aufteilung der in einer einzelnen Datenbankinstanz gespeicherten Vektordaten in mehrere 

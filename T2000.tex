@@ -211,16 +211,19 @@
     \subsection{Machine Learning} % 2 Seiten
 
 
-        \subsubsection{Von ML zu DL}
+        \subsubsection{Konventionelles Machine Learning (ML)}
+        Nach der klassischen Definition von Mitchell ``a computer program is said to learn from experience~E 
+        with respect to some class of tasks~T and performance measure~P, if its performance at tasks in~T, 
+        as measured by~P, improves with experience~E'' \cite[S.~2]{mitchell1997machine}.
+
     
-        \subsubsection{DL als representation learning}
+
+        \subsubsection{Representation-learning (RL)}
         
         Definition von Representation Learning als Methode, die es der Maschine erlaubt, die benötigten Repräsentationen (Features) 
         automatisch aus Rohdaten zu entdecken
 
-        \subsubsection{Supervised Learning}
-
-        % WENN NUR GANZ KURZ IN 4 SÄTZEN \subsubsection{Mechanismus des Lernens mit Backpropagation und Gradient Descend}
+        \subsubsection{Deep-learning (DL)}
 
 
 
@@ -308,7 +311,7 @@
              \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
              bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
              Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
-             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite{ma_comprehensive_2025} S.~3).
+             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3]{ma_comprehensive_2025}).
 
             \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} die horizontale Datenpartitionierung innerhalb einer Maschine 
             bezeichnet die Aufteilung der in einer einzelnen Datenbankinstanz gespeicherten Vektordaten in mehrere 
@@ -317,7 +320,7 @@
             Ziel ist es, lokale Abfragen effizienter auszuführen, Speicherressourcen besser auszunutzen und parallele Verarbeitung zu ermöglichen.
             Partitionen können beispielsweise über Wertebereiche (Range-Partitioning), vordefinierte Kategorien (List-Partitioning) oder Hash-Verfahren gebildet werden.
             Durch diese interne Strukturierung müssen Suchanfragen nur gegen relevante Partitionen ausgeführt werden, 
-            was insbesondere bei großen Einbettungsräumen die Latenz der semantischen Ähnlichkeitssuche reduziert (vgl. \cite{ma_comprehensive_2025}, S.~3f.).
+            was insbesondere bei großen Einbettungsräumen die Latenz der semantischen Ähnlichkeitssuche reduziert (vgl. \cite[S.~3f.]{ma_comprehensive_2025}).
 
             In modernen Vektordatenbanken wird Partitionierung häufig mit Sharding kombiniert (vgl. Abbildung~\ref{fig:sharding-partitionierung-tikz}).
             
@@ -380,7 +383,7 @@
             \textbf{Caching-Mechanismen in Vektordatenbanken} beschreiben das Zwischenspeichern häufig oder kürzlich genutzter Daten in besonders schnellen Speichermedien (z.B. RAM), 
             um Zugriffszeiten zu reduzieren und die Last auf der eigentlichen Datenbank zu verringern. 
             Für Vektordatenbanken ist Caching ein zentraler Mechanismus, da semantische Ähnlichkeitssuchen typischerweise 
-            rechenintensiv sind und von wiederholten Abfragen profitieren (vgl. \cite{ma_comprehensive_2025}, S.~4f.).
+            rechenintensiv sind und von wiederholten Abfragen profitieren (vgl. \cite[S.~4f.]{ma_comprehensive_2025}).
 
             Im Gegensatz zu klassischen Schlüssel-Wert-Caches (etwa Redis) ist das Caching in VDBs herausfordernder, 
             da Embeddings hochdimensionale Vektoren darstellen und identische Anfragen selten auftreten. 
@@ -407,7 +410,7 @@
             \textbf{Replikation} bezeichnet das Anlegen und Verteilen mehrerer Kopien von Vektordaten
             auf unterschiedliche Knoten eines verteilten Systems, um Ausfallsicherheit, Verfügbarkeit und Leselastverteilung zu erhöhen.
             Während sie für die semantische Ähnlichkeitssuche nicht unmittelbar leistungsbestimmend ist, stellt sie einen zentralen Mechanismus für die
-            betriebliche Robustheit moderner Vektordatenbanken dar (vgl.~\cite{ma_comprehensive_2025}, S.~5f.).
+            betriebliche Robustheit moderner Vektordatenbanken dar (vgl.~\cite[S.~5f.]{ma_comprehensive_2025}).
 
             Insgesamt trägt Replikation wesentlich zur Robustheit und Verfügbarkeit verteilter Vektordatenbanksysteme bei, steht jedoch weniger im direkten
             Zentrum der Ähnlichkeitssuche als vielmehr ihrer infrastrukturellen Betriebsstabilität.
@@ -499,7 +502,7 @@
             der gemäß einem definierten Distanzmaß (z.B. euklidische Distanz) 
             am nächsten liegt. In einfachster Form erfolgt dies durch eine lineare Suche, 
             bei der für jedes gespeicherte Embedding die Distanz zum Anfragevektor berechnet 
-            und anschließend der Vektor mit dem geringsten Abstand ausgewählt wird (vgl.~\cite{ma_comprehensive_2025}, S.~6f.).
+            und anschließend der Vektor mit dem geringsten Abstand ausgewählt wird (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
 
             Da die Laufzeit dieses Ansatzes linear (O(n)) mit der Anzahl der gespeicherten Embeddings wächst, 
             stoßen Systeme bei großen Datenmengen schnell an ihre Leistungsgrenzen. 
@@ -516,7 +519,7 @@
             aber nicht zwingend optimale Abschätzung erlauben. 
             Ziel ist es, möglichst schnell einen Vektor zu finden, 
             der dem Anfragevektor sehr ähnlich ist, ohne zwingend den exakt nächsten Nachbarn bestimmen zu müssen. 
-            Dadurch lassen sich deutliche Laufzeitgewinne erzielen, insbesondere bei großen Datenmengen (vgl.~\cite{ma_comprehensive_2025}, S.~6f.).
+            Dadurch lassen sich deutliche Laufzeitgewinne erzielen, insbesondere bei großen Datenmengen (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
 
             Während exakte Verfahren insbesondere in kleinen Vektor-Stores mit geringem Datenvolumen eingesetzt werden können, 
             sind approximierende Verfahren bei skalierbaren Vektordatenbanken mit einer großen Anzahl von Embeddings sinnvoll.

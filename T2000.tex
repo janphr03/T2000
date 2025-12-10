@@ -38,6 +38,8 @@
 
 \usepackage{tikz}
 \usetikzlibrary{positioning, fit, shapes.misc}
+\usepackage{circuitikz}      
+\usetikzlibrary{arrows.meta} % neu dazu
 
 
 \usepackage{needspace} % in der Präambel
@@ -52,6 +54,12 @@
 \newacronym{llm}{LLM}{Large Language Model}
 \newacronym{rag}{RAG}{Retrieval-Augmented Generation}
 \newacronym{embedding}{Embedding} {Numerische Vektorrepräsentation von Text-, Bild- oder Produktdaten, die semantische Inhalte in einem hochdimensionalen Raum abbildet}
+
+% --- Machine Learning
+
+
+
+
 
 % --- Vektorstore / Vektordatenbank ---
 \newacronym{vektorstore}{Vektor-Store}{Leichtgewichtiges System zur Speicherung von Embeddings und Ausführung semantischer Ähnlichkeitssuchen}
@@ -135,7 +143,7 @@
 \newpage
 \section{Theoretischer Hintergrund}
     
-        \subsection{Künstliche Intelligenz}
+    \subsection{Künstliche Intelligenz}
 
             Bevor eine präzise Definition von künstlicher Intelligenz möglich ist, muss geklärt werden, welches Ziel ein intelligentes System verfolgen soll. 
             Russell und Norvig zeigen, dass gängige KI-Definitionen in der wissenschaftlichen Literatur entlang zweier zentraler Dimensionen variieren (vgl. \cite{russell_artificial_1995}, Kap.~1.1):
@@ -184,83 +192,278 @@
             erschließen. ML bildet damit die Grundlage für viele moderne KI-Anwendungen,
             insbesondere für datengetriebene Systeme wie neuronale Netze oder Large Language Models.
             
-        % Grafik ML < KI    
+            % Grafik ML < KI    
+            \begin{figure}[htbp]
+                \centering
+                    \begin{tikzpicture}[font=\small]
+
+                        % KI (Obermenge)
+                        \filldraw[fill=gray!9, draw=gray!70, thick] (0,0) circle (3cm);
+                        \node[font=\normalsize\bfseries] at (-0.4 , 3.2) {Künstliche Intelligenz};
+
+                        % ML (Teilmenge in KI)
+                        \filldraw[fill=gray!24, draw=gray!80, thick] (0.9,-0.2) circle (2cm);
+                        \node[font=\normalsize\bfseries] at (0.8 , 0.0) {Maschinelles Lernen};
+
+                    \end{tikzpicture}
+                \caption{Einordnung von Maschinellem Lernen als Teilgebiete der Künstlichen Intelligenz}
+                \label{fig:ki-ml-dl}
+            \end{figure} 
+    %=========================================
+
+
+
+    \newpage
+    \subsection{Machine Learning} % 2 Seiten
+
+         
+        Für die in dieser Arbeit betrachtete Anwendung ist Machine Learning insofern von zentraler Bedeutung, 
+        als es die Grundlage für die automatisierte Verarbeitung und semantische Strukturierung von Text- und Produktdaten bildet. 
+        Im Folgenden werden zunächst konventionelle Verfahren des Machine Learning vorgestellt, bevor anschließend 
+        das Representation Learning und das Deep Learning als zunehmend automatisierte und leistungsfähigere 
+        Formen der Merkmalsextraktion betrachtet werden. 
+        Abbildung~\ref{fig:ml-rl-dl} veranschaulicht diese Einordnung innerhalb des Gesamtfeldes.
+
+
+        % Grafik Box DL < RL < ML 
         \begin{figure}[htbp]
             \centering
-                \begin{tikzpicture}[font=\small]
+                \begin{tikzpicture}[
+                    box/.style={
+                    rectangle,
+                    draw=gray!70,
+                    thick,
+                    rounded corners,
+                    minimum width=10cm,
+                    minimum height=6cm
+                    },
+                    innerbox/.style={
+                    rectangle,
+                    draw=gray!80,
+                    thick,
+                    rounded corners,
+                    minimum width=7cm,
+                    minimum height=4cm
+                    },
+                    corebox/.style={
+                    rectangle,
+                    draw=gray!90,
+                    thick,
+                    rounded corners,
+                    minimum width=4cm,
+                    minimum height=2cm
+                    }
+                ]
 
-                    % KI (Obermenge)
-                    \filldraw[fill=gray!9, draw=gray!70, thick] (0,0) circle (3cm);
-                    \node[font=\normalsize\bfseries] at (-0.4 , 3.2) {Künstliche Intelligenz};
+                % Outer box: ML
+                \node[box] (ml) {};
+                \node at (ml.north) [yshift=-0.6cm, font=\bfseries] {Machine Learning};
 
-                    % ML (Teilmenge in KI)
-                    \filldraw[fill=gray!24, draw=gray!80, thick] (0.9,-0.2) circle (2cm);
-                    \node[font=\normalsize\bfseries] at (0.8 , 0.0) {Maschinelles Lernen};
+                % Middle box: RL
+                \node[innerbox] (rl) {};
+                \node at (rl.north) [yshift=-0.6cm, font=\bfseries] {Representation Learning};
+
+                % Inner box: DL
+                \node[corebox] (dl) {};
+                \node at (dl) [font=\bfseries] {Deep Learning};
 
                 \end{tikzpicture}
-            \caption{Einordnung von Maschinellem Lernen als Teilgebiete der Künstlichen Intelligenz}
-            \label{fig:ki-ml-dl}
-        \end{figure} 
 
-
-
-
-
-    
-
-    \subsection{Machine Learning} % 2 Seiten
+            \caption{Einordnung von Representation Learning und Deep Learning als Teilgebiete des Machine Learning}
+            \label{fig:ml-rl-dl}
+        \end{figure}
 
 
         \subsubsection{Konventionelles Machine Learning (ML)}
-        Nach der klassischen Definition von Mitchell gilt ein Programm als lernfähig, wenn \emph{``a computer program is said to learn from experience~E 
-        with respect to some class of tasks~T and performance measure~P, if its performance at tasks in~T, 
-        as measured by~P, improves with experience~E''} \cite[S.~2]{mitchell1997machine}.
-        Konventionelles maschinelles Lernen umfasst somit Verfahren, die statistische 
-        Muster in Daten erkennen und auf dieser Basis Vorhersagen oder Entscheidungen treffen können.
-    
+            Nach der klassischen Definition von Mitchell gilt ein Programm als lernfähig, wenn \emph{``a computer program is said to learn from experience~E 
+            with respect to some class of tasks~T and performance measure~P, if its performance at tasks in~T, 
+            as measured by~P, improves with experience~E''} \cite[S.~2]{mitchell1997machine}.
+            Konventionelles maschinelles Lernen umfasst somit Verfahren, die statistische 
+            Muster in Daten erkennen und auf dieser Basis Vorhersagen oder Entscheidungen treffen können.
+        
 
-        LeCun, Bengio und Hinton ordnen maschinelles Lernen als zentralen Bestandteil moderner digitaler Systeme ein. 
-        ML-Methoden werden unter anderem zur Objekterkennung in Bildern, zur Umwandlung von Sprache in Text oder 
-        zur Relevanzsortierung von Inhalten eingesetzt \cite[S.~436f.]{lecun_deep_2015}. 
-        Diese Anwendungen verdeutlichen den praktischen Nutzen konventioneller ML-Verfahren in einer datengetriebenen Gesellschaft.
+            LeCun, Bengio und Hinton ordnen maschinelles Lernen als zentralen Bestandteil moderner digitaler Systeme ein. 
+            ML-Methoden werden unter anderem zur Objekterkennung in Bildern, zur Umwandlung von Sprache in Text oder 
+            zur Relevanzsortierung von Inhalten eingesetzt \cite[S.~436f.]{lecun_deep_2015}. 
+            Diese Anwendungen verdeutlichen den praktischen Nutzen konventioneller ML-Verfahren in einer datengetriebenen Gesellschaft.
 
-        Ein wesentlicher Engpass konventioneller ML-Verfahren besteht darin, dass Modelle Rohdaten wie Pixelwerte, Audiosignale oder Text 
-        nicht direkt verarbeiten können.
-        Stattdessen müssen die relevanten Merkmale zunächst manuell aus den Daten extrahiert werden. 
-        Dieser arbeitsintensive Prozess, bei dem Expertinnen und Experten geeignete Eingaberepräsentationen gestalten, wird als \emph{Feature 
-        Engineering} bezeichnet.
-        Da die Modellleistung maßgeblich von der Qualität dieser handentwickelten Merkmale abhängt, stellte dieser Ansatz über Jahrzehnte hinweg
-        eine zentrale Begrenzung klassischer ML-Systeme dar \cite[S.~436f.]{lecun_deep_2015}.
+            Ein wesentlicher Engpass konventioneller ML-Verfahren besteht darin, dass Modelle Rohdaten wie Pixelwerte, Audiosignale oder Text 
+            nicht direkt verarbeiten können.
+            Stattdessen müssen die relevanten Merkmale zunächst manuell aus den Daten extrahiert werden. 
+            Dieser arbeitsintensive Prozess, bei dem Expertinnen und Experten geeignete Eingaberepräsentationen gestalten, wird als \emph{Feature 
+            Engineering} bezeichnet.
+            Da die Modellleistung maßgeblich von der Qualität dieser handentwickelten Merkmale abhängt, stellte dieser Ansatz über Jahrzehnte hinweg
+            eine zentrale Begrenzung klassischer ML-Systeme dar \cite[S.~436f.]{lecun_deep_2015}.
 
-        Diese Einschränkung bildet den Ausgangspunkt für das Representation Learning, das darauf abzielt, 
-        Merkmale automatisch aus Rohdaten zu lernen und die Abhängigkeit vom Feature Engineering zu reduzieren.
+            Diese Einschränkung bildet den Ausgangspunkt für das Representation Learning, das darauf abzielt, 
+            Merkmale automatisch aus Rohdaten zu lernen und die Abhängigkeit vom Feature Engineering zu reduzieren.
 
         
         \subsubsection{Representation Learning (RL)}
             Representation Learning umfasst Methoden, die es ermöglichen, aus Rohdaten 
-            automatisch diejenigen Merkmale zu extrahieren, die für eine bestimmte Aufgabe 
+            automatisch diejenigen Merkmale (Features) zu extrahieren, die für eine bestimmte Aufgabe 
             relevant sind. Im Gegensatz zum konventionellen Machine Learning entfällt dabei 
             die Notwendigkeit, Merkmalsextraktoren manuell zu definieren. Stattdessen lernt 
             das Modell eigenständig geeignete interne Repräsentationen, die zentrale 
             Informationen betonen und irrelevante Variationen unterdrücken \cite[S.~436]{lecun_deep_2015}.
 
-            Representation Learning bildet damit die methodische Grundlage moderner KI-Verfahren. 
-            Deep Learning stellt eine spezielle Ausprägung davon dar, bei der viele solcher Repräsentationsebenen
-            zu besonders leistungsfähigen Modellen gestapelt werden.
+            Ein Teil der Leistungsfähigkeit moderner KI-Systeme beruht darauf, dass diese 
+            Repräsentationen nicht nur auf einer Ebene entstehen, sondern schrittweise über 
+            mehrere Transformationen hinweg verfeinert werden können. Verfahren, die solche 
+            hierarchischen Merkmalsräume durch mehrere nichtlineare Schichten lernen, werden 
+            unter dem Begriff Deep Learning zusammengefasst.
+
+            % Grafik ML vs RL 
+            \begin{figure}[htbp]
+                \centering
+
+                \begin{tikzpicture}[
+                    font=\small,
+                    node distance=1.5cm and 1.4cm,
+                    box/.style={
+                        rectangle,
+                        rounded corners,
+                        draw=gray!70,
+                        very thick,
+                        minimum width=3.4cm,
+                        minimum height=1.0cm,
+                        align=center,
+                        fill=gray!5
+                    },
+                    arrow/.style={->,>=stealth,thick}
+                ]
+
+                % ===== Oben: Konventionelles ML =====
+                \node[box] (raw1) {Rohdaten};
+                \node[box, right=of raw1, fill=red!15] (feat_manual) {manuell definierte\\Features};
+                \node[box, right=of feat_manual] (clf1) {Weiterverarbeiten};
+
+                \draw[arrow] (raw1) -- (feat_manual);
+                \draw[arrow] (feat_manual) -- (clf1);
+
+                % Überschrift oben: mittig über der ganzen Zeile
+                \path (raw1) -- (clf1)
+                    node[midway, above=0.7cm, font=\footnotesize\bfseries] (titleML)
+                        {Konventionelles Machine Learning};
+
+                % ===== Unten: Representation Learning =====
+                \node[box, below=1.7cm of raw1] (raw2) {Rohdaten};
+                \node[box, right=of raw2, fill=green!15] (feat_learned) {gelernte\\ Repräsentationen};
+                \node[box, right=of feat_learned] (clf2) {Weiterverarbeiten};
+
+                \draw[arrow] (raw2) -- (feat_learned);
+                \draw[arrow] (feat_learned) -- (clf2);
+
+                % Überschrift unten: ebenfalls mittig über der ganzen Zeile
+                \path (raw2) -- (clf2)
+                    node[midway, above=0.7cm, font=\footnotesize\bfseries] (titleRL)
+                        {Representation Learning};
+
+                \end{tikzpicture}
+
+                \caption{Gegenüberstellung von konventionellem Machine Learning und Representation Learning.
+                In klassischen Verfahren (rot) müssen relevante Merkmale aus den Rohdaten manuell 
+                spezifiziert werden, bevor ein Modell sie weiterverarbeiten kann. 
+                Representation Learning (grün) ersetzt diesen manuellen Schritt durch ein lernfähiges 
+                Abbildungsmodell, das aus den Rohdaten eigenständig geeignete interne Repräsentationen 
+                ableitet. Dadurch entstehen schrittweise verfeinerte, hierarchische Merkmalsräume, 
+                wie sie im vorangegangenen Text beschrieben wurden und die die Grundlage moderner 
+                Deep-Learning-Methoden bilden.}
+
+                \label{fig:representation-learning-schema}
+            \end{figure}
 
 
+        \subsubsection{Deep Learning (DL)}
 
-        
+            Deep Learning stellt eine mehrschichtige Ausprägung des Representation Learning dar,
+            bei der die Repräsentationen der Features nicht nur auf einer Ebene entstehen, sondern
+            über zahlreiche hintereinandergeschaltete nichtlineare Transformationen hinweg
+            sukzessive abstrahiert und verfeinert werden. 
+            Jede dieser Transformationen bildet die Ausgabe einer Schicht in eine neue Repräsentation um, 
+            die etwas abstrakter ist als die vorherige. 
+            Werden genügend solcher Schichten kombiniert, können tiefe neuronale Netze auch hochkomplexe Funktionen
+            modellieren und Strukturen in den Daten erfassen, die mit flachen Modellen nicht zugänglich wären (vgl.\cite[S.~436 f.]{lecun_deep_2015}).
 
-        \subsubsection{Deep-learning (DL)}
+            Ein zentraler Vorteil tiefer Architekturen besteht darin, dass höherliegende 
+            Repräsentationsebenen diejenigen Aspekte der Eingangsdaten verstärken, die für die jeweilige Aufgabe
+            bedeutsam sind, während störende oder irrelevante Variationen unterdrückt werden. 
+            Besonders anschaulich zeigt sich dieses Prinzip in der Bildverarbeitung: 
+            Obwohl ein Bild lediglich als Anordnung von Pixelwerten vorliegt,lernen die ersten Schichten 
+            eines tiefen Netzes meist einfache Merkmale wie Kanten in unterschiedlichen Orientierungen und Positionen. 
+            Die folgenden Schichten erkennen Kombinationen dieser Kanten, etwa Texturen oder kleine Motive. 
+            Noch höhere Ebenen fassen diese Motive zu komplexeren Strukturen wie Objektteilen zusammen, aus denen 
+            schließlich vollständige Objekte oder abstrakte Konzepte abgeleitet werden können. 
+            Der entscheidende Punkt besteht darin, dass keine dieser Merkmalsstufen manuell spezifiziert wird: 
+            Die Merkmale und ihre Hierarchie entstehen vollständig durch den Lernprozess selbst, 
+            basierend auf einem allgemeinen Optimierungsverfahren (vgl.\cite[S.~436 f.]{lecun_deep_2015}).
+
+            Diese Fähigkeit, ausgehend von Rohdaten eine gestufte, zunehmend abstrakte Repräsentation zu lernen, 
+            bildet den Kern des Deep-Learning-Paradigmas und erklärt, warum tiefe neuronale Netze
+            in Bereichen wie Computer Vision, Sprachverarbeitung oder allgemeinen Mustererkennungsaufgaben so leistungsfähig sind.
 
 
+        \begin{figure}[htbp]
+                \centering
+                \begin{tikzpicture}[scale=0.9, font=\small]
+
+                    % --- Oben: flache Abbildung (RL) ---
+                    % Achsen
+                    \draw[->] (0,0) -- (5,0) node[below] {$x$};
+                    \draw[->] (0,0) -- (0,2.2) node[left] {$f(x)$};
+
+                    % einfache, wenig „eckige“ Funktion
+                    \draw[thick]
+                        (0.3,0.4) -- (2.2,1.6) -- (4.7,0.9);
+
+                    \node[anchor=west] at (5.2,0.7) {\footnotesize Representation Learning};
+
+                    % --- Trennlinie ---
+                    \draw[gray!50, thick] (-0.2,-0.6) -- (7.3,-0.6);
+
+                    % --- Unten: tiefe Abbildung (Deep Learning) ---
+                    \begin{scope}[yshift=-3.2cm]
+                        % Achsen
+                        \draw[->] (0,0) -- (5,0) node[below] {$x$};
+                        \draw[->] (0,0) -- (0,2.2) node[left] {$f(x)$};
+
+                        % stark nichtlineare, „um die Ecke gehende“ Funktion
+                        \draw[thick]
+                            (0.3,0.5) -- (1.1,1.8) -- (2.0,0.6)
+                            -- (3.0,1.9) -- (3.8,0.7) -- (4.7,1.6);
+
+                        \node[anchor=west] at (5.2,0.8) {\footnotesize Deep Learning};
+                    \end{scope}
+
+                \end{tikzpicture}
+                \caption{Schematische Gegenüberstellung der durch ein flaches Modell 
+                (oben) und ein tiefes neuronales Netz (unten) darstellbaren Funktionen. 
+                Während ein flaches Modell nur relativ einfache, schwach geknickte 
+                Abbildungen $f(x)$ realisieren kann, erlauben tiefe Netze durch die 
+                Hintereinanderschaltung mehrerer nichtlinearer Schichten stark 
+                nichtlineare, „um mehrere Ecken gehende“ Funktionen.}
+                \label{fig:flach-vs-tief}
+        \end{figure}
+    %=============================================
 
 
-        
+        \newpage
+    \subsection{Large Language Models & Transformer} % 4-5 Seiten
+    %============================================
+    
+    
+    
     \newpage
-    \subsection{Vektor-Store}
-        
+    \subsection{Retrieval-Augmented Generation} % 2-3 Seiten LLM mit Datenquelle
+    %============================================
+
+
+
+
+    \newpage
+    \subsection{Vektor Store}
+
+
         \acrshort{vektorstore}s bilden die Grundlage für moderne KI-Anwendungen, die auf semantischer Ähnlichkeitssuche basieren. Sie dienen der Speicherung von
         Embeddings, also numerischen Repräsentationen von Text- oder Produktdaten, und ermöglichen effiziente Nearest-Neighbor-Abfragen. 
         Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben (vgl. Abschnitt~\ref{subsec:rag}).
@@ -272,7 +475,7 @@
 
         Im Folgenden werden die in \cite{ma_comprehensive_2025} vorgestellten Speicher- und Suchmechanismen von Vektordatenbanken zusammengefasst 
         und auf das Anwendungsszenario dieser Arbeit übertragen. 
-            
+                
         \begin{table}[htbp]
             \centering
             \caption{Abgrenzung von Vektor-Store und Vektordatenbank}
@@ -304,32 +507,36 @@
 
 
 
+
+    
         \subsubsection{Abgrenzung Vektor-Store und Vektor-Datenbank}
-            
-            Der Begriff \acrshort{vektorstore} wird in der Literatur nicht einheitlich verwendet und dient häufig als 
-            Sammelbezeichnung für leichtgewichtige Systeme, die Embeddings speichern und eine grundlegende 
-            semantische Ähnlichkeitssuche bereitstellen. Solche Systeme konzentrieren sich in der Regel auf das 
-            Einfügen  von Embeddings und die Ausführung von k-nächste-Nachbarn-Abfragen, ohne jedoch 
-            erweiterte Datenbankfunktionen bereitzustellen.
+        
+        Der Begriff \acrshort{vektorstore} wird in der Literatur nicht einheitlich verwendet und dient häufig als 
+        Sammelbezeichnung für leichtgewichtige Systeme, die Embeddings speichern und eine grundlegende 
+        semantische Ähnlichkeitssuche bereitstellen. Solche Systeme konzentrieren sich in der Regel auf das 
+        Einfügen  von Embeddings und die Ausführung von k-nächste-Nachbarn-Abfragen, ohne jedoch 
+        erweiterte Datenbankfunktionen bereitzustellen.
 
-            Unter einer \acrshort{vektordatenbank} werden hingegen vollwertige Datenbanksysteme verstanden, die 
-            neben der Speicherung und Suche von Embeddings zusätzliche Verwaltungs- und Infrastrukturmechanismen 
-            integrieren. Dazu zählen insbesondere Sharding, interne Partitionierung, Caching, Replikation, 
-            sowie Indexstrukturen für Approximate-Nearest-Neighbor-Search (\acrshort{anns}). 
-            Diese Systeme sind auf hohe Skalierbarkeit, Robustheit und Performanz im produktiven Einsatz ausgelegt.
+        Unter einer \acrshort{vektordatenbank} werden hingegen vollwertige Datenbanksysteme verstanden, die 
+        neben der Speicherung und Suche von Embeddings zusätzliche Verwaltungs- und Infrastrukturmechanismen 
+        integrieren. Dazu zählen insbesondere Sharding, interne Partitionierung, Caching, Replikation, 
+        sowie Indexstrukturen für Approximate-Nearest-Neighbor-Search (\acrshort{anns}). 
+        Diese Systeme sind auf hohe Skalierbarkeit, Robustheit und Performanz im produktiven Einsatz ausgelegt.
 
-            Für die vorliegende Arbeit wird daher folgende Unterscheidung getroffen:
+        Für die vorliegende Arbeit wird daher folgende Unterscheidung getroffen:
 
-            \begin{itemize}
-                \item \textbf{Vektor-Store:} leichtgewichtiges System zur Speicherung von Embeddings und zur 
-                Durchführung semantischer Ähnlichkeitssuchen.
-                \item \textbf{Vektordatenbank:} vollständiges Datenbankmanagementsystem mit skalierbaren 
-                Speicher- und Verwaltungsmechanismen.
-            \end{itemize}
+        \begin{itemize}
+            \item \textbf{Vektor-Store:} leichtgewichtiges System zur Speicherung von Embeddings und zur 
+            Durchführung semantischer Ähnlichkeitssuchen.
+            \item \textbf{Vektordatenbank:} vollständiges Datenbankmanagementsystem mit skalierbaren 
+            Speicher- und Verwaltungsmechanismen.
+        \end{itemize}
 
-            Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe im weiteren Verlauf der Arbeit fest.
+        Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe im weiteren Verlauf der Arbeit fest.
+
 
         \subsubsection{Speicherverfahren für Vektordatenbanken}
+
             Die im Folgenden beschriebenen Mechanismen stellen zentrale Bestandteile moderner, skalierbarer Vektordatenbanksysteme dar. Sie werden im produktiven Umfeld zur 
             Optimierung von Leistung, Verfügbarkeit und Robustheit eingesetzt. 
             Für den im Rahmen dieser Arbeit entwickelten Prototypen spielen diese Konzepte jedoch keine operative Rolle, 
@@ -337,10 +544,10 @@
             Die Ausführungen dienen daher der theoretischen Einordnung und sollen den technologischen Kontext verdeutlichen, in dem sich Vektordatenbanken typischerweise bewegen.
 
 
-             \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
-             bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
-             Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
-             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3f]{ma_comprehensive_2025}).
+            \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
+            bei dem eine Datenbank in mehrere logisch getrennte und auf verschiedene physische Knoten verteilte Teilmengen („Shards“) aufgeteilt wird. 
+            Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
+            was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3f]{ma_comprehensive_2025}).
 
             \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} die horizontale Datenpartitionierung innerhalb einer Maschine 
             bezeichnet die Aufteilung der in einer einzelnen Datenbankinstanz gespeicherten Vektordaten in mehrere 
@@ -357,7 +564,7 @@
             optimiert die interne Partitionierung die Datenorganisation innerhalb jedes Shards. 
             Beide Verfahren bilden damit die Grundlage für performante Retrieval-Systeme in Vektor Stores und Vektordatenbanken.
 
-           \begin{figure}[htbp]
+            \begin{figure}[htbp]
                 \centering
                 \begin{tikzpicture}[
                     shard/.style={
@@ -418,9 +625,9 @@
             da Embeddings hochdimensionale Vektoren darstellen und identische Anfragen selten auftreten. 
             Daher kommen allgemeine Cache-Strategien zum Einsatz, die unabhängig vom genauen Vektorinhalt arbeiten,
             da der Vergleich hochdimensionaler Vektoren zur Bestimmung von Cache-Schlüsseln ungeeignet ist. 
-           
+            
             Zu den gängigen Verfahren zählen:
-                
+            
             \begin{itemize}
                 \item \textbf{First-In First-Out (FIFO):} entfernt das älteste Element im Cache; einfach, aber
                 ohne Berücksichtigung der Zugriffshäufigkeit.
@@ -432,8 +639,8 @@
                 vorteilhaft bei stabilen Zugriffshäufigkeiten.
             \end{itemize}
 
-                Einige Systeme nutzen zudem \textbf{partitioniertes Caching}, bei dem Vektordaten in Gruppen (z.B. nach Kategorien oder Zugriffsmustern) getrennt gecacht werden, um Ressourcen gezielt zu optimieren. 
-                Insgesamt trägt Caching wesentlich zur Reduktion der Abfragelatenz und zur Stabilisierung der Systemlast bei, insbesondere bei wiederkehrenden Ähnlichkeitsanfragen.
+            Einige Systeme nutzen zudem \textbf{partitioniertes Caching}, bei dem Vektordaten in Gruppen (z.B. nach Kategorien oder Zugriffsmustern) getrennt gecacht werden, um Ressourcen gezielt zu optimieren. 
+            Insgesamt trägt Caching wesentlich zur Reduktion der Abfragelatenz und zur Stabilisierung der Systemlast bei, insbesondere bei wiederkehrenden Ähnlichkeitsanfragen.
 
 
             \textbf{Replikation} bezeichnet das Anlegen und Verteilen mehrerer Kopien von Vektordaten
@@ -444,6 +651,7 @@
             Insgesamt trägt Replikation wesentlich zur Robustheit und Verfügbarkeit verteilter Vektordatenbanksysteme bei, steht jedoch weniger im direkten
             Zentrum der Ähnlichkeitssuche als vielmehr ihrer infrastrukturellen Betriebsstabilität.
 
+        
         \subsubsection{Suchverfahren}
             Diese Arbeit befasst sich mit zwei Kategorien von Suchverfahren, deren grundlegende 
             Funktionsweise in Abbildung~\ref{nns-anns-cluster} schematisch gegenübergestellt ist. 
@@ -455,118 +663,124 @@
             didaktischen Veranschaulichung des Grundkonzepts.
 
 
+        % Grafik ANNS vs NNS
+        \begin{figure}[htbp]
+            \centering
+            \begin{tikzpicture}[font=\small]
 
-            \begin{figure}[htbp]
-                \centering
-                \begin{tikzpicture}[font=\small]
+                % ========== EXAKTE SUCHE ==========
+                \node[font=\bfseries] at (0, 3) {Exakte Suche (NNS)};
 
-                    % ========== EXAKTE SUCHE ==========
-                    \node[font=\bfseries] at (0, 3) {Exakte Suche (NNS)};
+                % Query Punkt
+                \filldraw[black] (-0.3,0.8) circle (2pt);
+                \node[anchor=east, font=\bfseries] at (-0.35,0.8) {q};
 
-                    % Query Punkt
-                    \filldraw[black] (-0.3,0.8) circle (2pt);
-                    \node[anchor=east, font=\bfseries] at (-0.35,0.8) {q};
-
-                    % Zufällige Punkte
-                    \foreach \i/\x/\y in {
-                        a/0.8/0.5,
-                        b/1.6/0.7,
-                        c/1.2/1.4,
-                        d/0.5/1.9,
-                        e/1.8/2.3,
-                        f/2.3/1.4,
-                        g/2.7/0.9,
-                        h/2.1/0.4,
-                        i/1.4/2.5
-                    }{
-                        \node[circle, fill=gray!40, inner sep=3pt] (\i) at (\x,\y) {};
-                        % direkte Distanzlinien zu q
-                        \draw[red!80, dashed] (-0.3,0.8) -- (\i);
-                    }
-
-                    % ===== RECHTSEITE: ANN (verbesserte Darstellung) =====
-                    \node[font=\bfseries] at (8, 3) {Approximierende Suche (ANNS)};
-
-                    % Query rechts
-                    \filldraw[black] (5.8,0.8) circle (2pt);
-                    \node[anchor=east, font=\bfseries] at (5.75,0.8) {q};
-
-                    % Cluster Kreise
-                    \draw[gray!50, dashed] (6.6,1.0) circle (0.8cm);
-                    \draw[gray!50, dashed] (7.9,2.0) circle (0.8cm);
-                    \draw[gray!50, dashed] (5.6,2.0) circle (0.8cm);
-
-                    % Punkte im relevanten Cluster (die ANN wirklich prüft)
-                    \coordinate (b1) at (6.2,1.2);
-                    \coordinate (b2) at (6.7,0.6);
-                    \coordinate (b3) at (6.9,1.2);
-
-                    \foreach \p in {b1,b2,b3}{
-                        \node[circle, fill=gray!40, inner sep=3pt] at (\p) {};
-                    }
-
-                    % Punkte in irrelevanten Clustern (ausgegraut)
-                    \foreach \x/\y in {5.3/1.8, 5.8/2.3, 6.1/2.1, 7.7/1.9, 8.0/2.2, 8.2/1.8}{
-                        \node[circle, fill=gray!15, inner sep=3pt] at (\x,\y) {};
-                    }
-
-                    % ANN: direkte Distanzlinien NUR zu Kandidaten
-                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b2);
-                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b1);
-                    \draw[blue!80, dashed, thick] (5.8,0.8) -- (b3);
-                \end{tikzpicture}
-
-                
-                \caption{
-                Vergleich zwischen exakter Nearest-Neighbor-Suche (NNS) und approximierender Suche (ANN).
-                Bei exakter Suche berechnet das System die Distanz zwischen der Anfrage und \emph{jedem} Punkt im Raum (rote Linien).
-                ANN-Verfahren durchsuchen hingegen nur relevante Regionen des Suchraums (blauer Pfad).
+                % Zufällige Punkte
+                \foreach \i/\x/\y in {
+                    a/0.8/0.5,
+                    b/1.6/0.7,
+                    c/1.2/1.4,
+                    d/0.5/1.9,
+                    e/1.8/2.3,
+                    f/2.3/1.4,
+                    g/2.7/0.9,
+                    h/2.1/0.4,
+                    i/1.4/2.5
+                }{
+                    \node[circle, fill=gray!40, inner sep=3pt] (\i) at (\x,\y) {};
+                    % direkte Distanzlinien zu q
+                    \draw[red!80, dashed] (-0.3,0.8) -- (\i);
                 }
-                \label{nns-anns-cluster}
-            \end{figure}
+
+                % ===== RECHTSEITE: ANN (verbesserte Darstellung) =====
+                \node[font=\bfseries] at (8, 3) {Approximierende Suche (ANNS)};
+
+                % Query rechts
+                \filldraw[black] (5.8,0.8) circle (2pt);
+                \node[anchor=east, font=\bfseries] at (5.75,0.8) {q};
+
+                % Cluster Kreise
+                \draw[gray!50, dashed] (6.6,1.0) circle (0.8cm);
+                \draw[gray!50, dashed] (7.9,2.0) circle (0.8cm);
+                \draw[gray!50, dashed] (5.6,2.0) circle (0.8cm);
+
+                % Punkte im relevanten Cluster (die ANN wirklich prüft)
+                \coordinate (b1) at (6.2,1.2);
+                \coordinate (b2) at (6.7,0.6);
+                \coordinate (b3) at (6.9,1.2);
+
+                \foreach \p in {b1,b2,b3}{
+                    \node[circle, fill=gray!40, inner sep=3pt] at (\p) {};
+                }
+
+                % Punkte in irrelevanten Clustern (ausgegraut)
+                \foreach \x/\y in {5.3/1.8, 5.8/2.3, 6.1/2.1, 7.7/1.9, 8.0/2.2, 8.2/1.8}{
+                    \node[circle, fill=gray!15, inner sep=3pt] at (\x,\y) {};
+                }
+
+                % ANN: direkte Distanzlinien NUR zu Kandidaten
+                \draw[blue!80, dashed, thick] (5.8,0.8) -- (b2);
+                \draw[blue!80, dashed, thick] (5.8,0.8) -- (b1);
+                \draw[blue!80, dashed, thick] (5.8,0.8) -- (b3);
+            \end{tikzpicture}
+
+            
+            \caption{
+            Vergleich zwischen exakter Nearest-Neighbor-Suche (NNS) und approximierender Suche (ANN).
+            Bei exakter Suche berechnet das System die Distanz zwischen der Anfrage und \emph{jedem} Punkt im Raum (rote Linien).
+            ANN-Verfahren durchsuchen hingegen nur relevante Regionen des Suchraums (blauer Pfad).
+            }
+            \label{nns-anns-cluster}
+        \end{figure}
 
 
-            \textbf{Exakte Nearest-Neighbor-Suche (NNS)} bezeichnet das Verfahren, 
-            für einen gegebenen Anfragevektor denjenigen Vektor in einer Menge zu bestimmen, 
-            der gemäß einem definierten Distanzmaß (z.B. euklidische Distanz) 
-            am nächsten liegt. In einfachster Form erfolgt dies durch eine lineare Suche, 
-            bei der für jedes gespeicherte Embedding die Distanz zum Anfragevektor berechnet 
-            und anschließend der Vektor mit dem geringsten Abstand ausgewählt wird (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
+        \textbf{Exakte Nearest-Neighbor-Suche (NNS)} bezeichnet das Verfahren, 
+        für einen gegebenen Anfragevektor denjenigen Vektor in einer Menge zu bestimmen, 
+        der gemäß einem definierten Distanzmaß (z.B. euklidische Distanz) 
+        am nächsten liegt. In einfachster Form erfolgt dies durch eine lineare Suche, 
+        bei der für jedes gespeicherte Embedding die Distanz zum Anfragevektor berechnet 
+        und anschließend der Vektor mit dem geringsten Abstand ausgewählt wird (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
 
-            Da die Laufzeit dieses Ansatzes linear (O(n)) mit der Anzahl der gespeicherten Embeddings wächst, 
-            stoßen Systeme bei großen Datenmengen schnell an ihre Leistungsgrenzen. 
-            In solchen Fällen können approximierende Verfahren eingesetzt werden. 
-            Die Grundidee besteht darin, eine Lösung zu liefern, die zwar nicht exakt optimal ist, 
-            dafür jedoch eine deutlich bessere Laufzeit und geringeren Speicherbedarf ermöglicht. 
-            Die leichte Abweichung vom exakten Ergebnis wird somit bewusst zugunsten einer höheren 
-            Effizienz in Kauf genommen.
+        Da die Laufzeit dieses Ansatzes linear (O(n)) mit der Anzahl der gespeicherten Embeddings wächst, 
+        stoßen Systeme bei großen Datenmengen schnell an ihre Leistungsgrenzen. 
+        In solchen Fällen können approximierende Verfahren eingesetzt werden. 
+        Die Grundidee besteht darin, eine Lösung zu liefern, die zwar nicht exakt optimal ist, 
+        dafür jedoch eine deutlich bessere Laufzeit und geringeren Speicherbedarf ermöglicht. 
+        Die leichte Abweichung vom exakten Ergebnis wird somit bewusst zugunsten einer höheren 
+        Effizienz in Kauf genommen.
 
-            \textbf{Approximierende Nearest-Neighbor-Suche (ANNS)} verzichtet auf eine 
-            vollständige Durchmusterung aller Embeddings und nutzt stattdessen probabilistische oder heuristische Verfahren, 
-            um den Suchraum gezielt einzugrenzen. 
-            Heuristische Verfahren nutzen vereinfachte Entscheidungsregeln, die eine schnelle, 
-            aber nicht zwingend optimale Abschätzung erlauben. 
-            Ziel ist es, möglichst schnell einen Vektor zu finden, 
-            der dem Anfragevektor sehr ähnlich ist, ohne zwingend den exakt nächsten Nachbarn bestimmen zu müssen. 
-            Dadurch lassen sich deutliche Laufzeitgewinne erzielen, insbesondere bei großen Datenmengen (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
+        \textbf{Approximierende Nearest-Neighbor-Suche (ANNS)} verzichtet auf eine 
+        vollständige Durchmusterung aller Embeddings und nutzt stattdessen probabilistische oder heuristische Verfahren, 
+        um den Suchraum gezielt einzugrenzen. 
+        Heuristische Verfahren nutzen vereinfachte Entscheidungsregeln, die eine schnelle, 
+        aber nicht zwingend optimale Abschätzung erlauben. 
+        Ziel ist es, möglichst schnell einen Vektor zu finden, 
+        der dem Anfragevektor sehr ähnlich ist, ohne zwingend den exakt nächsten Nachbarn bestimmen zu müssen. 
+        Dadurch lassen sich deutliche Laufzeitgewinne erzielen, insbesondere bei großen Datenmengen (vgl.~\cite[S.~6f.]{ma_comprehensive_2025}).
 
-            Während exakte Verfahren insbesondere in kleinen Vektor-Stores mit geringem Datenvolumen eingesetzt werden können, 
-            sind approximierende Verfahren bei skalierbaren Vektordatenbanken mit einer großen Anzahl von Embeddings sinnvoll.
+        Während exakte Verfahren insbesondere in kleinen Vektor-Stores mit geringem Datenvolumen eingesetzt werden können, 
+        sind approximierende Verfahren bei skalierbaren Vektordatenbanken mit einer großen Anzahl von Embeddings sinnvoll.
 
+
+    
+    
+    %============================================
+    
+    
+    
 
     \newpage
-             
-
-
-
-
-
-    \subsection{Large Language Models & Transformer} % 4-5 Seiten
-    \subsection{Retrieval-Augmented Generation} % 2-3 Seiten LLM mit Datenquelle
-            \label{subsec:rag}
-
     \subsection{Schnittstellentechnologie} % 2-3 Seiten
+    %==============================================
+    
+    
+    
+    
+    \newpage
     \subsection{prompt Engineering} % 2-3 Seiten
+    %=============================================
+
+
 
 \newpage
 \section{Anforderungsanalyse}

@@ -389,7 +389,7 @@
             Repräsentationsebenen diejenigen Aspekte der Eingangsdaten verstärken, die für die jeweilige Aufgabe
             bedeutsam sind, während störende oder irrelevante Variationen unterdrückt werden. 
             Besonders anschaulich zeigt sich dieses Prinzip in der Bildverarbeitung: 
-            Obwohl ein Bild lediglich als Anordnung von Pixelwerten vorliegt,lernen die ersten Schichten 
+            Obwohl ein Bild lediglich als Anordnung von Pixelwerten vorliegt, lernen die ersten Schichten 
             eines tiefen Netzes meist einfache Merkmale wie Kanten in unterschiedlichen Orientierungen und Positionen. 
             Die folgenden Schichten erkennen Kombinationen dieser Kanten, etwa Texturen oder kleine Motive. 
             Noch höhere Ebenen fassen diese Motive zu komplexeren Strukturen wie Objektteilen zusammen, aus denen 
@@ -449,7 +449,8 @@
     
 
     \newpage
-    \subsection{Large Language Models & Transformer} % 4-5 Seiten
+    \subsection{Transformer-Architektur als Grundlage moderner Sprachmodelle}
+
         1. 2.3 LLM vollständig schreiben
 
         Du brauchst hier:
@@ -525,7 +526,7 @@
         integrieren. Dazu zählen insbesondere Sharding, interne Partitionierung, Caching, Replikation, 
         sowie Indexstrukturen für Approximate-Nearest-Neighbor-Search (\acrshort{anns}). 
         Diese Systeme sind auf hohe Skalierbarkeit, Robustheit und Performanz im produktiven Einsatz ausgelegt.
-
+        
         Für die vorliegende Arbeit wird daher folgende Unterscheidung getroffen:
 
         \begin{itemize}
@@ -538,13 +539,15 @@
         Diese definitorische Abgrenzung dient der Klarheit und legt die einheitliche Verwendung der Begriffe im weiteren Verlauf der Arbeit fest.
 
 
-        \subsubsection{Speicherverfahren für Vektordatenbanken}
-
-            Die im Folgenden beschriebenen Mechanismen stellen zentrale Bestandteile moderner, skalierbarer Vektordatenbanksysteme dar. Sie werden im produktiven Umfeld zur 
-            Optimierung von Leistung, Verfügbarkeit und Robustheit eingesetzt. 
-            Für den im Rahmen dieser Arbeit entwickelten Prototypen spielen diese Konzepte jedoch keine operative Rolle, 
-            da ein leichtgewichtiges Single-Node-System ohne verteilte Architektur eingesetzt wird. 
-            Die Ausführungen dienen daher der theoretischen Einordnung und sollen den technologischen Kontext verdeutlichen, in dem sich Vektordatenbanken typischerweise bewegen.
+  
+        Die im Folgenden beschriebenen Mechanismen stellen zentrale Bestandteile moderner, skalierbarer Vektordatenbanksysteme dar. Sie werden im produktiven Umfeld zur 
+        Optimierung von Leistung, Verfügbarkeit und Robustheit eingesetzt. 
+        Für den im Rahmen dieser Arbeit entwickelten Prototypen spielen diese Konzepte jedoch keine operative Rolle, 
+        da ein einnfacher Vektor-Store eingesetzt wird. 
+        Die Ausführungen dienen ausschließlich der theoretischen Einordnung und der Abgrenzung des in dieser Arbeit 
+        eingesetzten Vektor-Stores gegenüber produktiven Vektordatenbanksystemen.
+        
+            \subsubsection{Speicherverfahren für Vektordatenbanken}
 
 
             \textbf{horizontale Datenpartitionierung über mehrere Maschinen} (auch Sharding genannt) bezeichnet ein Verfahren, 
@@ -552,7 +555,7 @@
             Durch diese Aufteilung wird das Gesamtdatenset in kleinere, handhabbarere Einheiten zerlegt, 
             was Skalierbarkeit, Lastverteilung und die Verwaltung großer Datenmengen erleichtert (vgl. \cite[S.~3f]{ma_comprehensive_2025}).
 
-            \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} die horizontale Datenpartitionierung innerhalb einer Maschine 
+            Die \textbf{horizontale Datenpartitionierung innerhalb einer Maschine} 
             bezeichnet die Aufteilung der in einer einzelnen Datenbankinstanz gespeicherten Vektordaten in mehrere 
             logisch getrennte Teilmengen („Partitionen“). Im Unterschied zum Sharding, das Daten über mehrere physische Knoten verteilt, 
             erfolgt diese Form der Partitionierung ausschließlich innerhalb eines Systems.

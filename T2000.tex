@@ -385,9 +385,11 @@
             Werden genügend solcher Schichten kombiniert, können tiefe neuronale Netze auch hochkomplexe Funktionen
             modellieren und Strukturen in den Daten erfassen, die mit flachen Modellen nicht zugänglich wären (vgl.\cite[S.~436 f.]{lecun_deep_2015}).
 
-            Ein zentraler Vorteil tiefer Architekturen besteht darin, dass höherliegende 
-            Repräsentationsebenen diejenigen Aspekte der Eingangsdaten verstärken, die für die jeweilige Aufgabe
-            bedeutsam sind, während störende oder irrelevante Variationen unterdrückt werden. 
+            Ein zentraler Vorteil tiefer Architekturen besteht darin, dass in höheren Repräsentationsebenen zunehmend 
+            abstrakte Merkmale entstehen, die für die jeweilige Aufgabe besonders relevant sind, 
+            während aufgabenirrelevante Variationen durch den Lernprozess an Bedeutung verlieren. 
+            Diese Selektion erfolgt nicht explizit, sondern ergibt sich implizit aus der Optimierung der Modellparameter 
+            hinsichtlich der Zielfunktion. 
             Besonders anschaulich zeigt sich dieses Prinzip in der Bildverarbeitung: 
             Obwohl ein Bild lediglich als Anordnung von Pixelwerten vorliegt,lernen die ersten Schichten 
             eines tiefen Netzes meist einfache Merkmale wie Kanten in unterschiedlichen Orientierungen und Positionen. 
@@ -449,7 +451,19 @@
     
 
     \newpage
-    \subsection{Large Language Models & Transformer} % 4-5 Seiten
+    \subsection{Transformer und LLM's} % 4-5 Seiten
+
+        Attention
+
+
+
+
+
+
+
+
+
+
         1. 2.3 LLM vollständig schreiben
 
         Du brauchst hier:

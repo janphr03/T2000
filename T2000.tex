@@ -284,7 +284,7 @@
 
             LeCun, Bengio und Hinton ordnen maschinelles Lernen als zentralen Bestandteil moderner digitaler Systeme ein. 
             ML-Methoden werden unter anderem zur Objekterkennung in Bildern, zur Umwandlung von Sprache in Text oder 
-            zur Relevanzsortierung von Inhalten eingesetzt \cite[S.~436f.]{lecun_deep_2015}. 
+            zur Relevanzsortierung von Inhalten eingesetzt \cite[S.~436~f.]{lecun_deep_2015}. 
             Diese Anwendungen verdeutlichen den praktischen Nutzen konventioneller ML-Verfahren in einer datengetriebenen Gesellschaft.
 
             Ein wesentlicher Engpass konventioneller ML-Verfahren besteht darin, dass Modelle Rohdaten wie Pixelwerte, Audiosignale oder Text 
@@ -293,7 +293,7 @@
             Dieser arbeitsintensive Prozess, bei dem Expertinnen und Experten geeignete Eingaberepräsentationen gestalten, wird als \emph{Feature 
             Engineering} bezeichnet.
             Da die Modellleistung maßgeblich von der Qualität dieser handentwickelten Merkmale abhängt, stellte dieser Ansatz über Jahrzehnte hinweg
-            eine zentrale Begrenzung klassischer ML-Systeme dar \cite[S.~436f.]{lecun_deep_2015}.
+            eine zentrale Begrenzung klassischer ML-Systeme dar \cite[S.~436~f.]{lecun_deep_2015}.
 
             Diese Einschränkung bildet den Ausgangspunkt für das Representation Learning, das darauf abzielt, 
             Merkmale automatisch aus Rohdaten zu lernen und die Abhängigkeit vom Feature Engineering zu reduzieren.
@@ -451,16 +451,109 @@
     
 
     \newpage
-    \subsection{Transformer und LLM's} % 4-5 Seiten
+    \subsection{Transformer und Large Language Modelle} % 4-5 Seiten
+        
+        wieso weshalb warum
+        
+        \subsubsection{Transformer-Architektur als Grundlage moderner Sprachmodelle}
 
-        Attention
+         %   Hier vermutlich die Historie rein wieso nicht alles Statisch nacheinander mit Kontextverlust etc.
+
+           % Wortreihenfolge (positioning Encoding) 
+           % Wörter werden in Nummern zerlegt indem Word-Embedding genutzt werden
+           % Ok Video sagt Welle wird größer, je größer die Token Position -> Dadurch hat jedes Wort einen [eigenen Vektor + Positionswert]
+           % sin- & cos Werte sind an Position nicht an Wort gebunden dadurch hat das Wort einen Embedding Wert und die Position einen Wert, tauschen sich 
+           % die Positionen der Worte ändert sich auch das Endergebnis
+        %___________________________________________________________________
+            
 
 
 
 
+        \subsubsection{Tokenisierung und Eingaberepräsentation}
+        wie wird Text überhaupt in Embeddings zerlegt
+        %__________________________________________________________________
+
+        \subsubsection{Embedding-Layer und Positionsinformation}
+        hier kommt positional Encoding ins Spiel
+        %__________________________________________________________________
+
+        \subsubsection{Self-Attention als Kontextmechanismus}
+            Intuitiv lässt sich Self-Attention als Mechanismus verstehen, bei dem jedes Token
+            seine Bedeutung nicht isoliert, sondern stets im Kontext der gesamten Sequenz
+            bestimmt. Dazu „beobachtet“ ein Token alle anderen Tokens und bewertet, welche
+            davon für seine aktuelle Interpretation relevant sind. 
+            Informationen aus besonders wichtigen Tokens werden dabei stärker berücksichtigt,
+            während weniger relevante Tokens nur einen geringen Einfluss haben.
+            Auf diese Weise entsteht für jedes Token eine kontextabhängige Repräsentation,
+            die beispielsweise Mehrdeutigkeiten auflösen oder Referenzen wie Pronomen korrekt
+            zuordnen kann.
 
 
+            % Self Attention Beispiel
+            \begin{figure}[htbp]
+                \centering
+                \begin{tikzpicture}[
+                font=\small,
+                token/.style={
+                    rectangle,
+                    rounded corners=3pt,
+                    draw=gray!70,
+                    fill=gray!6,
+                    minimum height=8mm,
+                    minimum width=18mm,
+                    inner xsep=5mm,
+                    align=center
+                },
+                strong/.style={->, very thick, >=Stealth, blue!70},
+                weak/.style={->, thin, >=Stealth, gray!55},
+                ]
 
+                % --- Tokens (gleichmäßiger Abstand) ---
+                \node[token] (der) {Der};
+                \node[token, right=10mm of der] (motor) {Motor};
+                \node[token, right=10mm of motor] (ist) {ist};
+                \node[token, right=10mm of ist] (hitze) {hitzebeständig};
+
+                % --- Hauptbezug: hitzebeständig -> Motor (klar, dominant) ---
+                \draw[strong]
+                (hitze.north) to[out=140, in=40, looseness=1.2] (motor.north);
+
+                % --- Nebenbezüge: hitzebeständig -> ist / der (dezent, kleiner) ---
+                \draw[weak]
+                (hitze.south) to[out=210, in=330, looseness=1.1] (ist.south);
+
+                \draw[weak]
+                (hitze.south) to[out=235, in=315, looseness=1.25] (der.south);
+
+                % --- Optional: kleine Legende (wenn du willst) ---
+                \node[anchor=west, text=gray!70] at ([xshift=8mm]hitze.east) {\footnotesize
+                \begin{tabular}{@{}l@{}}
+                \textcolor{blue!70}{\rule{7mm}{1.2pt}} starker Einfluss\\
+                \textcolor{gray!55}{\rule{7mm}{0.6pt}} schwacher Einfluss
+                \end{tabular}
+                };
+
+                \end{tikzpicture}
+
+                \caption{Intuitive Visualisierung einer Self-Attention-Gewichtung: Das Token \emph{hitzebeständig} 
+                bezieht den größten Teil seiner Kontextinformation aus \emph{Motor}. 
+                Funktionale Tokens haben geringeren Einfluss.}
+                \label{fig:self-attention-deutsch}
+            \end{figure}
+
+
+            Formal wird dieser Mechanismus als gewichtete Summe von Value-Vektoren beschrieben,
+            wobei die Gewichte aus einer Kompatibilitätsfunktion zwischen Query- und Key-Vektoren
+            resultieren (vgl. \cite[S.~3 f.]{vaswani_attention_2017}).
+
+
+        %__________________________________________________________________
+        
+
+        \subsubsection{Large Language Models als skalierte Transformer}
+
+        %__________________________________________________________________
 
 
 
@@ -471,6 +564,7 @@
         Tokenisierung
         Embedding Layer
         Aufmerksamkeit
+
         kurzer Hinweis: LLM erzeugt Embeddings → Grundlage für 2.4
         👉 Nur ca. 1 Seite.
 
@@ -488,7 +582,7 @@
         Embeddings, also numerischen Repräsentationen von Text- oder Produktdaten, und ermöglichen effiziente Nearest-Neighbor-Abfragen. 
         Damit stellen sie einen zentralen Baustein für Retrieval-Augmented Generation (RAG) und für Systeme dar, die kontextbezogene Informationen an große Sprachmodelle übergeben (vgl. Abschnitt~\ref{subsec:rag}).
 
-        Da der Begriff „Vektorstore“ in der Literatur häufig als Sammelbezeichnung für leichtgewichtige, embeddingbasierte Speichersysteme verwendet wird,
+        Da der Begriff „Vektor-Store“ in der Literatur häufig als Sammelbezeichnung für leichtgewichtige, embeddingbasierte Speichersysteme verwendet wird,
         ist eine Abgrenzung zu vollwertigen Vektordatenbanken notwendig. 
         Letztere integrieren zusätzliche Mechanismen wie Sharding, interne Partitionierung, Caching oder Replikation 
         und unterscheiden sich damit deutlich in ihrer Komplexität und Skalierbarkeit.

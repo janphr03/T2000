@@ -25,6 +25,8 @@
 \usepackage{array, booktabs}
 \usepackage{pifont}     % für Häkchen/Kreuz
 \newcommand{\cmark}{\ding{51}} % ✓
+
+
 \newcommand{\xmark}{\ding{55}} % ✗
 
 % Literaturverzeichnis mit BibTeX
@@ -453,7 +455,22 @@
     \newpage
     \subsection{Transformer und Large Language Modelle} % 4-5 Seiten
         
-        wieso weshalb warum
+        Während Deep-Learning-Modelle ihre Leistungsfähigkeit insbesondere in kontinuierlichen
+        Datenräumen wie Bildern oder Audiosignalen unter Beweis gestellt haben, stellt die
+        Verarbeitung natürlichsprachlicher Daten besondere Anforderungen an die Modellarchitektur.
+        Natürliche Sprache liegt nicht als kontinuierliches Signal vor, sondern als diskrete
+        Abfolge symbolischer Einheiten, deren Bedeutung stark vom Kontext abhängt.
+
+        Um Sprache mit datengetriebenen Lernverfahren verarbeiten zu können, muss sie daher
+        zunächst in eine numerische Repräsentation überführt werden, die für neuronale Netze
+        zugänglich ist. Moderne Sprachmodelle lösen dieses Problem durch eine Kombination aus
+        Tokenisierung, kontinuierlichen Einbettungen und kontextabhängiger Verarbeitung.
+
+        Transformer-Architekturen bilden hierfür die Grundlage nahezu aller aktuellen
+        Large Language Models und ermöglichen eine parallele, kontextuelle Verarbeitung
+        ganzer Textsequenzen. Die folgenden Abschnitte erläutern die zentralen Bausteine
+        dieser Architektur beginnend bei der Zerlegung von Text in Tokens. 
+        
         
         \subsubsection{Transformer-Architektur als Grundlage moderner Sprachmodelle}
 
@@ -470,22 +487,42 @@
 
 
 
-        \subsubsection{Tokenisierung und Eingaberepräsentation}
-        Moderne datengetriebene Sprachverarbeitungssysteme arbeiten nicht direkt auf symbolischen Texteingaben, 
-        sondern verarbeiten ausschließlich numerische Repräsentationen. 
-        Um natürliche Sprache für solche Modelle zugänglich zu machen, 
-        muss der Eingabetext daher zunächst in eine geeignete mathematische Form überführt werden.
-                
-        Zu diesem Zweck wird der Text in einem ersten Schritt in sogenannte Tokens zerlegt. 
-
+        \subsubsection{Tokenisierung}
         
-        \cite[S.~3~f.]{jurafsky_martin_slp3_2025}
+
+
+
+        %Da neuronale Netze ausschließlich auf numerischen Strukturen operieren, 
+        %muss natürlichsprachlicher Text vor der eigentlichen Modellverarbeitung 
+        %in eine formale, rechnerisch handhabbare Darstellung überführt werden. 
+        %Dieser erste Schritt wird als Tokenisierung bezeichnet und zerlegt einen 
+        %laufenden Text in diskrete Einheiten, sogenannte Tokens \cite[S.~4~f.]{jurafsky_martin_slp3_2025}.
+
+        Tokens stellen dabei keine linguistisch festgelegten Begriffe dar, 
+        sondern werden datengetrieben aus großen Textkorpora abgeleitet.  
+        In der Praxis entsprechen sie häufig vollständigen Wörtern oder 
+        bedeutungstragenden Wortbestandteilen, können bei Bedarf jedoch auch 
+        kleinere Einheiten bis hin zu einzelnen Zeichen umfassen.         
+        Diese flexible Zerlegung erlaubt es, auch unbekannte oder seltene Wörter 
+        als Kombination bekannter Tokens darzustellen und stellt sicher, 
+        dass Texte in eine einheitliche und reproduzierbare Struktur überführt werden.
+        Die resultierende Tokenfolge bildet die Grundlage für die anschließende 
+        numerische Repräsentation im Embedding-Raum, auf der alle weiteren 
+        Verarbeitungsschritte des Modells aufbauen (vgl. \cite[S.~13~f.]{jurafsky_martin_slp3_2025}; \cite[S.~436]{lecun_deep_2015})).
 
         %__________________________________________________________________
+        
+        
+        \subsubsection{Eingaberepräsentationen}
+            sdasd
+
+        %__________________________________________________________________
+
 
         \subsubsection{Embedding-Layer und Positionsinformation}
-        hier kommt positional Encoding ins Spiel
+            hier kommt positional Encoding ins Spiel
         %__________________________________________________________________
+
 
         \subsubsection{Self-Attention als Kontextmechanismus}
             Intuitiv lässt sich Self-Attention als Mechanismus verstehen, bei dem jedes Token
